@@ -12,18 +12,12 @@ export const router = createRouter({
     },
     {
       path: "/admin",
-      component: () => "../pages/admin/layout/Main.vue",
+      name: 'admin',
+      component: () => import("../pages/admin/layout/Main.vue"),
       children: [
         {
           path: "/product",
-          component: () => "../pages/admin/Product.vue",
-          children: [
-            {
-              path: "/add",
-          component: () => "../pages/admin/AddProduct.vue",
-
-            },
-          ],
+          component: () => import("../pages/admin/Product.vue"),
         },
       ],
     },
