@@ -12,6 +12,7 @@ const produk = reactive({
   harga_jual: null,
   harga_beli: null,
 });
+
 const { GET, POST } = Api();
 
 async function getProductById() {
@@ -36,6 +37,7 @@ async function save(idProduct) {
 onMounted(() => {
   getProductById();
 });
+
 </script>
 
 <template>
