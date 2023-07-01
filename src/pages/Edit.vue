@@ -2,7 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import Api from "../config/api/Api";
-
+import {objectToFormdata} from "../utils/ObjectToForm"
 const route = useRoute();
 const produk = reactive({
   id: "",
@@ -12,7 +12,7 @@ const produk = reactive({
   harga_jual: null,
   harga_beli: null,
 });
-const { GET, PUT } = Api();
+const { GET, POST } = Api();
 
 async function getProductById() {
   const idProduct = route.params.produk;
@@ -27,8 +27,9 @@ async function getProductById() {
     produk[key] = data.data[key];
   });
 }
+
 async function save(idProduct) {
-  const data = await PUT(`produk/${idProduct}`,produk)
+  const data = await POST(`produk/${idProduct}`,objectToFormdata(produk))
   console.log(data.data);
 }
 

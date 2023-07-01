@@ -20,6 +20,9 @@ function goToEdit(id){
   })
   console.log(id);
 }
+async function deleteProduct(id){
+  await api.DELETE(`produk/${id}`)
+}
 </script>
 <template>
   <div>
@@ -27,6 +30,7 @@ function goToEdit(id){
       <h2>{{ produk.nm_produk }}</h2>
       <p>{{ produk.qty_produk }}</p>
       <button @click="goToEdit(produk.id)">edit</button>
+      <button @click="deleteProduct(produk.id)">delete</button>
     </div>
   </div>
 </template>
