@@ -58,7 +58,7 @@ function navigation(path) {
 
           <div class="flex-1">
             <ul class="pt-2 pb-4 space-y-1 text-sm" v-for="item in listItem" :key="item.name">
-              <li class="rounded-sm text-lg font-semibold hover:bg-yellow-hover">
+              <li class="rounded-sm text-lg cursor-pointer font-semibold hover:bg-yellow-hover">
                 <a @click="navigation(item.name)" class="flex items-center p-2 space-x-3 rounded-md">
                   <span class="text-[black]">{{ item.title }}</span>
                 </a>
