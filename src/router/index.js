@@ -13,7 +13,7 @@ export const router = createRouter({
     {
       path: "/admin",
       name: 'admin',
-      component: () => import("../pages/admin/layout/Main.vue"),
+      component: () => import("../pages/admin/layout/Admin.vue"),
       children: [
         {
           path: "/product",
