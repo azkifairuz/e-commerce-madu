@@ -4,12 +4,7 @@ export const router = createRouter({
     {
       path: "/",
       component: () => import("../pages/Get.vue"),
-    },
-    {
-      path: "/edit/:produk",
-      name: "edit",
-      component: () => import("../pages/Edit.vue"),
-    },
+    },  
     {
       path: "/admin",
       name: "admin",
@@ -38,7 +33,31 @@ export const router = createRouter({
             },
           ],
         },
+        {
+          path: "category",
+          name: "category",
+          component: () => import("../pages/admin/category/Category.vue"),
+          redirect: { name: "showCategory" },
+          children: [
+            {
+              path: "show",
+              name: "showCategory",
+              component: () => import("../pages/admin/category/ShowCategory.vue"),
+            },
+            {
+              path: "add",
+              name: "addCategory",
+              component: () => import("../pages/admin/category/AddCategory.vue"),
+            },
+            {
+              path: "edit/:category",
+              name: "editCategory",
+              component: () => import("../pages/admin/category/EditCategory.vue"),
+            },
+          ],
+        },
       ],
+
     },
   ],
   history: createWebHistory(),

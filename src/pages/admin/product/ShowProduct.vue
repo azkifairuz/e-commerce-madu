@@ -87,7 +87,7 @@ function dataTables() {
 </script>
 
 <template>
-  <div>
+  <div class="h-[60%] overflow-y-auto px-5">
     <div class="w-full flex justify-between items-center mb-5">
       <h1>Data Produk</h1>
       <button

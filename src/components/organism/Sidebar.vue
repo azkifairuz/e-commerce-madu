@@ -8,7 +8,7 @@ const listItem = [
     title: "Product",
   },
   {
-    name: "kategori",
+    name: "category",
     title: "Kategori Produk",
   },
 ];
@@ -49,7 +49,7 @@ function navigation(path) {
   <div class="w-60 desktop-nav">
     <div class="flex">
       <div
-        class="flex-col h-screen flex p-3 w-60 duration-300 bg-yellow-main shadow"
+        class="flex-col fixed top-0 bottom-0 flex p-3 w-60 duration-300 bg-yellow-main shadow"
       >
         <div class="space-y-3">
           <div class="flex items-center justify-between">
