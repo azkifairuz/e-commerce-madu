@@ -10,10 +10,11 @@ const produk = reactive({
   harga_jual: null,
   harga_beli: null,
 });
+
 const { POST } = Api();
 async function save() {
   const data = await POST(`produk`, objectToFormdata(produk));
-  console.log(data.data);
+  console.log(data);
 }
 </script>
 
@@ -36,10 +37,7 @@ async function save() {
       />
     </div>
     <div class="mb-6">
-      <label
-        for="qty"
-        class="block mb-2 text-lg font-medium text-gray-900"
-      >
+      <label for="qty" class="block mb-2 text-lg font-medium text-gray-900">
         Jumlah
       </label>
       <input
@@ -90,6 +88,7 @@ async function save() {
       >
         Harga Belii
       </label>
+
       <input
         type="typeInput"
         id="nameProduct"
@@ -99,6 +98,7 @@ async function save() {
         required
       />
     </div>
+
     <button
       @click="save"
       class="bg-yellow-main hover:bg-yellow-hover text-black font-bold py-2 px-4 rounded"
