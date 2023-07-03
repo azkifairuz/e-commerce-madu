@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import Api from "../config/api/Api";
-const produks = ref([]);
+const produks = ref('');
 const api = Api();
 const router = useRouter()
 onMounted(() => {
@@ -11,7 +11,6 @@ onMounted(() => {
 async function getKatProduk() {
   const produk = await api.GET("produk");
   produks.value = produk.data;
-  console.log(produks);
 }
 function goToEdit(id){
   router.push({
