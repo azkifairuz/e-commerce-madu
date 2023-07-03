@@ -21,19 +21,23 @@ export const router = createRouter({
           component: () => import("../pages/admin/product/Product.vue"),
           children: [
             {
-              path:"",
-             redirect:{ name: 'showProduct' }
+              path: "",
+              redirect: { name: "showProduct" },
             },
             {
               path: "show",
               name: "showProduct",
               component: () => import("../pages/admin/product/ShowProduct.vue"),
-              
             },
             {
               path: "add",
               name: "addProduct",
-              component: () => import("../pages/admin/product/AddProduct.vue")
+              component: () => import("../pages/admin/product/AddProduct.vue"),
+            },
+            {
+              path: "edit/:product",
+              name: "editProduct",
+              component: () => import("../pages/admin/product/EditProduct.vue"),
             },
           ],
         },
