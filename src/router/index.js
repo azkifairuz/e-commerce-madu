@@ -12,12 +12,30 @@ export const router = createRouter({
     },
     {
       path: "/admin",
-      name: 'admin',
+      name: "admin",
       component: () => import("../pages/admin/layout/Admin.vue"),
       children: [
         {
           path: "/product",
-          component: () => import("../pages/admin/Product.vue"),
+          name: "product",
+          component: () => import("../pages/admin/product/Product.vue"),
+          children: [
+            {
+              path:"",
+             redirect:{ name: 'showProduct' }
+            },
+            {
+              path: "show",
+              name: "showProduct",
+              component: () => import("../pages/admin/product/ShowProduct.vue"),
+              
+            },
+            {
+              path: "add",
+              name: "addProduct",
+              component: () => import("../pages/admin/product/AddProduct.vue")
+            },
+          ],
         },
       ],
     },
