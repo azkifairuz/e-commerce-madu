@@ -1,5 +1,5 @@
 <script setup>
-import Sidebar from "../../../components/Sidebar.vue";
+import Sidebar from "../../../components/organism/Sidebar.vue";
 </script>
 <template>
   <div class="flex gap-28">

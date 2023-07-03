@@ -16,14 +16,11 @@ export const router = createRouter({
       component: () => import("../pages/admin/layout/Admin.vue"),
       children: [
         {
-          path: "/product",
+          path: "product",
           name: "product",
           component: () => import("../pages/admin/product/Product.vue"),
+          redirect: { name: "showProduct" },
           children: [
-            {
-              path: "",
-              redirect: { name: "showProduct" },
-            },
             {
               path: "show",
               name: "showProduct",
