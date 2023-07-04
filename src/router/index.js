@@ -57,8 +57,13 @@ export const router = createRouter({
           ],
         },
       ],
-
     },
+    {
+      path : "/madu",
+      name : 'madu',
+      component: () => import("../pages/customer/layout/Customer.vue"),
+
+    }
   ],
   history: createWebHistory(),
 });
