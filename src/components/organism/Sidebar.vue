@@ -5,7 +5,7 @@ const router = useRouter();
 const listItem = [
   {
     name: "product",
-    title: "Product",
+    title: "Produk",
   },
   {
     name: "category",

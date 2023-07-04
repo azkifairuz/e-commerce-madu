@@ -1,27 +1,88 @@
 <script setup>
-defineProps({
-  tableHeader: Array,
-  tableData: Array,
+import { computed, onMounted, ref } from "vue";
+
+const items = ref([props.data]);
+const searchTerm = ref("");
+const currentPage = ref(1);
+const itemsPerPage = ref(10);
+
+const filteredItems = computed(() => {
+  return items.value.filter((item) => {
+    const searchKeys = Object.values(item).join("|");
+    const regex = new RegExp(searchTerm.value, "i");
+    return regex.test(searchKeys);
+  });
+});
+
+const totalPages = computed(() => {
+  return Math.ceil(filteredItems.value.length / itemsPerPage);
+});
+const paginatedItems = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage.value;
+  const endIndex = startIndex + itemsPerPage;
+  return filteredItems.value.slice(startIndex, endIndex);
+});
+
+onMounted(()=>{
+    paginatedItems
 })
+
+const props = defineProps({
+  data: {
+    type: Array,
+    required: true
+  },
+  columns: {
+    type: Array,
+    required: true
+  }
+});
+
 </script>
+
 <template>
-  <div class="relative overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr v-for="item in tableHeader" :key="item.id">
-                <th scope="col" class="px-6 py-3">
-                    {{item.title}}
-                </th>
-            </tr>
+    <div class="container mx-auto">
+      <div class="my-4">
+        <input
+          type="text"
+          v-model="searchTerm"
+          class="border border-gray-300 rounded px-4 py-2"
+          placeholder="Search"
+        />
+      </div>
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b" v-for="column in columns" :key="column.key">
+              {{ column.label }}
+            </th>
+          </tr>
         </thead>
         <tbody>
-            <tr v-for="item in tableData" :key="item.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ item.name }}
-                </td>
-            </tr>
+          <tr v-for="item in filteredItems" :key="item.id">
+            <td class="py-2 px-4 border-b" v-for="column in columns" :key="column.key">
+              {{ item[column.key] }}
+            </td>
+          </tr>
         </tbody>
-    </table>
-</div>
-
-</template>
+      </table>
+      <div class="flex justify-center mt-4">
+        <nav class="flex items-center">
+          <button
+            :disabled="currentPage === 1"
+            @click="currentPage--"
+            class="px-4 py-2 border border-gray-300 rounded-l hover:bg-gray-200"
+          >
+            Previous
+          </button>
+          <button
+            :disabled="currentPage === totalPages"
+            @click="currentPage++"
+            class="px-4 py-2 border border-gray-300 rounded-r hover:bg-gray-200"
+          >
+            Next
+          </button>
+        </nav>
+      </div>
+    </div>
+  </template>

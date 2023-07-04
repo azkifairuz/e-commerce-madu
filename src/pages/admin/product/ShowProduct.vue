@@ -112,3 +112,7 @@ function dataTables() {
     </table>
   </div>
 </template>
+
+<style>
+@import 'datatables.net-dt';
+</style>

@@ -26,6 +26,7 @@ async function getCategoryById() {
     console.log("data tidak ditemukan");
     return;
   }
+  
   Object.keys(data.data).forEach((key) => {
     category[key] = data.data[key];
   });
