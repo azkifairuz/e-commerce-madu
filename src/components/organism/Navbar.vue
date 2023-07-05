@@ -1,42 +1,100 @@
 <script setup>
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 
-const router = useRouter();
-const listItem = [
-  {
-    name: "home",
-    title: "Beranda",
-  },
-  {
-    name: "productCustomer",
-    title: "Produk",
-  },
-  {
-    name: "contact",
-    title: "Kontak",
-  },
+const isOpen = ref(false);
+
+const links = [
+  { id: 1, label: "Beranda", url: "#" },
+  { id: 2, label: "Tentang", url: "about" },
+  { id: 3, label: "Jenis Madu", url: "category" },
+  { id: 3, label: "Madu", url: "prduct" },
+  { id: 4, label: "Kontak", url: "contact" },
 ];
-function navigation(path) {
-  router.push({
-    name: path,
-  });
-}
 </script>
 
 <template>
-  <div class="fixed left-0 right-0 flex justify-between top-0 items-center bg-yellow-main p-4 text-black">
-    <h1 class="text-2xl font-bold">Madu</h1>
-    <ul class="flex items-center gap-2">
-      <div  v-for="(item,index) in listItem" :key="index" class="h-full flex gap-6 w-full">
-        <li @click="navigation(item.name)" class="cursor-pointer px-5 hover:font-bold ">
-          {{ item.title }}
-      </li>
-      </div>
-     <div class="flex gap-4">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button>
-      <button class="bg-white text-black border border-black hover:bg-black hover:text-white hover:border-white font-bold py-2 px-4 rounded">Register</button>
-     </div>
-    </ul>
+  <nav class="bg-yellow-main">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-5">
+          <div class="flex-shrink-0">
+            <img class="h-8 w-8" src="@/assets/logo.png" alt="Logo" />
+          </div>
+          <div class="flex justify-center flex-1">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search"
+              class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+            />
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline gap-2">
+              <a
+                v-for="link in links"
+                :key="link.id"
+                :href="link.url"
+                class="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-yellow-light"
+              >
+                {{ link.label }}
+              </a>
+            </div>
+          </div>
+          <div class="flex gap-4">
 
-  </div>
+          </div>
+        </div>
+
+        <div class="-mr-2 flex md:hidden">
+          <button
+            @click="isOpen = !isOpen"
+            type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+            :aria-expanded="isOpen"
+          >
+            <svg
+              class="h-6 w-6"
+              :class="{ hidden: isOpen, block: !isOpen }"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            <svg
+              class="h-6 w-6"
+              :class="{ block: isOpen, hidden: !isOpen }"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div :class="{ block: isOpen, hidden: !isOpen }" class="md:hidden">
+      <div class="px-2 pt-2 pb-3 sm:px-3">
+        <a
+          v-for="link in links"
+          :key="link.id"
+          :href="link.url"
+          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+        >
+          {{ link.label }}
+        </a>
+      </div>
+    </div>
+  </nav>
 </template>

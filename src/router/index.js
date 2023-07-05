@@ -4,6 +4,8 @@ export const router = createRouter({
     {
       path: "/",
       component: () => import("../pages/Get.vue"),
+      redirect: { name: "madu" },
+
     },  
     {
       path: "/admin",

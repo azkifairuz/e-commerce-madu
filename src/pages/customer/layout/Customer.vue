@@ -1,7 +1,7 @@
 <script setup>
 import Navbar from "@/components/organism/Navbar.vue";
 import Jbtr from "@/components/atom/JumboTron.vue";
-import LabelCategory from "@/components/atom/labelCategory.vue";
+import CardCategory from "@/components/atom/CardCategory.vue";
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
 
@@ -22,8 +22,9 @@ onMounted(() => {
     <Navbar />
     <div>
       <Jbtr />
-      <div class="px-10 my-10 flex gap-5">
-        <label-category  v-for="category in categories" :key="category.id" :label="category.nm_jns_produk" />
+      <div id="categories section" class="px-10 my-10 flex gap-5">
+        <h1 class="text-2xl font-poppins font-bold">Jenis Madu</h1>
+        <card-category  v-for="category in categories" :key="category.id" :label="category.nm_jns_produk" />
       </div>
       <router-view></router-view>
     </div>
