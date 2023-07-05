@@ -8,9 +8,15 @@ export default {
     extend: {
       colors:{
         'yellow':{
-          'main':'#faf33e',
-          'hover':'#dbd406'
+          'main':'#ffc70b',
+          'light':'#FFD447',
+          'dark' : '#e0ac00',
+          'hover':'#e0ac00',
         },
+        'btn':{
+          'primary':'#FEC834',
+          'hover':'#FEBD0B'
+        }
       },
       fontFamily:{
         'poppins':['Poppins', 'sans-serif']
