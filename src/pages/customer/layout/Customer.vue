@@ -18,15 +18,25 @@ onMounted(() => {
 });
 </script>
 <template>
-  <main>
+  <body>
     <Navbar />
     <div>
       <Jbtr />
-      <div id="categories section" class="px-10 my-10 flex gap-5">
-        <h1 class="text-2xl font-poppins font-bold">Jenis Madu</h1>
-        <card-category  v-for="category in categories" :key="category.id" :label="category.nm_jns_produk" />
-      </div>
+      <main class="px-10 py-10">
+        <section class="flex flex-col gap-5 ">
+        <h1 class="text-2xl font-poppins font-bold ">Jenis Madu</h1>
+        <div id="categories section" class="flex gap-5">
+          <card-category
+            v-for="category in categories"
+            :key="category.id"
+            :label="category.nm_jns_produk"
+          />
+        </div>
+      </section>
+
       <router-view></router-view>
+      </main>
+      
     </div>
-  </main>
+  </body>
 </template>
