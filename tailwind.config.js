@@ -12,6 +12,9 @@ export default {
           'hover':'#dbd406'
         },
       },
+      fontFamily:{
+        'poppins':['Poppins', sans-serif]
+      }
     },
   },
   plugins: [],

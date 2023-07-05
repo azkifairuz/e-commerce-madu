@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from "../../../components/organism/Navbar.vue";
-import Jbtr from "../../../components/organism/JumboTron.vue";
+import Jbtr from "../../../components/atom/JumboTron.vue";
 </script>
 <template>
   <Navbar/>
