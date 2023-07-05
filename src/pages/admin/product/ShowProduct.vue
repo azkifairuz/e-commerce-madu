@@ -1,12 +1,11 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import numeral from "numeral";
 import Api from "../../../config/api/Api";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
-
+import {numberFormat} from "@/utils/NumberFormat"
 const products = ref("");
 const { GET } = Api();
 const router = useRouter();
@@ -15,10 +14,7 @@ onMounted(() => {
   getProduct();
 });
 
-function numberFormat(harga) {
-  const formattedAmount = numeral(harga).format("0,0");
-  return formattedAmount;
-}
+
 
 function goToAdd() {
   router.push({

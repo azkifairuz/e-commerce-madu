@@ -6,6 +6,7 @@ import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
 import CardProduct from "../../../components/molecular/CardProduct.vue";
 import dummy from "@/assets/honey-jar.png"
+import {numberFormat} from '@/utils/NumberFormat'
 const categories = ref("");
 const products = ref("");
 const { GET } = Api();
@@ -27,10 +28,10 @@ onMounted(() => {
 <template>
   <body>
     <Navbar />
-    <div>
+    <div class="py-[64px]">
       <Jbtr />
       <main class="px-10 py-10">
-        <section class="flex flex-col gap-5">
+        <section id="category" class="flex flex-col gap-5">
           <h1 class="text-2xl font-poppins font-bold">Jenis Madu</h1>
           <div id="categories section" class="flex gap-5">
             <card-category
@@ -40,16 +41,17 @@ onMounted(() => {
             />
           </div>
         </section>
-        <section class="flex flex-col mt-10 gap-5">
+        <section id="product" class="flex flex-col mt-10 gap-5">
           <h1 class="text-2xl font-poppins font-bold">Produk Madu</h1>
-          <div id="categories section" class="grid grid-cols-5 grid-rows-1 overflow-hidden gap-5">
+          <div id="categories section" class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 grid-rows-1 overflow-hidden gap-5">
             <card-product
               v-for="product in products"
               :key="product.id"
               :image-url="dummy"
               :title="product.nm_produk"
-              :price="product.harga_jual"
-              description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis placeat aspernatur, excepturi magni ex consectetur rerum ab distinctio iusto exercitationem!"
+              :price="numberFormat(product.harga_beli)"
+              :category="product.nm_jns_produk"
+              description="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
             />
           </div>
         </section>
