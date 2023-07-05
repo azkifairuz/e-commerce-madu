@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
-
+import btnComponent from "../atom/btnComponent.vue";
 const isOpen = ref(false);
-
+const searchQuery = ref("");
 const links = [
   { id: 1, label: "Beranda", url: "#" },
   { id: 2, label: "Tentang", url: "about" },
@@ -40,8 +40,19 @@ const links = [
               </a>
             </div>
           </div>
-          <div class="flex gap-4">
-
+          <div class="gap-4 hidden md:flex">
+            <btn-component
+              label="Masuk"
+              primary-color="bg-green-500"
+              hover-color="hover:bg-green-700"
+              text-color="text-white"
+            />
+            <btn-component
+              label="Daftar"
+              primary-color="bg-blue-500"
+              hover-color="hover:bg-blue-700"
+              text-color="text-white"
+            />
           </div>
         </div>
 
@@ -49,7 +60,7 @@ const links = [
           <button
             @click="isOpen = !isOpen"
             type="button"
-            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+            class="inline-flex items-center justify-center p-2 rounded-md text-black  hover:bg-yellow-300 focus:outline-none focus:bg-yellow-400  transition duration-150 ease-in-out"
             :aria-expanded="isOpen"
           >
             <svg
@@ -84,17 +95,32 @@ const links = [
         </div>
       </div>
     </div>
-    <div :class="{ block: isOpen, hidden: !isOpen }" class="md:hidden">
+    <div :class="{ block: isOpen, hidden: !isOpen }" class="md:hidden  ">
       <div class="px-2 pt-2 pb-3 sm:px-3">
         <a
           v-for="link in links"
           :key="link.id"
           :href="link.url"
-          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+          class="block px-3 py-2 rounded-md text-base font-medium text-black hover:bg-yellow-300"
         >
           {{ link.label }}
         </a>
+
       </div>
+      <div class="flex flex-col gap-4 px-3 pb-4  ">
+          <btn-component
+            label="Masuk"
+            primary-color="bg-green-500"
+            hover-color="hover:bg-green-700"
+            text-color="text-white"
+          />
+          <btn-component
+            label="Daftar"
+            primary-color="bg-blue-500"
+            hover-color="hover:bg-blue-700"
+            text-color="text-white"
+          />
+        </div>
     </div>
   </nav>
 </template>
