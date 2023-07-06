@@ -12,13 +12,13 @@ const category = reactive({
 const { POST } = Api();
 const route = useRoute();
 const router = useRouter();
+const idCategory = route.params.category;
 
 onMounted(() => {
   getCategoryById();
 });
 
 async function getCategoryById() {
-  const idCategory = route.params.category;
   const data = await GET(`jnsproduk/${idCategory}`);
 
   if (!data.data) {
@@ -33,9 +33,9 @@ async function getCategoryById() {
 
 async function save() {
   try {
-    const id = route.params.category;
+
     if (id != null) {
-      await POST(`jnsproduk/${id}`, objectToFormdata(category));
+      await POST(`jnsproduk/${idCategory}`, objectToFormdata(category));
       router.push({
         name: "category",
       });
@@ -53,7 +53,8 @@ async function save() {
 <template>
   <div class="w-[500px] bg-white shadow-lg mb-5">
     <div class="bg-yellow-main py-2 px-5 rounded-t-md">
-      <h1 class="text-2xl font-bold font-poppins">Form Produk</h1>
+      <h1 v-if="idCategory != null" class="text-2xl font-bold font-poppins">Update Category</h1>
+      <h1 v-else class="text-2xl font-bold font-poppins">Tambah Category</h1>
     </div>
     <div class="p-5">
       <div class="mb-6">
