@@ -53,8 +53,8 @@ async function save() {
 <template>
   <div class="w-[500px] bg-white shadow-lg mb-5">
     <div class="bg-yellow-main py-2 px-5 rounded-t-md">
-      <h1 v-if="idCategory != null" class="text-2xl font-bold font-poppins">Update Category</h1>
-      <h1 v-else class="text-2xl font-bold font-poppins">Tambah Category</h1>
+      <h1 v-if="idCategory" class="text-2xl font-bold font-poppins">Form Update kategori</h1>
+      <h1 v-else class="text-2xl font-bold font-poppins">Form Tambah Kategori</h1>
     </div>
     <div class="p-5">
       <div class="mb-6">
