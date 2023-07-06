@@ -1,5 +1,5 @@
 <script setup>
-import btnComponent from "../atom/btnComponent.vue";
+import btnComponent from "@/components/atom/btnComponent.vue";
 const props = defineProps({
   imageUrl: String,
   title: String,
