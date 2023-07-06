@@ -1,4 +1,5 @@
 <script setup>
+import { defineProps } from "vue";
 const props = defineProps({
   label: String,
   primaryColor: String,
@@ -7,13 +8,13 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div
+  <button
     :class="[primaryColor, hoverColor, textColor]"
-    class="rounded-md flex gap-2 items-center px-2 py-2"
+    class="rounded-md flex gap-4 px-5 py-2"
   >
   <slot></slot>
-    <p>
-      {{ label }}
-    </p>
-  </div>
+  <p>
+    {{ label }}
+  </p>
+  </button>
 </template>
