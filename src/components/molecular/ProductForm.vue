@@ -71,7 +71,13 @@ async function save(id) {
 </script>
 
 <template>
-  <div class="w-[400px]">
+  <div class="w-[500px] bg-white shadow-lg mb-5">
+    <div class="bg-yellow-main py-2 px-5 rounded-t-md">
+      <h1 class="text-2xl font-bold font-poppins">
+        Form Produk
+      </h1>
+    </div>
+  <div class="p-5">
     <div class="mb-6">
       <InputField
         label="Nama Madu"
@@ -128,5 +134,6 @@ async function save(id) {
     >
       Kirim
     </button>
+  </div>
   </div>
 </template>
