@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { nextTick, onMounted, ref } from "vue";
 import Api from "../../../config/api/Api";
 import $ from "jquery";
 import "datatables.net";
@@ -7,7 +7,7 @@ import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
 import {numberFormat} from "@/utils/NumberFormat"
 const products = ref("");
-const { GET } = Api();
+const { GET,DELETE } = Api();
 const router = useRouter();
 
 onMounted(() => {
@@ -29,6 +29,10 @@ async function getProduct() {
   dataTables();
 }
 
+async function deleteProduct(id) {
+  const data = await DELETE(`produk/${id}`)
+  console.log(data);
+}
 function goToEdit(id) {
   router.push({
     name: "editProduct",
@@ -45,45 +49,20 @@ function dataTables() {
   }
 
   // Menginisialisasi DataTable pada tabel
-  $("#myTable").DataTable({
-    data: products.value, // Menggunakan data yang diperoleh dari API
-    searching: true,
-    pageLength: 10,
-    columns: [
-      { data: null, render: (data, type, row, meta) => meta.row + 1 },
-      { data: "nm_produk" },
-      { data: "nm_jns_produk" },
-      { data: "qty_produk" },
-      {
-        data: "harga_beli",
-        render: function (data) {
-          return `Rp.${numberFormat(data)}`;
-        },
-      },
-      {
-        data: "harga_jual",
-        render: function (data) {
-          return `Rp.${numberFormat(data)}`;
-        },
-      },
-      {
-        data: "id",
-        render: function (data, type, row) {
-          return `
-            <div class="flex flex-row gap-2">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="${() => {goToEdit(data)}}">Edit</button>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
-            </div>
-          `;
-        },
-      },
-    ],
+  nextTick(() => {
+    // Menginisialisasi DataTable pada tabel
+    $("#myTable").DataTable({
+      searching: true,
+      pageLength: 10,
+      scrollY: 300,
+      lengthMenu:['5','10','15','25']
+    });
   });
 }
 </script>
 
 <template>
-  <div class="h-[500px] overflow-y-auto px-5">
+  <div class=" px-5">
     <div class="w-full flex justify-between items-center mb-5">
       <h1>Data Produk</h1>
       <button
@@ -105,6 +84,22 @@ function dataTables() {
           <th class="px-6 py-3 whitespace-nowrap text-center">Aksi</th>
         </tr>
       </thead>
+      <tbody>
+        <tr v-for="(product,index) in products" :key="product.id">
+          <td>{{ index+1 }}</td>
+          <td>{{ product.nm_produk }}</td>
+          <td>{{ product.nm_jns_produk }}</td>
+          <td>{{ product.qty_produk }}</td>
+          <td>Rp.{{ numberFormat(product.harga_beli) }}</td>
+          <td>{{ numberFormat(product.harga_jual) }}</td>
+          <td>
+            <div class="flex flex-row gap-2">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="goToEdit(product.id)" >Edit</button>
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="deleteProduct(product.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

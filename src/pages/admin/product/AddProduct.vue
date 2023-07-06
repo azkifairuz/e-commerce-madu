@@ -1,8 +1,10 @@
 <script setup>
 import { reactive } from "vue";
-import InputField from "../../../components/atom/InputField.vue";
-import Api from "../../../config/api/Api";
-import { objectToFormdata } from "../../../utils/ObjectToForm";
+import InputField from "@/components/atom/InputField.vue";
+import Api from "@/config/api/Api";
+import { objectToFormdata } from "@/utils/ObjectToForm";
+import { useRouter } from "vue-router";
+const router = useRouter()
 const produk = reactive({
   nm_produk: "",
   qty_produk: null,
@@ -14,88 +16,59 @@ const produk = reactive({
 const { POST } = Api();
 async function save() {
   const data = await POST(`produk`, objectToFormdata(produk));
-  console.log(data);
+  router.push(
+    {
+      name:'product'
+    }
+  )
 }
 </script>
 
 <template>
   <div class="w-[400px]">
     <div class="mb-6">
-      <label
-        for="nmProduct"
-        class="block mb-2 text-lg font-medium text-gray-900"
-      >
-        Nama Produk
-      </label>
-      <input
-        type="typeInput"
-        id="nmProduct"
+      <InputField
+        label="Nama Madu"
         v-model="produk.nm_produk"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Masukan Nama Produk"
-        required
+        placeholder="Masukan Nama Madu"
+        typeInput="text"
+        name="nmProduk"
       />
     </div>
     <div class="mb-6">
-      <label for="qty" class="block mb-2 text-lg font-medium text-gray-900">
-        Jumlah
-      </label>
-      <input
-        type="typeInput"
-        id="qty"
+      <InputField
+        label="Jumlah Produk"
         v-model="produk.qty_produk"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Masukan Jumlah"
-        required
+        placeholder="Masukan Jumlah Produk"
+        typeInput="text"
+        name="qty"
       />
     </div>
     <div class="mb-6">
-      <label
-        for="category"
-        class="block mb-2 text-lg font-medium text-gray-900"
-      >
-        Jenis Produk
-      </label>
-      <input
-        type="typeInput"
-        id="category"
+      <InputField
+        label="Jenis Madu"
         v-model="produk.id_jns_produk"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Pilih Jenis Produk"
-        required
+        placeholder="Pilih Jenis Madu"
+        typeInput="text"
+        name="category"
       />
     </div>
     <div class="mb-6">
-      <label
-        for="sellPrice"
-        class="block mb-2 text-lg font-medium text-gray-900"
-      >
-        Harga jual
-      </label>
-      <input
-        type="typeInput"
-        id="sellPrice"
-        v-model="produk.harga_jual"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Masukan Nama Produk"
-        required
-      />
-    </div>
-    <div class="mb-6">
-      <label
-        for="buyprice"
-        class="block mb-2 text-lg font-medium text-gray-900"
-      >
-        Harga Belii
-      </label>
-
-      <input
-        type="typeInput"
-        id="nameProduct"
+      <InputField
+        label="Harga Beli"
         v-model="produk.harga_beli"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Masukan Nama Produk"
-        required
+        placeholder="Harga Beli "
+        typeInput="text"
+        name="buyingPrice"
+      />
+    </div>
+    <div class="mb-6">
+      <InputField
+        label="Harga Jual"
+        v-model="produk.harga_jual"
+        placeholder="Harga Jual"
+        typeInput="text"
+        name="nmProduk"
       />
     </div>
 

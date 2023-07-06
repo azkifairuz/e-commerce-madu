@@ -49,7 +49,7 @@ onMounted(() => {
               :key="product.id"
               :image-url="dummy"
               :title="product.nm_produk"
-              :price="numberFormat(product.harga_beli)"
+              :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               description="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
             />
