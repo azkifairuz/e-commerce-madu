@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, onMounted, ref } from "vue";
-import Api from "../../../config/api/Api";
+import Api from "@/config/api/Api";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
@@ -38,6 +38,7 @@ async function deleteProduct(id) {
     // Handle the error here (e.g., show an error message to the user)
   }
 }
+
 function goToEdit(id) {
   router.push({
     name: "editProduct",
@@ -75,7 +76,7 @@ function dataTables() {
           class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <strong class="font-bold">{{responseMsg}}</strong>
+          <strong class="font-bold">{{ responseMsg }}</strong>
         </div>
       </div>
       <button

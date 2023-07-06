@@ -13,6 +13,7 @@ const produk = reactive({
   id_jns_produk: null,
   harga_jual: null,
   harga_beli: null,
+  image:""
 });
 const errorMsg = ref("");
 const { GET, POST } = Api();
@@ -41,6 +42,11 @@ async function getProductById() {
 onMounted(() => {
   getProductById();
 });
+
+function onImageChange(event) {
+  const file = event.target.files[0];
+  produk.image = file;
+}
 
 async function save(id) {
   try {
@@ -110,6 +116,10 @@ async function save(id) {
         typeInput="text"
         name="nmProduk"
       />
+    </div>
+    <div class="mb-6">
+      <input type="file" ref="imageInput" accept="image/*" @change="onImageChange" />
+
     </div>
 
     <button
