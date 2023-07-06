@@ -1,0 +1,85 @@
+<script setup>
+import { onMounted, reactive } from "vue";
+import InputField from "@/components/atom/InputField.vue";
+import Api from "@/config/api/Api";
+import { objectToFormdata } from "@/utils/ObjectToForm";
+import { useRoute, useRouter } from "vue-router";
+const category = reactive({
+  nm_jns_produk: "",
+  ket_jns_produk: "",
+});
+
+const { POST } = Api();
+const route = useRoute();
+const router = useRouter();
+
+onMounted(() => {
+  getCategoryById();
+});
+
+async function getCategoryById() {
+  const idCategory = route.params.category;
+  const data = await GET(`jnsproduk/${idCategory}`);
+
+  if (!data.data) {
+    console.log("data tidak ditemukan");
+    return;
+  }
+
+  Object.keys(data.data).forEach((key) => {
+    category[key] = data.data[key];
+  });
+}
+
+async function save() {
+  try {
+    const id = route.params.category;
+    if (id != null) {
+      await POST(`jnsproduk/${id}`, objectToFormdata(category));
+      router.push({
+        name: "category",
+      });
+      return;
+    }
+
+    await POST(`jnsproduk`, objectToFormdata(category));
+    router.push({
+      name: "category",
+    });
+  } catch (error) {}
+}
+</script>
+
+<template>
+  <div class="w-[500px] bg-white shadow-lg mb-5">
+    <div class="bg-yellow-main py-2 px-5 rounded-t-md">
+      <h1 class="text-2xl font-bold font-poppins">Form Produk</h1>
+    </div>
+    <div class="p-5">
+      <div class="mb-6">
+        <InputField
+          label="Kategori Madu"
+          v-model="category.nm_jns_produk"
+          placeholder="Masukan kategori Madu"
+          typeInput="text"
+          name="nmProduk"
+        />
+      </div>
+      <div class="mb-6">
+        <InputField
+          label="keterangan"
+          v-model="category.ket_jns_produk"
+          placeholder="Masukan Keterangan"
+          typeInput="text"
+          name="qty"
+        />
+      </div>
+      <button
+        @click="save"
+        class="bg-yellow-main hover:bg-yellow-hover text-black font-bold py-2 px-4 rounded"
+      >
+        Kirim
+      </button>
+    </div>
+  </div>
+</template>

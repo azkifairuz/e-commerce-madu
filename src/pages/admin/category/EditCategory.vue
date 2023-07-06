@@ -1,9 +1,8 @@
 <script setup>
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
-import InputField from "../../../components/atom/InputField.vue";
-import Api from "../../../config/api/Api";
-import { objectToFormdata } from "../../../utils/ObjectToForm";
+import Api from "@/config/api/Api";
+import { objectToFormdata } from "@/utils/ObjectToForm";
 
 const category = reactive({
   id:null,

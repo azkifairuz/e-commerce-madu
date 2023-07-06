@@ -48,7 +48,8 @@ function onImageChange(event) {
   produk.image = file;
 }
 
-async function save(id) {
+async function save() {
+  const id = route.params.product
   try {
     if (id != null) {
       await POST(`produk/${id}`, objectToFormdata(produk));
@@ -129,7 +130,7 @@ async function save(id) {
     </div>
 
     <button
-      @click="save(produk.id)"
+      @click="save"
       class="bg-yellow-main hover:bg-yellow-hover text-black font-bold py-2 px-4 rounded"
     >
       Kirim
