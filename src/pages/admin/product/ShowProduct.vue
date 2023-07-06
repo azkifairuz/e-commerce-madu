@@ -5,16 +5,14 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
-import {numberFormat} from "@/utils/NumberFormat"
+import { numberFormat } from "@/utils/NumberFormat";
 const products = ref("");
-const { GET,DELETE } = Api();
+const { GET, DELETE } = Api();
 const router = useRouter();
-
+const responseMsg = ref("");
 onMounted(() => {
   getProduct();
 });
-
-
 
 function goToAdd() {
   router.push({
@@ -30,8 +28,15 @@ async function getProduct() {
 }
 
 async function deleteProduct(id) {
-  const data = await DELETE(`produk/${id}`)
-  console.log(data);
+  try {
+    const data = await DELETE(`produk/${id}`);
+    console.log(data);
+    responseMsg.value = "Berhasil Menghapus";
+    // Refresh the page
+  } catch (error) {
+    console.error(error);
+    // Handle the error here (e.g., show an error message to the user)
+  }
 }
 function goToEdit(id) {
   router.push({
@@ -55,16 +60,24 @@ function dataTables() {
       searching: true,
       pageLength: 10,
       scrollY: 300,
-      lengthMenu:['5','10','15','25']
+      lengthMenu: ["5", "10", "15", "25"],
     });
   });
 }
 </script>
 
 <template>
-  <div class=" px-5">
+  <div class="px-5">
     <div class="w-full flex justify-between items-center mb-5">
       <h1>Data Produk</h1>
+      <div v-if="responseMsg">
+        <div
+          class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong class="font-bold">{{responseMsg}}</strong>
+        </div>
+      </div>
       <button
         @click="goToAdd"
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -85,8 +98,8 @@ function dataTables() {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(product,index) in products" :key="product.id">
-          <td>{{ index+1 }}</td>
+        <tr v-for="(product, index) in products" :key="product.id">
+          <td>{{ index + 1 }}</td>
           <td>{{ product.nm_produk }}</td>
           <td>{{ product.nm_jns_produk }}</td>
           <td>{{ product.qty_produk }}</td>
@@ -94,8 +107,18 @@ function dataTables() {
           <td>{{ numberFormat(product.harga_jual) }}</td>
           <td>
             <div class="flex flex-row gap-2">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="goToEdit(product.id)" >Edit</button>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="deleteProduct(product.id)">Delete</button>
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="goToEdit(product.id)"
+              >
+                Edit
+              </button>
+              <button
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                @click="deleteProduct(product.id)"
+              >
+                Delete
+              </button>
             </div>
           </td>
         </tr>
@@ -105,5 +128,5 @@ function dataTables() {
 </template>
 
 <style>
-@import 'datatables.net-dt';
+@import "datatables.net-dt";
 </style>

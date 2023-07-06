@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import InputField from "@/components/atom/InputField.vue";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm";
@@ -14,7 +14,7 @@ const produk = reactive({
   harga_jual: null,
   harga_beli: null,
 });
-
+const errorMsg = ref("");
 const { GET, POST } = Api();
 async function getProductById() {
   try {
@@ -38,14 +38,17 @@ async function getProductById() {
   } catch (error) {}
 }
 
-onMounted(()=>{
-  getProductById()
-})
+onMounted(() => {
+  getProductById();
+});
 
 async function save(id) {
   try {
     if (id != null) {
       await POST(`produk/${id}`, objectToFormdata(produk));
+      router.push({
+        name: "product",
+      });
       return;
     }
 
@@ -56,7 +59,7 @@ async function save(id) {
     });
   } catch (error) {
     console.error(error);
-    // Handle the error here (e.g., show an error message to the user)
+    errorMsg.value = "Input gagal";
   }
 }
 </script>

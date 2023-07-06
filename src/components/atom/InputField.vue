@@ -6,7 +6,7 @@ const props = defineProps({
   placeholder: String,
   typeInput: String,
   name: String,
-  modelValue: String,
+  modelValue: String | Number,
 });
 
 const emit = defineEmits(["update:modelValue"]);
