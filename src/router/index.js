@@ -5,7 +5,6 @@ export const router = createRouter({
       path: "/",
       component: () => import("../pages/Get.vue"),
       redirect: { name: "madu" },
-
     },  
     {
       path: "/admin",
@@ -65,6 +64,22 @@ export const router = createRouter({
       name : 'madu',
       component: () => import("../pages/customer/layout/Customer.vue"),
 
+    },
+    {
+      path:"/auth",
+      redirect: {name: "login"},
+      children:[
+        {
+          path:"login",
+          name:"login",
+          component: () => import("../pages/customer/auth/LoginPage.vue")
+        },
+        {
+          path:"register",
+          name:"register",
+          component: () => import("../pages/customer/auth/RegisterPage.vue")
+        }
+      ]
     }
   ],
   history: createWebHistory(),

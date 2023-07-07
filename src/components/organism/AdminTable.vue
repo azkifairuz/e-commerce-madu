@@ -10,6 +10,12 @@ const products = ref("");
 const { GET, DELETE } = Api();
 const router = useRouter();
 const responseMsg = ref("");
+
+const props = defineProps({
+  pathName:String,
+  endPointApi:String,
+  table:Object
+})
 onMounted(() => {
   getProduct();
 });
@@ -29,14 +35,14 @@ async function getProduct() {
 
 async function deleteProduct(id) {
   try {
-    await DELETE(`produk/${id}`);
+   await DELETE(`produk/${id}`);
     responseMsg.value = "Berhasil Menghapus";
     setTimeout(() => {
       location.reload()
     }, 2000);
+
   } catch (error) {
     console.error(error);
-    // Handle the error here (e.g., show an error message to the user)
   }
 }
 
@@ -45,19 +51,15 @@ function goToEdit(id) {
     name: "editProduct",
     params: { product: id },
   });
-  console.log(id);
 }
 
 function dataTables() {
-  // Menghapus tabel yang sudah ada sebelumnya, jika ada
   if ($.fn.DataTable.isDataTable("#myTable")) {
     $("#myTable").DataTable().destroy();
     $("#myTable").empty();
   }
 
-  // Menginisialisasi DataTable pada tabel
   nextTick(() => {
-    // Menginisialisasi DataTable pada tabel
     $("#myTable").DataTable({
       searching: true,
       pageLength: 10,
