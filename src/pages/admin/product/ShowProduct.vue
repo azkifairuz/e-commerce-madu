@@ -21,10 +21,17 @@ function goToAdd() {
 }
 
 async function getProduct() {
-  const data = await GET("produk");
-  products.value = data.data;
-  console.log(products.value);
-  dataTables();
+  try {
+    const data = await GET("produk");
+    products.value = data.data;
+    dataTables();
+  } catch (error) {
+    console.error(error);
+    dataTables();
+
+  }
+
+
 }
 
 async function deleteProduct(id) {
@@ -32,11 +39,10 @@ async function deleteProduct(id) {
     await DELETE(`produk/${id}`);
     responseMsg.value = "Berhasil Menghapus";
     setTimeout(() => {
-      location.reload()
+      location.reload();
     }, 2000);
   } catch (error) {
     console.error(error);
-    // Handle the error here (e.g., show an error message to the user)
   }
 }
 
