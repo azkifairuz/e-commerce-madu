@@ -43,6 +43,8 @@ async function deleteProduct(id) {
     }, 2000);
   } catch (error) {
     console.error(error);
+    responseMsg.value = "Gagal Menghapus";
+
   }
 }
 

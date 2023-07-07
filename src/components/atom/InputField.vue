@@ -7,6 +7,7 @@ const props = defineProps({
   typeInput: String,
   name: String,
   modelValue: String | Number,
+  
 });
 
 const emit = defineEmits(["update:modelValue"]);

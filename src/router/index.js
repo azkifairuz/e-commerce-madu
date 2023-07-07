@@ -67,22 +67,22 @@ export const router = createRouter({
     },
     {
       path:"/auth",
-      redirect: {name: "login"},
+      redirect:{name:"login"},
       children:[
         {
           path:"login",
           name:"login",
-          component: () => import("../pages/customer/auth/LoginPage.vue")
+          component: () => import("@/pages/customer/auth/LoginPage.vue")
         },
         {
           path:"register",
           name:"register",
-          component: () => import("../pages/customer/auth/RegisterPage.vue")
+          component: () => import("@/pages/customer/auth/RegisterPage.vue")
         },
         {
           path:"forget",
           name:"forgetpw",
-          component: () => import("../pages/customer/auth/ForgetPw.vue")
+          component: () => import("@/pages/customer/auth/ForgetPw.vue")
         }
       ]
     }
