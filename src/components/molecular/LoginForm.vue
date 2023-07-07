@@ -1,7 +1,7 @@
 <script setup>
 import logo from "@/assets/logo.png";
 import InputField from "@/components/atom/InputField.vue";
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 const users = reactive({
   id: null,
@@ -9,7 +9,7 @@ const users = reactive({
   password: "",
 });
 const router = useRouter();
-
+const isCustomer =  router.currentRoute.value.name === "loginuser"
 const goToRegister = () => {
   router.push({
     name: "register",
@@ -31,7 +31,7 @@ const forgetPw = () => {
       <h2
         class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
       >
-        Halo Customer Silahkan Masuk!!
+        Halo {{isCustomer ? "Customer":"Admin"}} Silahkan Masuk!!
       </h2>
     </div>
 

@@ -67,21 +67,26 @@ export const router = createRouter({
     },
     {
       path:"/auth",
-      redirect:{name:"login"},
+      redirect:{name:"loginUser"},
       children:[
         {
           path:"login",
-          name:"login",
+          name:"loginuser",
           component: () => import("@/pages/customer/auth/LoginPage.vue")
         },
         {
+          path:"login",
+          name:"loginAdmin",
+          component: () => import("@/pages/admin/auth/LoginPage.vue")
+        },
+        {
           path:"register",
-          name:"register",
+          name:"registeruser",
           component: () => import("@/pages/customer/auth/RegisterPage.vue")
         },
         {
           path:"forget",
-          name:"forgetpw",
+          name:"forgetpwuser",
           component: () => import("@/pages/customer/auth/ForgetPw.vue")
         }
       ]
