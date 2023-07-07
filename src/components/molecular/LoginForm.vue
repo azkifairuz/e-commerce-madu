@@ -1,7 +1,7 @@
 <script setup>
 import logo from "@/assets/logo.png";
 import InputField from "@/components/atom/InputField.vue";
-import { onMounted, reactive } from "vue";
+import { reactive } from "vue";
 import { useRouter } from "vue-router";
 const users = reactive({
   id: null,
@@ -9,10 +9,10 @@ const users = reactive({
   password: "",
 });
 const router = useRouter();
-const isCustomer =  router.currentRoute.value.name === "loginuser"
+const isCustomer =  router.currentRoute.value.name === "loginUser"
 const goToRegister = () => {
   router.push({
-    name: "register",
+    name: "registerUser",
   });
 };
 const forgetPw = () => {
@@ -68,11 +68,11 @@ const forgetPw = () => {
           type="submit"
           class="flex w-full justify-center rounded-md bg-btn-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-btn-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Sign in
+          Masuk
         </button>
       </div>
 
-      <p class="mt-10 text-center text-sm text-gray-500">
+      <p v-if="isCustomer" class="mt-10 text-center text-sm text-gray-500">
         Belum Punya Akun?
         <button
           @click="goToRegister"

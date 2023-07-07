@@ -52,12 +52,11 @@ async function save() {
 
 <template>
   <div class="w-[500px] bg-white shadow-lg mb-5">
-    <div class="bg-yellow-main py-2 px-5 rounded-t-md">
+    <div class="bg-yellow-main py-4 px-5 rounded-t-md">
       <h1 v-if="idCategory" class="text-2xl font-bold font-poppins">Form Update kategori</h1>
       <h1 v-else class="text-2xl font-bold font-poppins">Form Tambah Kategori</h1>
     </div>
-    <div class="p-5">
-      <div class="mb-6">
+    <div class="p-5 flex flex-col gap-6">
         <InputField
           label="Kategori Madu"
           v-model="category.nm_jns_produk"
@@ -65,8 +64,6 @@ async function save() {
           typeInput="text"
           name="nmProduk"
         />
-      </div>
-      <div class="mb-6">
         <InputField
           label="keterangan"
           v-model="category.ket_jns_produk"
@@ -74,7 +71,6 @@ async function save() {
           typeInput="text"
           name="qty"
         />
-      </div>
       <button
         @click="save"
         class="bg-yellow-main hover:bg-yellow-hover text-black font-bold py-2 px-4 rounded"
