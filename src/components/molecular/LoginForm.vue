@@ -2,15 +2,28 @@
 import logo from "@/assets/logo.png";
 import InputField from "@/components/atom/InputField.vue";
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 const users = reactive({
   id: null,
   email: "",
   password: "",
 });
+const router = useRouter();
+
+const goToRegister = () => {
+  router.push({
+    name: "register",
+  });
+};
+const forgetPw = () => {
+  router.push({
+    name: "forgetpw",
+  });
+};
 </script>
 <template>
   <div
-    class="flex min-h-full md:min-h-fit items-center max-w-sm bg-white  flex-1 flex-col justify-center px-6 py-12 lg:px-8"
+    class="flex min-h-full md:min-h-fit items-center max-w-sm bg-white flex-1 flex-col justify-center px-6 py-12 lg:px-8"
   >
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" :src="logo" alt="Madu Apiari" />
@@ -29,7 +42,7 @@ const users = reactive({
           v-model="users.email"
           placeholder="Masukan Email anda"
           typeInput="text"
-          name="nmProduk"
+          name="email"
         />
       </div>
 
@@ -43,12 +56,13 @@ const users = reactive({
         />
       </div>
       <div class="text-sm mb-5 -mt-5">
-            <a
-              href="#"
-              class="font-semibold text-indigo-600 hover:text-indigo-500"
-              >Forgot password?</a
-            >
-          </div>
+        <button
+          @click="forgetPw"
+          class="font-semibold text-indigo-600 hover:text-indigo-500"
+        >
+          Forgot password?
+        </button>
+      </div>
       <div>
         <button
           type="submit"
@@ -60,12 +74,12 @@ const users = reactive({
 
       <p class="mt-10 text-center text-sm text-gray-500">
         Belum Punya Akun?
-        {{ " " }}
-        <a
-          href="#"
+        <button
+          @click="goToRegister"
           class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >register</a
         >
+          daftar
+        </button>
       </p>
     </div>
   </div>
