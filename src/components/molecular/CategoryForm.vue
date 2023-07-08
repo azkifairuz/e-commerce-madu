@@ -9,7 +9,7 @@ const category = reactive({
   ket_jns_produk: "",
 });
 
-const { POST } = Api();
+const { GET,POST } = Api();
 const route = useRoute();
 const router = useRouter();
 const idCategory = route.params.category;
@@ -34,7 +34,7 @@ async function getCategoryById() {
 async function save() {
   try {
 
-    if (id != null) {
+    if (idCategory != null) {
       await POST(`jnsproduk/${idCategory}`, objectToFormdata(category));
       router.push({
         name: "category",
@@ -42,7 +42,7 @@ async function save() {
       return;
     }
 
-    await POST(`jnsproduk`, objectToFormdata(category));
+    const data = await POST(`jnsproduk`, objectToFormdata(category));
     router.push({
       name: "category",
     });
