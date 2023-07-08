@@ -24,7 +24,7 @@ const goToLogin = () => {
 };
 
 function buttonClick() {
-  emit("someEvent");
+  emit("savedata");
 }
 
 </script>
