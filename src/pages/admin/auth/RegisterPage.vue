@@ -39,7 +39,7 @@ async function save() {
 
 <template>
   <main class="flex justify-center py-10 items-center w-fit">
-    <RegisterForm>
+    <RegisterForm  @some-event="save">
       <template v-slot:inputField>
         <div  class="flex gap-5">
           <div class="border-r border-black pr-2">
