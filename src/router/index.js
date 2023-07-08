@@ -56,6 +56,29 @@ export const router = createRouter({
             },
           ],
         },
+        {
+          path: "employee",
+          name: "employee",
+          component: () => import("@/pages/admin/category/Category.vue"),
+          redirect: { name: "show" },
+          children: [
+            {
+              path: "show",
+              name: "showEmployee",
+              component: () => import("@/pages/admin/category/ShowCategory.vue"),
+            },
+            {
+              path: "add",
+              name: "addEmployee",
+              component: () => import("@/pages/admin/category/AddCategory.vue"),
+            },
+            {
+              path: "edit/:employe",
+              name: "editEmployee",
+              component: () => import("@/pages/admin/category/EditCategory.vue"),
+            },
+          ],
+        },
         
       ],
     },
