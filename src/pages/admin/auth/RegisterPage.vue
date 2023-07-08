@@ -26,7 +26,7 @@ const account = reactive({
   level: "admin",
 });
 
-const {POST} = Api()
+const { POST } = Api();
 async function save() {
   const data = await POST("pegawai", objectToFormdata(detailPegawai));
   console.log(data.lastId);
@@ -38,120 +38,102 @@ async function save() {
 </script>
 
 <template>
-  <RegisterForm>
-    <template v-slot:inputField>
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <div>
-        </div>
-        <div>
-          <InputField
-            label="Nik"
-            v-model="detailPegawai.nik"
-            placeholder="Masukan Nik anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="Nama"
-            v-model="detailPegawai.nm_pegawai"
-            placeholder="Masukan nama anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="jenis kelamin"
-            v-model="detailPegawai.jns_kelamin"
-            placeholder="Masukan Jenis Kelamin anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="alamat"
-            v-model="detailPegawai.alamat_pegawai"
-            placeholder="Masukan alamat anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="Tanggal Lahir"
-            v-model="detailPegawai.tgl_lahir"
-            placeholder="Masukan tgl lahir anda"
-            typeInput="date"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="Tempat Lahir"
-            v-model="detailPegawai.tmp_lahir"
-            placeholder="Masukan Tempat Lahir anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="Nomor Hp"
-            v-model="detailPegawai.no_telp"
-            placeholder="Masukan Nomor Hp anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
-        <div>
-          <InputField
-            label="Email"
-            v-model="detailPegawai.email"
-            placeholder="Masukan Email anda"
-            typeInput="text"
-            name="email"
-          />
-        </div>
+  <main class="flex justify-center py-10 items-center w-fit">
+    <RegisterForm>
+      <template v-slot:inputField>
+        <div  class="flex gap-5">
+          <div class="border-r border-black pr-2">
+            <h1 class="text-xl font-semibold ">Data Akun</h1>
+            <div>
+              <InputField
+                label="Nama"
+                v-model="detailPegawai.nm_pegawai"
+                placeholder="Masukan nama anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
+            <div>
+              <InputField
+                label="Email"
+                v-model="detailPegawai.email"
+                placeholder="Masukan Email anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
 
-        <div>
-          <InputField
-            label="Password"
-            v-model="account.password"
-            placeholder="Masukan Password anda"
-            typeInput="password"
-            name="nmProduk"
-          />
+            <div>
+              <InputField
+                label="Password"
+                v-model="account.password"
+                placeholder="Masukan Password anda"
+                typeInput="password"
+                name="nmProduk"
+              />
+            </div>
+          </div>
+          <div class="class flex flex-col gap-2 items-center">
+            <h1 class="text-xl text-center font-semibold">Data Diri</h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+            <div>
+              <InputField
+                label="Nik"
+                v-model="detailPegawai.nik"
+                placeholder="Masukan Nik anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
+            <div>
+              <InputField
+                label="jenis kelamin"
+                v-model="detailPegawai.jns_kelamin"
+                placeholder="Masukan Jenis Kelamin anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
+            <div>
+              <InputField
+                label="alamat"
+                v-model="detailPegawai.alamat_pegawai"
+                placeholder="Masukan alamat anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
+            <div>
+              <InputField
+                label="Tanggal Lahir"
+                v-model="detailPegawai.tgl_lahir"
+                placeholder="Masukan tgl lahir anda"
+                typeInput="date"
+                name="email"
+              />
+            </div>
+            <div>
+              <InputField
+                label="Tempat Lahir"
+                v-model="detailPegawai.tmp_lahir"
+                placeholder="Masukan Tempat Lahir anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
+            <div>
+              <InputField
+                label="Nomor Hp"
+                v-model="detailPegawai.no_telp"
+                placeholder="Masukan Nomor Hp anda"
+                typeInput="text"
+                name="email"
+              />
+            </div>
+          </div>
+          </div>
         </div>
-        <div class="text-sm mb-5 -mt-5">
-          <button
-            @click="forgetPw"
-            class="font-semibold text-indigo-600 hover:text-indigo-500"
-          >
-            Forgot password?
-          </button>
-        </div>
-        <div>
-          <button
-            @click="save"
-            class="flex w-full justify-center rounded-md bg-btn-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-btn-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Daftar
-          </button>
-        </div>
-
-        <p v-if="isCustomer" class="mt-10 text-center text-sm text-gray-500">
-          sudah ada Akun?
-          <button
-            @click="goToLogin"
-            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >
-            daftar
-          </button>
-        </p>
-      </div>
-    </template>
-  </RegisterForm>
+      </template>
+    </RegisterForm>
+  </main>
 </template>
