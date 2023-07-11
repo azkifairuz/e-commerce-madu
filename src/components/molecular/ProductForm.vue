@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import InputField from "@/components/atom/InputField.vue";
+import TextArea from "@/components/atom/TextArea.vue";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm";
 import { useRoute, useRouter } from "vue-router";
@@ -13,6 +14,7 @@ const produk = reactive({
   id_jns_produk: null,
   harga_jual: null,
   harga_beli: null,
+  keterangan: "",
   image: "",
 });
 const errorMsg = ref("");
@@ -115,6 +117,13 @@ async function save() {
       <InputField
         label="Harga Jual"
         v-model="produk.harga_jual"
+        placeholder="Harga Jual"
+        typeInput="text"
+        name="nmProduk"
+      />
+      <TextArea
+        label="Harga Jual"
+        v-model="produk.keterangan"
         placeholder="Harga Jual"
         typeInput="text"
         name="nmProduk"

@@ -34,10 +34,15 @@ const credentials = reactive({
 });
 
 async function handleLogin() {
-  const token = await authenticate(objectToFormdata(credentials));
-  const data = await POST(`auth/me?token=${sessionStorage.getItem("jwtToken")}`,);
+  await authenticate(objectToFormdata(credentials));
+    const data = await POST(`auth/me?token=${sessionStorage.getItem("jwtToken")}`);
+    router.push({
+      name:'landing'
+    })
+    console.log(data.id);
+  console.log("gagal");
 
-  console.log(data);
+
 }
 const router = useRouter();
 const isCustomer = router.currentRoute.value.name === "loginUser";

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import btnComponent from "@/atom/btnComponent.vue";
+import btnComponent from "@/components/atom/btnComponent.vue";
 const isOpen = ref(false);
 const searchQuery = ref("");
 const links = [

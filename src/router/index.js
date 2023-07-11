@@ -3,6 +3,7 @@ export const router = createRouter({
   routes: [
     {
       path: "/",
+      name:"landing",
       component: () => import("@/pages/customer/layout/Landing.vue"),
     },  
     {
@@ -86,7 +87,13 @@ export const router = createRouter({
       path : "/madu",
       name : 'madu',
       component: () => import("@/pages/customer/layout/Customer.vue"),
-
+      children: [
+        {
+          path: "detailProduct",
+          name:'detailProduct',
+          component:() => import("@/pages/customer/detailProduct.vue")
+        }
+      ]
     },
     {
       path:"/auth",
