@@ -61,7 +61,7 @@ export const router = createRouter({
           path: "employee",
           name: "employee",
           component: () => import("@/pages/admin/category/Category.vue"),
-          redirect: { name: "show" },
+          redirect: { name: "showEmployee" },
           children: [
             {
               path: "show",
