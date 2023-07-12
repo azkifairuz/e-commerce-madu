@@ -60,7 +60,7 @@ export const router = createRouter({
         {
           path: "employee",
           name: "employee",
-          component: () => import("@/pages/admin/category/Category.vue"),
+          component: () => import("@/pages/admin/customer/Customer.vue"),
           redirect: { name: "showEmployee" },
           children: [
             {
@@ -77,6 +77,42 @@ export const router = createRouter({
               path: "edit/:employe",
               name: "editEmployee",
               component: () => import("@/pages/admin/category/EditCategory.vue"),
+            },
+          ],
+        },
+        {
+          path: "selling",
+          name: "selling",
+          component: () => import("@/pages/admin/order/Selling.vue"),
+          redirect: { name: "showSelling" },
+          children: [
+            {
+              path: "show",
+              name: "showSelling",
+              component: () => import("@/pages/admin/order/ShowSelling.vue"),
+            },
+            {
+              path: "add",
+              name: "addSelling",
+              component: () => import("@/pages/admin/order/AddSelling.vue"),
+            },
+            {
+              path: "edit/:idSell",
+              name: "editSelling",
+              component: () => import("@/pages/admin/order/EditSelling.vue"),
+            },
+          ],
+        },
+        {
+          path: "dataCustomer",
+          name: "dataCustomer",
+          component: () => import("@/pages/admin/customer/Customer.vue"),
+          redirect: { name: "showCustomer" },
+          children: [
+            {
+              path: "show",
+              name: "showCustomer",
+              component: () => import("@/pages/admin/customer/ShowCustomer.vue"),
             },
           ],
         },

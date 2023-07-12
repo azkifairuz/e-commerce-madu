@@ -6,7 +6,7 @@ import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
 
-const products = ref("");
+const customers = ref("");
 const { GET, DELETE } = Api();
 const router = useRouter();
 const responseMsg = ref("");
@@ -23,13 +23,13 @@ function goToAdd() {
 
 async function getCustomer() {
   const data = await GET("pelanggan");
-  products.value = data.data;
+  customers.value = data.data;
   dataTables();
 }
 
 async function deleteCustomer(id) {
   try {
-    await DELETE(`jnsproduk/${id}`);
+    await DELETE(`pelanggan/${id}`);
     responseMsg.value = "Berhasil Menghapus";
     setTimeout(() => {
       router.push({
@@ -64,16 +64,17 @@ function dataTables() {
       searching: true,
       pageLength: 10,
       scrollY: 300,
+      scrollx: 500,
       lengthMenu: ["5", "10", "15", "25"],
-    });
+    })
   });
 }
 </script>
 
 <template>
-  <div class="h-[500px] overflow-y-auto px-5">
+  <div class="h-[500px] w-full px-5">
     <div class="w-full flex justify-between items-center mb-5">
-      <h1>Data Kategori</h1>
+      <h1>Data Customer</h1>
       <div v-if="responseMsg">
         <div
           class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
@@ -82,20 +83,20 @@ function dataTables() {
           <strong class="font-bold">{{ responseMsg }}</strong>
         </div>
       </div>
-      <button
-        @click="goToAdd"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Tambah Data
-      </button>
+   
     </div>
-    <table id="myTable" class="bg-white py-2 border border-gray-200">
+    <table id="myTable" class="bg-white py-2 border w-full border-gray-200">
       <thead class="bg-yellow-main text-center mt-10 border text-gray-800">
         <tr>
-          <th class="px-6 py-3 whitespace-nowrap text-center">No</th>
-          <th class="px-6 py-3 whitespace-nowrap text-center">Kategori</th>
-          <th class="px-6 py-3 whitespace-nowrap text-center">Keterangan</th>
-          <th class="px-6 py-3 whitespace-nowrap text-center">Aksi</th>
+          <th class="px-6 py-3  text-center">No</th>
+          <th class="px-6 py-3  text-center">NIK</th>
+          <th class="px-6 py-3  text-center">Nama Pelanggan</th>
+          <th class="px-6 py-3  text-center">Alamat Pelanggan</th>
+          <th class="px-6 py-3  text-center">Tanggal Lahir</th>
+          <th class="px-6 py-3  text-center">Tempat Lahir</th>
+          <th class="px-6 py-3  text-center">Jenis Kelamin</th>
+          <th class="px-6 py-3  text-center">Email</th>
+          <th class="px-6 py-3  text-center">No Telpon</th>
         </tr>
       </thead>
       <tbody>
@@ -109,22 +110,6 @@ function dataTables() {
           <td>{{ customer.jns_kelamin }}</td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.no_telp }}</td>
-          <td>
-            <div class="flex flex-row gap-2">
-              <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                @click="goToEdit(customer.id)"
-              >
-                Edit
-              </button>
-              <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                @click="deleteCustomer(customer.id)"
-              >
-                Delete
-              </button>
-            </div>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -133,5 +118,6 @@ function dataTables() {
 
 <style>
 @import "datatables.net-dt";
+
 </style>
 
