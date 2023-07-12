@@ -4,8 +4,6 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 const emit = defineEmits(["savedata"]);
 
-
-
 // const { POST } = Api();
 
 const router = useRouter();
@@ -26,25 +24,35 @@ const goToLogin = () => {
 function buttonClick() {
   emit("savedata");
 }
-
 </script>
 <template>
-  <div
-    class="flex min-h-full md:min-h-fit md:w-fit items-center w-full bg-white flex-1 flex-col justify-center px-6 py-12 lg:px-8"
-  >
-    <div class="sm:mx-auto sm:w-full ">
-      <img class="mx-auto h-10 w-auto" :src="logo" alt="Madu Apiari" />
 
-      <h2
-        class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
-      >
-        {{ isCustomer ? "Daftar Akun" : "Daftarkan Admin" }}
-      </h2>
+  <div class="flex flex-col-reverse lg:flex-row overflow-y-auto bg-white w-full h-screen">
+    <!-- Image Section -->
+    <div class="lg:block w-full h-[1000px] lg:w-1/2 bg-btn-primary">
+      <!-- Replace the URL with your image -->
+      <img
+        src="image-url.jpg"
+        alt="Registration Image"
+        class="object-cover w-full h-full"
+      />
     </div>
 
-    <div class="mt-10 sm:mx-auto flex flex-col gap-5 sm:w-full md:w-fit">
-      <slot name="inputField"> </slot>
-
+    <!-- Form Section -->
+    <div class="w-full lg:w-1/2 px-6 lg:h-screen lg:overflow-y-auto pb-10  bg-white">
+      <h1 class="text-2xl font-bold text-center">
+        {{ isCustomer ? "Daftar Akun" : "Daftarkan Admin" }}
+      </h1>
+      <p v-if="isCustomer" class="mb-10 text-center text-sm text-gray-500">
+        sudah ada Akun?
+        <button
+          @click="goToLogin"
+          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+        >
+          Login
+        </button>
+      </p>
+      <slot class="" name="inputField"> </slot>
       <div>
         <button
           @click="buttonClick"
@@ -54,15 +62,7 @@ function buttonClick() {
         </button>
       </div>
 
-      <p v-if="isCustomer" class="mt-10 text-center text-sm text-gray-500">
-        sudah ada Akun?
-        <button
-          @click="goToLogin"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-        >
-          daftar
-        </button>
-      </p>
+
     </div>
   </div>
 </template>

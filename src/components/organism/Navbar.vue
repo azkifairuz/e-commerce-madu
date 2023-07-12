@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import btnComponent from "@/components/atom/btnComponent.vue";
+import { useRouter } from "vue-router";
 const isOpen = ref(false);
 const searchQuery = ref("");
 const links = [
@@ -10,6 +11,27 @@ const links = [
   { id: 3, label: "Madu", url: "#prduct" },
   { id: 4, label: "Kontak", url: "3contact" },
 ];
+const router = useRouter()
+
+
+function goToLoginPage(){
+
+    router.push(
+      {
+        name:"loginUser"
+      }
+    )
+
+}
+function goToRegisterPage(){
+
+    router.push(
+      {
+        name:"registerUser"
+      }
+    )
+
+}
 </script>
 
 <template>
@@ -43,12 +65,15 @@ const links = [
           <div class="gap-4 hidden md:flex">
             <btn-component
               label="Masuk"
+              @someEvent="goToLoginPage"
               primary-color="bg-green-500"
               hover-color="hover:bg-green-700"
               text-color="text-white"
             />
             <btn-component
               label="Daftar"
+              @someEvent="goToRegisterPage"
+
               primary-color="bg-blue-500"
               hover-color="hover:bg-blue-700"
               text-color="text-white"
@@ -114,7 +139,7 @@ const links = [
         </a>
 
       </div>
-      <div class="flex flex-col gap-4 px-3 pb-4  ">
+      <div class="flex flex-col cursor-pointer gap-4 px-3 pb-4  ">
           <btn-component
             label="Masuk"
             primary-color="bg-green-500"

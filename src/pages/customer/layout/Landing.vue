@@ -5,12 +5,10 @@ import CardCategory from "@/components/atom/CardCategory.vue";
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
 import CardProduct from "../../../components/molecular/CardProduct.vue";
-import dummy from "@/assets/honey-jar.png"
 import {numberFormat} from '@/utils/NumberFormat'
 const categories = ref("");
 const products = ref("");
 const { GET } = Api();
-
 async function getCategory() {
   const data = await GET("jnsproduk");
   categories.value = data.data;
@@ -47,7 +45,7 @@ onMounted(() => {
             <card-product
               v-for="product in products"
               :key="product.id"
-              :image-url="dummy"
+              :image-url="`127.0.0.1:8000/produk/${product.image}`"
               :title="product.nm_produk"
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"

@@ -15,7 +15,7 @@ function buttonClick() {
   <div
     @click="buttonClick"
     :class="[primaryColor, hoverColor, textColor]"
-    class="rounded-md flex justify-center text-center gap-2 items-center px-2 py-2"
+    class="rounded-md flex cursor-pointer justify-center text-center gap-2 items-center px-2 py-2"
   >
     <slot></slot>
     <p>
