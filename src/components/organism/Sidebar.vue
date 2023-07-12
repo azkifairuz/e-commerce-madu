@@ -20,7 +20,7 @@ const listItem = [
     title: "Pegawai",
   },
   {
-    name: "selling",
+    name: "order",
     title: "Penjualan",
   },
 ];

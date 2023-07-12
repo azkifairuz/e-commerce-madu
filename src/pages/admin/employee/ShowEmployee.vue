@@ -6,48 +6,20 @@ import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
 
-const customers = ref("");
+const employees = ref("");
 const { GET, DELETE } = Api();
-const router = useRouter();
 const responseMsg = ref("");
 
 onMounted(() => {
-  getCustomer();
+  getEmployee();
 });
 
-function goToAdd() {
-  router.push({
-    name: "addCategory",
-  });
-}
 
-async function getCustomer() {
-  const data = await GET("pelanggan");
-  customers.value = data.data;
+async function getEmployee() {
+  const data = await GET("pegawai");
+  employees.value = data.data;
+  console.log(data.data);
   dataTables();
-}
-
-async function deleteCustomer(id) {
-  try {
-    await DELETE(`pelanggan/${id}`);
-    responseMsg.value = "Berhasil Menghapus";
-    setTimeout(() => {
-      router.push({
-        name: "showCategory",
-      });
-    }, 2000);
-  } catch (error) {
-    console.error(error);
-    responseMsg.value = "Gagal Menghapus";
-  }
-}
-
-function goToEdit(id) {
-  router.push({
-    name: "editCategory",
-    params: { category: id },
-  });
-  console.log(id);
 }
 
 function dataTables() {
@@ -64,17 +36,16 @@ function dataTables() {
       searching: true,
       pageLength: 10,
       scrollY: 300,
-      scrollx: 500,
       lengthMenu: ["5", "10", "15", "25"],
-    })
+    });
   });
 }
 </script>
 
 <template>
-  <div class="h-[500px] w-full px-5">
-    <div class="w-full flex justify-between items-center mb-5">
-      <h1>Data Customer</h1>
+  <div class="h-[500px] overflow-y-auto px-5">
+    <div class=" flex justify-between items-center mb-5">
+      <h1>Data Pegawai</h1>
       <div v-if="responseMsg">
         <div
           class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
@@ -83,15 +54,14 @@ function dataTables() {
           <strong class="font-bold">{{ responseMsg }}</strong>
         </div>
       </div>
-   
     </div>
-    <table id="myTable" class="bg-white py-2 border w-full border-gray-200">
+    <table id="myTable" class="bg-white w-full py-2 border border-gray-200">
       <thead class="bg-yellow-main text-center mt-10 border text-gray-800">
         <tr>
           <th class="px-6 py-3 text-center">No</th>
           <th class="px-6 py-3 text-center">NIK</th>
-          <th class="px-6 py-3 text-center">Nama Pelanggan</th>
-          <th class="px-6 py-3 text-center">Alamat Pelanggan</th>
+          <th class="px-6 py-3 text-center">Nama Pegawai</th>
+          <th class="px-6 py-3 text-center">Alamat Pegawai</th>
           <th class="px-6 py-3 text-center">Tanggal Lahir</th>
           <th class="px-6 py-3 text-center">Tempat Lahir</th>
           <th class="px-6 py-3 text-center">Jenis Kelamin</th>
@@ -100,16 +70,16 @@ function dataTables() {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(customer, index) in customers" :key="customer.id">
+        <tr v-for="(employee, index) in employees" :key="employee.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ customer.nik }}</td>
-          <td>{{ customer.nm_pelanggan }}</td>
-          <td>{{ customer.alamat_pelanggan }}</td>
-          <td>{{ customer.tgl_lahir }}</td>
-          <td>{{ customer.tmp_lahir }}</td>
-          <td>{{ customer.jns_kelamin }}</td>
-          <td>{{ customer.email }}</td>
-          <td>{{ customer.no_telp }}</td>
+          <td>{{ employee.nik }}</td>
+          <td>{{ employee.nm_pegawai }}</td>
+          <td>{{ employee.alamat_pegawai }}</td>
+          <td>{{ employee.tgl_lahir }}</td>
+          <td>{{ employee.tmp_lahir }}</td>
+          <td>{{ employee.jns_kelamin }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.no_telp }}</td>
         </tr>
       </tbody>
     </table>
@@ -118,6 +88,5 @@ function dataTables() {
 
 <style>
 @import "datatables.net-dt";
-
 </style>
 

@@ -60,46 +60,36 @@ export const router = createRouter({
         {
           path: "employee",
           name: "employee",
-          component: () => import("@/pages/admin/customer/Customer.vue"),
+          component: () => import("@/pages/admin/employee/Employee.vue"),
           redirect: { name: "showEmployee" },
           children: [
             {
               path: "show",
               name: "showEmployee",
-              component: () => import("@/pages/admin/category/ShowCategory.vue"),
+              component: () => import("@/pages/admin/employee/ShowEmployee.vue"),
             },
             {
               path: "add",
               name: "addEmployee",
-              component: () => import("@/pages/admin/category/AddCategory.vue"),
+              component: () => import("@/pages/admin/employee/AddEmployee.vue"),
             },
             {
               path: "edit/:employe",
               name: "editEmployee",
-              component: () => import("@/pages/admin/category/EditCategory.vue"),
+              component: () => import("@/pages/admin/employee/EditEmployee.vue"),
             },
           ],
         },
         {
-          path: "selling",
-          name: "selling",
-          component: () => import("@/pages/admin/order/Selling.vue"),
-          redirect: { name: "showSelling" },
+          path: "order",
+          name: "order",
+          component: () => import("@/pages/admin/order/Order.vue"),
+          redirect: { name: "showOrder" },
           children: [
             {
               path: "show",
-              name: "showSelling",
-              component: () => import("@/pages/admin/order/ShowSelling.vue"),
-            },
-            {
-              path: "add",
-              name: "addSelling",
-              component: () => import("@/pages/admin/order/AddSelling.vue"),
-            },
-            {
-              path: "edit/:idSell",
-              name: "editSelling",
-              component: () => import("@/pages/admin/order/EditSelling.vue"),
+              name: "showOrder",
+              component: () => import("@/pages/admin/order/ShowOrder.vue"),
             },
           ],
         },
