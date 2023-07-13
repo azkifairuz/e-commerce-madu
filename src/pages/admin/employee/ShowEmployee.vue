@@ -9,7 +9,7 @@ import { useRouter } from "vue-router";
 const employees = ref("");
 const { GET, DELETE } = Api();
 const responseMsg = ref("");
-
+const router = useRouter()
 onMounted(() => {
   getEmployee();
 });
@@ -20,6 +20,14 @@ async function getEmployee() {
   employees.value = data.data;
   console.log(data.data);
   dataTables();
+}
+
+function registerEmploye() {
+    router.push(
+      {
+        name:"pegawai"
+      }
+    )
 }
 
 function dataTables() {
@@ -54,6 +62,12 @@ function dataTables() {
           <strong class="font-bold">{{ responseMsg }}</strong>
         </div>
       </div>
+      <button
+        @click="registerEmploye"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Daftarkan Pegawai
+      </button>
     </div>
     <table id="myTable" class="bg-white w-full py-2 border border-gray-200">
       <thead class="bg-yellow-main text-center mt-10 border text-gray-800">

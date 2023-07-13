@@ -9,7 +9,9 @@ import { useRouter } from "vue-router";
 function setAuthToken(token) {
   if (token) {
     sessionStorage.setItem("jwtToken", token);
+    sessionStorage.setItem("isLogin", true);
   } else {
+    sessionStorage.setItem("isLogin", false);
     sessionStorage.removeItem("jwtToken");
   }
 }
@@ -21,6 +23,7 @@ async function authenticate(credentials) {
     const { access_token } = response;
     setAuthToken(access_token);
     console.log(sessionStorage.getItem("jwtToken"));
+    console.log(sessionStorage.getItem("isLogin"));
     
   } catch (error) {
     console.log("Autentikasi gagal", error);
@@ -40,9 +43,6 @@ async function handleLogin() {
       name:'landing'
     })
     console.log(data.id);
-  console.log("gagal");
-
-
 }
 const router = useRouter();
 const isCustomer = router.currentRoute.value.name === "loginUser";
