@@ -11,8 +11,8 @@ function setAuthToken(token) {
     sessionStorage.setItem("jwtToken", token);
     sessionStorage.setItem("isLogin", true);
   } else {
-    sessionStorage.setItem("isLogin", false);
     sessionStorage.removeItem("jwtToken");
+    sessionStorage.setItem("isLogin", false);
   }
 }
 const { POST } = Api();
@@ -23,7 +23,6 @@ async function authenticate(credentials) {
     const { access_token } = response;
     setAuthToken(access_token);
     console.log(sessionStorage.getItem("jwtToken"));
-    console.log(sessionStorage.getItem("isLogin"));
     
   } catch (error) {
     console.log("Autentikasi gagal", error);

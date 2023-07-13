@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import btnComponent from "@/components/atom/btnComponent.vue";
 import { useRouter } from "vue-router";
 const isOpen = ref(false);
@@ -12,6 +12,15 @@ const links = [
   { id: 4, label: "Kontak", url: "3contact" },
 ];
 const router = useRouter()
+
+onMounted(
+  ()=>{
+    const isLogin =sessionStorage.getItem("isLogin");
+    console.log(isLogin);
+    const cekIsLogin = isLogin? true:false
+  }
+)
+
 
 
 function goToLoginPage(){
@@ -62,7 +71,7 @@ function goToRegisterPage(){
               </a>
             </div>
           </div>
-          <div class="gap-4 hidden md:flex">
+          <div v-if="isLogin" class="gap-4 hidden md:flex">
             <btn-component
               label="Masuk"
               @someEvent="goToLoginPage"
@@ -76,6 +85,15 @@ function goToRegisterPage(){
 
               primary-color="bg-blue-500"
               hover-color="hover:bg-blue-700"
+              text-color="text-white"
+            />
+          </div>
+          <div v-if="!isLogin" class="gap-4 hidden md:flex">
+            <btn-component
+              label="Logout"
+              @someEvent="goToLoginPage"
+              primary-color="bg-red-500"
+              hover-color="hover:bg-red-700"
               text-color="text-white"
             />
           </div>
