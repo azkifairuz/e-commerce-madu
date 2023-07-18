@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import btnComponent from "@/components/atom/btnComponent.vue";
 import { useRouter } from "vue-router";
+import Api from "@/config/api/Api";
 const isOpen = ref(false);
 const searchQuery = ref("");
 const links = [
@@ -11,35 +12,27 @@ const links = [
   { id: 3, label: "Madu", url: "#prduct" },
   { id: 4, label: "Kontak", url: "3contact" },
 ];
-const router = useRouter()
+const router = useRouter();
 
-onMounted(
-  ()=>{
-    const isLogin =sessionStorage.getItem("isLogin");
-    console.log(isLogin);
-    const cekIsLogin = isLogin? true:false
-  }
-)
+onMounted(() => {
+  
+});
 
+const isLogin = sessionStorage.getItem("isLogin");
+const { POST } = Api();
 
-
-function goToLoginPage(){
-
-    router.push(
-      {
-        name:"loginUser"
-      }
-    )
-
+function goToLoginPage() {
+  POST("auth/login", sessionStorage.getItem("sesIdUser"));
+  sessionStorage.setItem("isLogin", false);
+  router.push({
+    name: "loginUser",
+  });
 }
-function goToRegisterPage(){
 
-    router.push(
-      {
-        name:"registerUser"
-      }
-    )
-
+function goToRegisterPage() {
+  router.push({
+    name: "registerUser",
+  });
 }
 </script>
 
@@ -71,7 +64,7 @@ function goToRegisterPage(){
               </a>
             </div>
           </div>
-          <div v-if="isLogin" class="gap-4 hidden md:flex">
+          <div v-if="isLogin === 'false' " class="gap-4 hidden md:flex">
             <btn-component
               label="Masuk"
               @someEvent="goToLoginPage"
@@ -82,13 +75,12 @@ function goToRegisterPage(){
             <btn-component
               label="Daftar"
               @someEvent="goToRegisterPage"
-
               primary-color="bg-blue-500"
               hover-color="hover:bg-blue-700"
               text-color="text-white"
             />
           </div>
-          <div v-if="!isLogin" class="gap-4 hidden md:flex">
+          <div v-if="isLogin === 'true' " class="gap-4 hidden md:flex">
             <btn-component
               label="Logout"
               @someEvent="goToLoginPage"
@@ -99,18 +91,18 @@ function goToRegisterPage(){
           </div>
         </div>
         <div class="flex md:hidden justify-center flex-1">
-            <input
-              v-model="searchQuery"
-              type="text"
-              placeholder="Search"
-              class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-            />
-          </div>
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Search"
+            class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+          />
+        </div>
         <div class="-mr-2 flex md:hidden">
           <button
             @click="isOpen = !isOpen"
             type="button"
-            class="inline-flex items-center justify-center p-2 rounded-md text-black  hover:bg-yellow-300 focus:outline-none focus:bg-yellow-400  transition duration-150 ease-in-out"
+            class="inline-flex items-center justify-center p-2 rounded-md text-black hover:bg-yellow-300 focus:outline-none focus:bg-yellow-400 transition duration-150 ease-in-out"
             :aria-expanded="isOpen"
           >
             <svg
@@ -145,7 +137,7 @@ function goToRegisterPage(){
         </div>
       </div>
     </div>
-    <div :class="{ block: isOpen, hidden: !isOpen }" class="md:hidden  ">
+    <div :class="{ block: isOpen, hidden: !isOpen }" class="md:hidden">
       <div class="px-2 pt-2 pb-3 sm:px-3">
         <a
           v-for="link in links"
@@ -155,22 +147,21 @@ function goToRegisterPage(){
         >
           {{ link.label }}
         </a>
-
       </div>
-      <div class="flex flex-col cursor-pointer gap-4 px-3 pb-4  ">
-          <btn-component
-            label="Masuk"
-            primary-color="bg-green-500"
-            hover-color="hover:bg-green-700"
-            text-color="text-white"
-          />
-          <btn-component
-            label="Daftar"
-            primary-color="bg-blue-500"
-            hover-color="hover:bg-blue-700"
-            text-color="text-white"
-          />
-        </div>
+      <div class="flex flex-col cursor-pointer gap-4 px-3 pb-4">
+        <btn-component
+          label="Masuk"
+          primary-color="bg-green-500"
+          hover-color="hover:bg-green-700"
+          text-color="text-white"
+        />
+        <btn-component
+          label="Daftar"
+          primary-color="bg-blue-500"
+          hover-color="hover:bg-blue-700"
+          text-color="text-white"
+        />
+      </div>
     </div>
   </nav>
 </template>

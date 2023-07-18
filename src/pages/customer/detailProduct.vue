@@ -1,5 +1,6 @@
 <script setup>
-console.log("detail produk");
+import Api from "@/config/api/Api"
+
 </script>
 <template>
   <main class="flex gap-5 px-10">

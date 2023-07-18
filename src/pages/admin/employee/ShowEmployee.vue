@@ -7,7 +7,7 @@ import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
 
 const employees = ref("");
-const { GET, DELETE } = Api();
+const { GET } = Api();
 const responseMsg = ref("");
 const router = useRouter()
 onMounted(() => {
@@ -51,10 +51,10 @@ function dataTables() {
 </script>
 
 <template>
-  <div class="h-[500px] overflow-y-auto px-5">
+  <div class="h-[500px]  px-5">
     <div class=" flex justify-between items-center mb-5">
       <h1>Data Pegawai</h1>
-      <div v-if="responseMsg">
+      <div v-show="responseMsg">
         <div
           class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
           role="alert"

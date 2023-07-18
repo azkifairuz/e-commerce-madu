@@ -41,7 +41,7 @@ async function handleLogin() {
     router.push({
       name:'landing'
     })
-    console.log(data.id);
+    sessionStorage.setItem("sesIdUser", data.id)
 }
 const router = useRouter();
 const isCustomer = router.currentRoute.value.name === "loginUser";
