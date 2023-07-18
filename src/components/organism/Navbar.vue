@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted, ref } from "vue";
 import btnComponent from "@/components/atom/btnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
@@ -13,10 +12,6 @@ const links = [
   { id: 4, label: "Kontak", url: "3contact" },
 ];
 const router = useRouter();
-
-onMounted(() => {
-  
-});
 
 const isLogin = sessionStorage.getItem("isLogin");
 const { POST } = Api();

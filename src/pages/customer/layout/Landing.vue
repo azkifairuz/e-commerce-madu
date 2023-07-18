@@ -1,5 +1,4 @@
 <script setup>
-import Navbar from "@/components/organism/Navbar.vue";
 import Jbtr from "@/components/atom/JumboTron.vue";
 import CardCategory from "@/components/atom/CardCategory.vue";
 import Api from "@/config/api/Api";
@@ -25,8 +24,7 @@ onMounted(() => {
 </script>
 <template>
   <body>
-    <Navbar />
-    <div class="py-[64px]">
+    <div >
       <Jbtr />
       <main class="px-10 py-10">
         <section id="category" class="flex flex-col gap-5">
@@ -45,7 +43,6 @@ onMounted(() => {
             <card-product
               v-for="product in products"
               :key="product.id"
-              :image-url="`127.0.0.1:8000/produk/${product.image}`"
               :title="product.nm_produk"
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
@@ -53,8 +50,6 @@ onMounted(() => {
             />
           </div>
         </section>
-
-        <router-view></router-view>
       </main>
     </div>
   </body>

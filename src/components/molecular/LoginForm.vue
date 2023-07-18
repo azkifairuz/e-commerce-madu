@@ -39,7 +39,7 @@ async function handleLogin() {
   await authenticate(objectToFormdata(credentials));
     const data = await POST(`auth/me?token=${sessionStorage.getItem("jwtToken")}`);
     router.push({
-      name:'landing'
+      name:'home'
     })
     sessionStorage.setItem("sesIdUser", data.id)
 }

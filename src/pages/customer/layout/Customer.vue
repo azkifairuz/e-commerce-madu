@@ -28,7 +28,7 @@ onMounted(() => {
 </script>
 <template>
   <Navbar />
-  <main class="py-20">
+  <main class="py-10">
       <RouterView/>
-    </main>
+  </main>
 </template>

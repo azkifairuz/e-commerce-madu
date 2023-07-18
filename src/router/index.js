@@ -3,9 +3,8 @@ export const router = createRouter({
   routes: [
     {
       path: "/",
-      name:"landing",
-      component: () => import("@/pages/customer/layout/Landing.vue"),
-    },  
+      redirect: { name: "madu" },
+    },
     {
       path: "/admin",
       name: "admin",
@@ -43,7 +42,8 @@ export const router = createRouter({
             {
               path: "show",
               name: "showCategory",
-              component: () => import("@/pages/admin/category/ShowCategory.vue"),
+              component: () =>
+                import("@/pages/admin/category/ShowCategory.vue"),
             },
             {
               path: "add",
@@ -53,7 +53,8 @@ export const router = createRouter({
             {
               path: "edit/:category",
               name: "editCategory",
-              component: () => import("@/pages/admin/category/EditCategory.vue"),
+              component: () =>
+                import("@/pages/admin/category/EditCategory.vue"),
             },
           ],
         },
@@ -66,7 +67,8 @@ export const router = createRouter({
             {
               path: "show",
               name: "showEmployee",
-              component: () => import("@/pages/admin/employee/ShowEmployee.vue"),
+              component: () =>
+                import("@/pages/admin/employee/ShowEmployee.vue"),
             },
             {
               path: "add",
@@ -76,7 +78,8 @@ export const router = createRouter({
             {
               path: "edit/:employe",
               name: "editEmployee",
-              component: () => import("@/pages/admin/employee/EditEmployee.vue"),
+              component: () =>
+                import("@/pages/admin/employee/EditEmployee.vue"),
             },
           ],
         },
@@ -102,56 +105,66 @@ export const router = createRouter({
             {
               path: "show",
               name: "showCustomer",
-              component: () => import("@/pages/admin/customer/ShowCustomer.vue"),
+              component: () =>
+                import("@/pages/admin/customer/ShowCustomer.vue"),
             },
           ],
         },
-        
       ],
     },
     {
-      path : "/madu",
-      name : 'madu',
+      path: "/madu",
+      name: "madu",
       component: () => import("@/pages/customer/layout/Customer.vue"),
       children: [
         {
+          path: "home",
+          name: "home",
+          component: () => import("@/pages/customer/layout/landing.vue"),
+        },
+        {
+          path: "productByCategory/:idProduct",
+          name: "productByCategory",
+          component: () => import("@/pages/customer/ProductByCategory.vue"),
+        },
+        {
           path: "detailProduct",
-          name:'detailProduct',
-          component:() => import("@/pages/customer/detailProduct.vue")
-        }
-      ]
+          name: "detailProduct",
+          component: () => import("@/pages/customer/layout/Landing.vue"),
+        },
+      ],
     },
     {
-      path:"/auth",
-      redirect:{name:"loginUser"},
-      children:[
+      path: "/auth",
+      redirect: { name: "loginUser" },
+      children: [
         {
-          path:"login",
-          name:"loginUser",
-          component: () => import("@/pages/customer/auth/LoginPage.vue")
+          path: "login",
+          name: "loginUser",
+          component: () => import("@/pages/customer/auth/LoginPage.vue"),
         },
         {
-          path:"loginAdmin",
-          name:"loginAdmin",
-          component: () => import("@/pages/admin/auth/LoginPage.vue")
+          path: "loginAdmin",
+          name: "loginAdmin",
+          component: () => import("@/pages/admin/auth/LoginPage.vue"),
         },
         {
-          path:"register",
-          name:"registerUser",
-          component: () => import("@/pages/customer/auth/RegisterPage.vue")
+          path: "register",
+          name: "registerUser",
+          component: () => import("@/pages/customer/auth/RegisterPage.vue"),
         },
         {
-          path:"registerAdmin",
-          name:"pegawai",
-          component: () => import("@/pages/admin/auth/RegisterPage.vue")
+          path: "registerAdmin",
+          name: "pegawai",
+          component: () => import("@/pages/admin/auth/RegisterPage.vue"),
         },
         {
-          path:"forget",
-          name:"forgetPwUser",
-          component: () => import("@/pages/customer/auth/ForgetPw.vue")
-        }
-      ]
-    }
+          path: "forget",
+          name: "forgetPwUser",
+          component: () => import("@/pages/customer/auth/ForgetPw.vue"),
+        },
+      ],
+    },
   ],
   history: createWebHistory(),
 });
