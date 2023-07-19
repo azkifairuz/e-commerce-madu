@@ -4,9 +4,11 @@ import CardCategory from "@/components/atom/CardCategory.vue";
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
 import CardProduct from "../../../components/molecular/CardProduct.vue";
-import {numberFormat} from '@/utils/NumberFormat'
+import { numberFormat } from "@/utils/NumberFormat";
+import { useRouter } from "vue-router";
 const categories = ref("");
 const products = ref("");
+const router = useRouter();
 const { GET } = Api();
 async function getCategory() {
   const data = await GET("jnsproduk");
@@ -15,6 +17,18 @@ async function getCategory() {
 async function getProduct() {
   const data = await GET("produk");
   products.value = data.data;
+}
+function goToProductByCategory(id) {
+  console.log("clicked");
+  router.push({
+    name: "productByCategory",
+    params: { idProduct: id },
+  });
+}
+function goToDetailProduct() {
+  router.push({
+    name: "detailProduct",
+  });
 }
 
 onMounted(() => {
@@ -33,13 +47,17 @@ onMounted(() => {
             <card-category
               v-for="category in categories"
               :key="category.id"
+              @kategoriList="goToProductByCategory(category.id)"
               :label="category.nm_jns_produk"
             />
           </div>
         </section>
         <section id="product" class="flex flex-col mt-10 gap-5">
           <h1 class="text-2xl font-poppins font-bold">Produk Madu</h1>
-          <div id="categories section" class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 grid-rows-1 overflow-hidden gap-5">
+          <div
+            id="categories section"
+            class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 grid-rows-1 overflow-hidden gap-5"
+          >
             <card-product
               v-for="product in products"
               :key="product.id"

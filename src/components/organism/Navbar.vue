@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import btnComponent from "@/components/atom/btnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";

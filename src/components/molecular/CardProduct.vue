@@ -7,6 +7,10 @@ const props = defineProps({
   category: String,
   price: String,
 });
+const emit = defineEmits(['goToDetail'])
+function goToDetail() {
+  emit('goToDetail')
+}
 </script>
 
 <template>
