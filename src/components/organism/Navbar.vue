@@ -6,11 +6,11 @@ import Api from "@/config/api/Api";
 const isOpen = ref(false);
 const searchQuery = ref("");
 const links = [
-  { id: 1, label: "Beranda", url: "#" },
-  { id: 2, label: "Tentang", url: "#about" },
-  { id: 3, label: "Jenis Madu", url: "#category" },
+  { id: 1, label: "Beranda", url: "home" },
+  { id: 2, label: "Kategori Madu", url: "#about" },
+  { id: 3, label: "Semua Madu", url: "#category" },
   { id: 3, label: "Madu", url: "#prduct" },
-  { id: 4, label: "Kontak", url: "3contact" },
+  { id: 4, label: "Keranjang", url: "cart" },
 ];
 const router = useRouter();
 
@@ -23,6 +23,14 @@ function goToLoginPage() {
   router.push({
     name: "loginUser",
   });
+}
+
+function navigationPage(pathName){
+  router.push(
+    {
+      name:pathName
+    }
+  )
 }
 
 function goToRegisterPage() {
@@ -53,14 +61,24 @@ function goToRegisterPage() {
               <a
                 v-for="link in links"
                 :key="link.id"
-                :href="link.url"
-                class="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-yellow-light"
+                @click="navigationPage(link.url)"
+                class="px-3 py-2 rounded-md text-sm cursor-pointer font-medium text-black hover:bg-yellow-light"
               >
                 {{ link.label }}
               </a>
             </div>
           </div>
-          <div v-if="isLogin === 'false' " class="gap-4 hidden md:flex">
+         
+          <div v-if="isLogin === 'true' " class="gap-4 hidden md:flex">
+            <btn-component
+              label="Logout"
+              @someEvent="goToLoginPage"
+              primary-color="bg-red-500"
+              hover-color="hover:bg-red-700"
+              text-color="text-white"
+            />
+          </div>
+          <div v-else class="gap-4 hidden md:flex">
             <btn-component
               label="Masuk"
               @someEvent="goToLoginPage"
@@ -73,15 +91,6 @@ function goToRegisterPage() {
               @someEvent="goToRegisterPage"
               primary-color="bg-blue-500"
               hover-color="hover:bg-blue-700"
-              text-color="text-white"
-            />
-          </div>
-          <div v-if="isLogin === 'true' " class="gap-4 hidden md:flex">
-            <btn-component
-              label="Logout"
-              @someEvent="goToLoginPage"
-              primary-color="bg-red-500"
-              hover-color="hover:bg-red-700"
               text-color="text-white"
             />
           </div>

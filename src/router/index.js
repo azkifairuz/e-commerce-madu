@@ -115,6 +115,7 @@ export const router = createRouter({
     {
       path: "/madu",
       name: "madu",
+      redirect: { name: "home" },
       component: () => import("@/pages/customer/layout/Customer.vue"),
       children: [
         {

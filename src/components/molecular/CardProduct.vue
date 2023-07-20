@@ -15,7 +15,7 @@ function goToDetail() {
 
 <template>
   <div
-    class="max-w-md mx-auto rounded overflow-hidden w-60 cursor-pointer p-2 shadow-lg"
+    class="max-w-md bg-white rounded-md  overflow-hidden w-60 cursor-pointer p-2 hover:shadow-lg"
   >
     <img
       :src="imageUrl"
