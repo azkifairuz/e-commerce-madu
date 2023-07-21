@@ -19,8 +19,7 @@ function goToDetail() {
   >
     <img
       :src="imageUrl"
-      :alt="title"
-      class="w-full bg-white h-48 object-cover"
+      class="w-full bg-black h-48 object-cover"
     />
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2 line-clamp-1 hover:">{{ title }}</div>

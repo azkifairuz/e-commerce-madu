@@ -138,6 +138,11 @@ export const router = createRouter({
           name: "cart",
           component: () => import("@/pages/customer/Cart.vue"),
         },
+        {
+          path: "payment",
+          name: "payment",
+          component: () => import("@/pages/customer/Payment.vue"),
+        },
       ],
     },
     {

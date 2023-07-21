@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, onMounted, ref } from "vue";
-import Api from "../../../config/api/Api";
+import Api from "@/config/api/Api";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";

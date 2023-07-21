@@ -1,5 +1,13 @@
 <script setup>
 import BtnComponent from "@/components/atom/BtnComponent.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter()
+function goToCheckout() {
+  router.push({
+    path:"payment"
+  })
+}
 </script>
 
 <template>
@@ -33,6 +41,7 @@ import BtnComponent from "@/components/atom/BtnComponent.vue";
         </div>
         <BtnComponent
           label="Checkout"
+          @some-event="goToCheckout"
           primary-color="bg-btn-primary"
           hover-color="hover:bg-btn-hover"
           textColor="text-black"
