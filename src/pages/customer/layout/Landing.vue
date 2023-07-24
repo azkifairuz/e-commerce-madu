@@ -40,9 +40,6 @@ function goToDetailProduct() {
 }
 
 onMounted(() => {
-  for (const key in categories) {
-    console.log({image:key.image});
-  }
   getProduct();
   getCategory();
 });
@@ -76,12 +73,12 @@ onMounted(() => {
               v-for="product in products"
               :key="product.id"
               :imageUrl="baseImageUrl+product.image"
-              :title="baseImageUrl+product.image"
+              :title="product.title"
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               description="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
             />
-            <h1 v-else>categori kosong atau jaringan bermasalah</h1>
+            <h1 v-else>product kosong atau jaringan bermasalah</h1>
           </div>
         </section>
       </main>

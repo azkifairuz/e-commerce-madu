@@ -1,6 +1,21 @@
 <script setup>
-import Api from "@/config/api/Api"
+import Api from "@/config/api/Api";
+import { onMounted, ref } from "vue";
+const {GET} = Api();
+const product = ref("")
+async function getProduct(){
 
+  const data = await GET('produk')
+  product.value = data.data
+  console.log(data.data);
+
+}
+
+onMounted(
+()=>{
+  getProduct()
+}
+)
 </script>
 <template>
   <main class="flex gap-5 px-10 ">
@@ -15,4 +30,5 @@ import Api from "@/config/api/Api"
       <button>Beli</button>
     </div>
   </main>
+ 
 </template>
