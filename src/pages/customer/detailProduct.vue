@@ -1,24 +1,50 @@
 <script setup>
 import Api from "@/config/api/Api";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import CardProduct from "@/components/molecular/CardProduct.vue";
-import {numberFormat} from "@/utils/NumberFormat"
+import { numberFormat } from "@/utils/NumberFormat";
+import BtnComponent from "@/components/atom/BtnComponent.vue";
+import { useRoute } from "vue-router";
 const { GET } = Api();
-const products = ref("");
+const products = ref("")
+const route = useRoute();
+const product = reactive({
+  id:null,
+  nm_produk: "",
+  qty_produk: null,
+  id_jns_produk: null,
+  harga_jual: null,
+  harga_beli: null,
+});
 async function getProduct() {
   const data = await GET("produk");
-  products.value = data.data;
-}
-onMounted(() => {
-  getProduct();
-});
-const baseImageUrl = "http://127.0.0.1:8000/storage/produk/"
-const quantity = ref(1);
-function addQuantity() {
-  return quantity.value =  quantity.value+1
-  
+  products.value = data.data
 }
 
+async function getProductById() {
+  const idProduct = route.params.idProduct;
+  const data = await GET(`produk/${idProduct}`);
+  console.log('idProduct',idProduct);
+  Object.keys(data.data).forEach((key) => {
+    product[key] = data.data[key];
+  });
+}
+
+onMounted(() => {
+  getProduct();
+  getProductById();
+});
+const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
+const quantity = ref(1);
+function addQuantity() {
+  return (quantity.value = quantity.value + 1);
+}
+function decreaseQuantity() {
+  if (quantity.value <= 0) {
+    return;
+  }
+  return (quantity.value = quantity.value - 1);
+}
 </script>
 <template>
   <main class="px-10 py-10 flex flex-col gap-10">
@@ -30,7 +56,7 @@ function addQuantity() {
       />
       <div class="w-1/2 flex flex-col justify-evenly">
         <div>
-          <h1 class="font-bold">title</h1>
+          <h1 class="font-bold text-xl">{{ product.nm_produk }}</h1>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus
             alias aperiam sapiente possimus impedit in adipisci laboriosam
@@ -41,18 +67,54 @@ function addQuantity() {
         <div>
           <h1>kuantitas</h1>
           <div class="flex gap-2">
-            <button class="w-5 h-5 text-center bg-gray-400 p-1 flex justify-center items-center">-</button>
-            <input type="text" class="w-10 h-5 text-center" v-model="quantity" />
-            <button @click="addQuantity" class="w-5 h-5 bg-gray-400 text-center p-1  flex justify-center items-center">+</button>
+            <button
+              @click="decreaseQuantity"
+              :class="quantity === 0 ? ' cursor-not-allowed' : 'cursor-pointer'"
+              class="w-5 h-5 text-center bg-gray-400 p-1 flex justify-center items-center"
+            >
+              -
+            </button>
+            <input
+              type="text"
+              class="w-10 h-5 text-center"
+              v-model="quantity"
+            />
+            <button
+              @click="addQuantity"
+              class="w-5 h-5 bg-gray-400 text-center p-1 flex justify-center items-center"
+            >
+              +
+            </button>
           </div>
         </div>
         <div>
           <h1 class="font-bold">Harga</h1>
-          <button
-            class="bg-btn-primary hover:bg-btn-hover border border-black rounded-lg px-5 py-2"
-          >
-            Beli
-          </button>
+          <div class="flex gap-2">
+            <BtnComponent
+              label="Beli"
+              primary-color="bg-yellow-500 "
+              hover-color="hover:bg-yellow-700"
+              text-color="text-black"
+            />
+
+            <BtnComponent
+              label=""
+              primary-color="bg-yellow-500 "
+              hover-color="hover:bg-yellow-700"
+              text-color="text-black"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-5 h-6"
+              >
+                <path
+                  d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+                />
+              </svg>
+            </BtnComponent>
+          </div>
         </div>
       </div>
     </div>

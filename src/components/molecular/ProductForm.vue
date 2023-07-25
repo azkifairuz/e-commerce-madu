@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import InputField from "@/components/atom/InputField.vue";
+import SelectField from "@/components/atom/SelectField.vue";
 import TextArea from "@/components/atom/TextArea.vue";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm";
@@ -9,13 +10,19 @@ const router = useRouter();
 const route = useRoute();
 const produk = reactive({
   id: null,
+  id_jns_produk: null,
   nm_produk: "",
   qty_produk: null,
-  id_jns_produk: null,
   harga_jual: null,
   harga_beli: null,
   keterangan: "",
   image: "",
+});
+const selectOption = ref([]);
+
+const category = reactive({
+  id: null,
+  nm_jns_produk: "",
 });
 const errorMsg = ref("");
 const { GET, POST } = Api();
@@ -24,26 +31,44 @@ const idProduct = route.params.product;
 async function getProductById() {
   try {
     if (!idProduct) {
-      console.log("add");
       return;
     }
 
     const data = await GET(`produk/${idProduct}`);
-    console.log("update");
 
     if (!data.data) {
       console.log("data tidak ditemukan");
       return;
     }
-
     Object.keys(data.data).forEach((key) => {
+      console.log("key",data.data[key]);
+      console.log("keyProduk",produk[key]);
       produk[key] = data.data[key];
     });
+    console.log("aaa",produk.id);
+  } catch (error) {}
+}
+async function listCategory() {
+  try {
+    const data = await GET(`jnsproduk`);
+
+    if (!data.data) {
+      console.log("data tidak ditemukan");
+      return;
+    }
+    category.id = data.data[0].id;
+    category.nm_jns_produk = data.data[0].nm_jns_produk;
+    selectOption.value = data.data.map((cat) => ({
+      value: cat.id,
+      label: cat.nm_jns_produk,
+    }));
   } catch (error) {}
 }
 
+console.log(category);
 onMounted(() => {
   getProductById();
+  listCategory();
 });
 
 function onImageChange(event) {
@@ -71,6 +96,7 @@ async function save() {
     errorMsg.value = "Input gagal";
   }
 }
+
 </script>
 
 <template>
@@ -98,12 +124,12 @@ async function save() {
         name="qty"
       />
 
-      <InputField
-        label="Jenis Madu"
+      <SelectField
+        label="jenis madu"
         v-model="produk.id_jns_produk"
         placeholder="Pilih Jenis Madu"
-        typeInput="text"
-        name="category"
+        :options="selectOption"
+        name="jk"
       />
 
       <InputField
@@ -122,9 +148,9 @@ async function save() {
         name="nmProduk"
       />
       <TextArea
-        label="Harga Jual"
+        label="Keterangan"
         v-model="produk.keterangan"
-        placeholder="Harga Jual"
+        placeholder="Keterangan"
         typeInput="text"
         name="nmProduk"
       />
@@ -132,14 +158,14 @@ async function save() {
       <div class="flex flex-col gap-2">
         <label for="gambar" class="text-xl cursor-pointer">Gambar</label>
 
-          <input
+        <input
           class="py-2 px-5 g-white shadow-sm border-2 cursor-pointer rounded-md"
-            type="file"
-            id="gambar"
-            ref="imageInput"
-            accept="image/*"
-            @change="onImageChange"
-          />
+          type="file"
+          id="gambar"
+          ref="imageInput"
+          accept="image/*"
+          @change="onImageChange"
+        />
       </div>
       <button
         @click="save"

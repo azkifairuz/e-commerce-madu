@@ -129,7 +129,7 @@ export const router = createRouter({
           component: () => import("@/pages/customer/ProductByCategory.vue"),
         },
         {
-          path: "detailProduct",
+          path: "detailProduct/:idProduct",
           name: "detailProduct",
           component: () => import("@/pages/customer/detailProduct.vue"),
         },

@@ -33,9 +33,10 @@ function goToProductByCategory(id) {
     params: { idProduct: id },
   });
 }
-function goToDetailProduct() {
+function goToDetailProduct(id) {
   router.push({
     name: "detailProduct",
+    params: {idProduct:id}
   });
 }
 
@@ -77,6 +78,7 @@ onMounted(() => {
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               description="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+              @goToDetail = "goToDetailProduct(product.id)"
             />
             <h1 v-else>product kosong atau jaringan bermasalah</h1>
           </div>
