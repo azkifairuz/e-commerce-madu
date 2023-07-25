@@ -15,6 +15,8 @@ const product = reactive({
   id_jns_produk: null,
   harga_jual: null,
   harga_beli: null,
+  keterangan: null,
+  image: null,
 });
 async function getProduct() {
   const data = await GET("produk");
@@ -51,17 +53,14 @@ function decreaseQuantity() {
     <div class="flex gap-5">
       <img
         class="w-[400px] h-[400px] rounded-lg"
-        src="https://dummyimage.com/400x400/000/fff"
+        :src="baseImageUrl+product.image"
         alt=""
       />
       <div class="w-1/2 flex flex-col justify-evenly">
         <div>
           <h1 class="font-bold text-xl">{{ product.nm_produk }}</h1>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus
-            alias aperiam sapiente possimus impedit in adipisci laboriosam
-            magnam beatae eius nemo ex, deserunt accusantium modi consequatur
-            iste obcaecati commodi reprehenderit.
+            {{ product.keterangan }}
           </p>
         </div>
         <div>
@@ -87,9 +86,9 @@ function decreaseQuantity() {
             </button>
           </div>
         </div>
-        <div>
-          <h1 class="font-bold">Harga</h1>
-          <div class="flex gap-2">
+        <div class="">
+          <h1 class="font-bold">Rp.{{numberFormat(product.harga_jual)}}</h1>
+          <div class="flex gap-2 w-full">
             <BtnComponent
               label="Beli"
               primary-color="bg-yellow-500 "

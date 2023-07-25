@@ -41,8 +41,6 @@ async function getProductById() {
       return;
     }
     Object.keys(data.data).forEach((key) => {
-      console.log("key",data.data[key]);
-      console.log("keyProduk",produk[key]);
       produk[key] = data.data[key];
     });
     console.log("aaa",produk.id);
