@@ -6,10 +6,10 @@ import { numberFormat } from "@/utils/NumberFormat";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRoute } from "vue-router";
 const { GET } = Api();
-const products = ref("")
+const products = ref("");
 const route = useRoute();
 const product = reactive({
-  id:null,
+  id: null,
   nm_produk: "",
   qty_produk: null,
   id_jns_produk: null,
@@ -20,13 +20,13 @@ const product = reactive({
 });
 async function getProduct() {
   const data = await GET("produk");
-  products.value = data.data
+  products.value = data.data;
 }
 
 async function getProductById() {
   const idProduct = route.params.idProduct;
   const data = await GET(`produk/${idProduct}`);
-  console.log('idProduct',idProduct);
+  console.log("idProduct", idProduct);
   Object.keys(data.data).forEach((key) => {
     product[key] = data.data[key];
   });
@@ -41,19 +41,54 @@ const quantity = ref(1);
 function addQuantity() {
   return (quantity.value = quantity.value + 1);
 }
+const isPopup = ref(false)
+function popUphandle() {
+  isPopup.value = !isPopup.value
+}
 function decreaseQuantity() {
   if (quantity.value <= 0) {
     return;
   }
   return (quantity.value = quantity.value - 1);
 }
+
 </script>
 <template>
+  <div
+    :class="isPopup ? 'flex' :'hidden'"
+    class="w-screen  flex fixed justify-center items-center h-screen bg-black bg-opacity-50 z-10"
+  >
+    <div class="w-[500px]  rounded-lg bg-white">
+      <header
+        class="w-full font-bold text-xl flex justify-between items-center p-5 bg-yellow-main rounded-t-lg"
+      >
+        <h1>Info</h1>
+        <span @click="popUphandle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 cursor-pointer"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </span>
+      </header>
+      <div class="p-5">Berhasil Masuk Keranjang</div>
+      <footer class="px-5 py-1 flex justify-end w-full"></footer>
+    </div>
+  </div>
   <main class="px-10 py-10 flex flex-col gap-10">
     <div class="flex gap-5">
       <img
         class="w-[400px] h-[400px] rounded-lg"
-        :src="baseImageUrl+product.image"
+        :src="baseImageUrl + product.image"
         alt=""
       />
       <div class="w-1/2 flex flex-col justify-evenly">
@@ -87,7 +122,7 @@ function decreaseQuantity() {
           </div>
         </div>
         <div class="">
-          <h1 class="font-bold">Rp.{{numberFormat(product.harga_jual)}}</h1>
+          <h1 class="font-bold">Rp.{{ numberFormat(product.harga_jual) }}</h1>
           <div class="flex gap-2 w-full">
             <BtnComponent
               label="Beli"
@@ -98,6 +133,7 @@ function decreaseQuantity() {
 
             <BtnComponent
               label=""
+              @someEvent="popUphandle"
               primary-color="bg-yellow-500 "
               hover-color="hover:bg-yellow-700"
               text-color="text-black"
