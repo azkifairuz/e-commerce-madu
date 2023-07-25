@@ -4,10 +4,12 @@ import { onMounted, reactive, ref } from "vue";
 import CardProduct from "@/components/molecular/CardProduct.vue";
 import { numberFormat } from "@/utils/NumberFormat";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const { GET } = Api();
 const products = ref("");
 const route = useRoute();
+const router = useRouter() 
+
 const product = reactive({
   id: null,
   nm_produk: "",
@@ -41,9 +43,9 @@ const quantity = ref(1);
 function addQuantity() {
   return (quantity.value = quantity.value + 1);
 }
-const isPopup = ref(false)
+const isPopup = ref(false);
 function popUphandle() {
-  isPopup.value = !isPopup.value
+  isPopup.value = !isPopup.value;
 }
 function decreaseQuantity() {
   if (quantity.value <= 0) {
@@ -52,13 +54,20 @@ function decreaseQuantity() {
   return (quantity.value = quantity.value - 1);
 }
 
+function goToDetailProduct(id) {
+  router.push({
+    name: "detailProduct",
+    params: { idProduct: id },
+  });
+}
 </script>
+
 <template>
   <div
-    :class="isPopup ? 'flex' :'hidden'"
-    class="w-screen  flex fixed justify-center items-center h-screen bg-black bg-opacity-50 z-10"
+    :class="isPopup ? 'flex' : 'hidden'"
+    class="w-screen flex fixed justify-center items-center h-screen bg-black bg-opacity-50 z-10"
   >
-    <div class="w-[500px]  rounded-lg bg-white">
+    <div class="w-[500px] rounded-lg bg-white">
       <header
         class="w-full font-bold text-xl flex justify-between items-center p-5 bg-yellow-main rounded-t-lg"
       >
@@ -164,7 +173,8 @@ function decreaseQuantity() {
           :title="product.title"
           :price="numberFormat(product.harga_jual)"
           :category="product.nm_jns_produk"
-          description="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+          :description="product.keterangan"
+          @goToDetail="goToDetailProduct(product.id)"
         />
         <h1 v-else>product kosong atau jaringan bermasalah</h1>
       </div>

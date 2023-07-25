@@ -37,21 +37,24 @@ async function getProductById() {
     const data = await GET(`produk/${idProduct}`);
 
     if (!data.data) {
-      console.log("data tidak ditemukan");
+      errorMsg.value = "Data Tidak Ditemukan";
       return;
     }
     Object.keys(data.data).forEach((key) => {
       produk[key] = data.data[key];
     });
-    console.log("aaa",produk.id);
-  } catch (error) {}
+  } catch (error) {
+    errorMsg.value = "Data Tidak Ditemukan";
+    return console.log(error.message);
+  }
 }
+
 async function listCategory() {
   try {
     const data = await GET(`jnsproduk`);
 
     if (!data.data) {
-      console.log("data tidak ditemukan");
+      errorMsg.value = "Data Category Tidak Ditemukan";
       return;
     }
     category.id = data.data[0].id;
@@ -60,7 +63,9 @@ async function listCategory() {
       value: cat.id,
       label: cat.nm_jns_produk,
     }));
-  } catch (error) {}
+  } catch (error) {
+    errorMsg.value = "Data Category Tidak Ditemukan";
+  }
 }
 
 console.log(category);

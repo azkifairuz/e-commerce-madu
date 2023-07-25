@@ -45,6 +45,7 @@ onMounted(() => {
   getCategory();
 });
 </script>
+
 <template>
   <body>
     <div>
@@ -64,20 +65,20 @@ onMounted(() => {
           </div>
         </section>
         <section id="product" class="flex flex-col mt-10 gap-5">
-          <h1 class="text-2xl font-poppins font-bold">Produk Madu</h1>
+          <h1 class="text-2xl font-poppins font-bold">Madu Teratas</h1>
           <div
             id="categories section"
             class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 grid-rows-1 overflow-hidden gap-5"
           >
             <card-product
               v-if="products != null"
-              v-for="product in products"
-              :key="product.id"
+              v-for="(product,index) in products.slice(0,5)"
+              :key="index"
               :imageUrl="baseImageUrl+product.image"
               :title="product.title"
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
-              description="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+              :description="product.keterangan"
               @goToDetail = "goToDetailProduct(product.id)"
             />
             <h1 v-else>product kosong atau jaringan bermasalah</h1>

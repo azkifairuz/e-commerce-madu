@@ -1,34 +1,51 @@
 <script setup>
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
-const {GET} = Api();
-const product = ref("")
-async function getProduct(){
+import CardProduct from "@/components/molecular/CardProduct.vue"
+import { numberFormat } from "@/utils/NumberFormat";
+import { useRouter } from "vue-router";
 
-  const data = await GET('produk')
-  product.value = data.data
-  console.log(data.data);
+const { GET } = Api();
+const router = useRouter() 
+const products = ref("");
 
+async function getProduct() {
+  const data = await GET("produk");
+  products.value = data.data;
+}
+const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
+
+function goToDetailProduct(id) {
+  router.push({
+    name: "detailProduct",
+    params: {idProduct:id}
+  });
 }
 
-onMounted(
-()=>{
-  getProduct()
-}
-)
+onMounted(() => {
+  getProduct();
+});
 </script>
+
 <template>
-  <main class="flex gap-5 px-10 ">
-    <img
-    class="w-[400px] h-[400px] rounded-lg " 
-    src="https://dummyimage.com/400x400/000/fff"
-    alt="">
-    <div class="w-1/2">
-      <h1 class="font-bold">title</h1>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus alias aperiam sapiente possimus impedit in adipisci laboriosam magnam beatae eius nemo ex, deserunt accusantium modi consequatur iste obcaecati commodi reprehenderit.</p>
-      <h1 class="font-bold">Harga</h1>
-      <button>Beli</button>
-    </div>
+  <main class="p-6 mt-6">
+    <header
+      class="w-full bg-gray-300 rounded-md text-black flex items-center justify-center h-[200px]"
+    >
+      <h1 class="font-bold text-2xl">Kategori Madu</h1>
+    </header>
+    <section class="mt-2 grid grid-cols-2 lg:grid-cols-5 gap-5">
+      <CardProduct
+      v-if=" products != null"
+      v-for="product in products"
+      :key="product.id"
+      :imageUrl="baseImageUrl + product.image"
+      :title="product.title"
+      :price="numberFormat(product.harga_jual)"
+      :category="product.nm_jns_produk"
+      :description="product.keterangan"
+      @goToDetail="goToDetailProduct(product.id)"
+      />
+    </section>
   </main>
- 
 </template>
