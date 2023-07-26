@@ -3,9 +3,10 @@ import Api from "@/config/api/Api";
 import { onMounted, reactive, ref } from "vue";
 import CardProduct from "@/components/molecular/CardProduct.vue";
 import { numberFormat } from "@/utils/NumberFormat";
+import { objectToFormdata } from "@/utils/ObjectToForm";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRoute, useRouter } from "vue-router";
-const { GET } = Api();
+const { GET,POST } = Api();
 const products = ref("");
 const route = useRoute();
 const router = useRouter() 
@@ -13,13 +14,23 @@ const router = useRouter()
 const product = reactive({
   id: null,
   nm_produk: "",
-  qty_produk: null,
+  qty_produk: "",
   id_jns_produk: null,
   harga_jual: null,
   harga_beli: null,
   keterangan: null,
   image: null,
 });
+
+const idUser  = sessionStorage.getItem("sesIdUser");
+const dateNow = new Date().toISOString().split("T")[0]
+const cart = reactive({
+  id: null,
+  id_pelanggan: idUser,
+  tgl:dateNow,
+});
+const quantity = ref(1);
+
 async function getProduct() {
   const data = await GET("produk");
   products.value = data.data;
@@ -29,6 +40,7 @@ async function getProductById() {
   const idProduct = route.params.idProduct;
   const data = await GET(`produk/${idProduct}`);
   console.log("idProduct", idProduct);
+  console.log(data);
   Object.keys(data.data).forEach((key) => {
     product[key] = data.data[key];
   });
@@ -39,7 +51,6 @@ onMounted(() => {
   getProductById();
 });
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
-const quantity = ref(1);
 function addQuantity() {
   return (quantity.value = quantity.value + 1);
 }
@@ -52,6 +63,12 @@ function decreaseQuantity() {
     return;
   }
   return (quantity.value = quantity.value - 1);
+}
+
+async function addToCart() {
+  const data = await POST('keranjangbelanja',objectToFormdata(cart))
+  console.log(data.lastId); 
+  popUphandle()
 }
 
 function goToDetailProduct(id) {
@@ -142,7 +159,7 @@ function goToDetailProduct(id) {
 
             <BtnComponent
               label=""
-              @someEvent="popUphandle"
+              @someEvent="addToCart"
               primary-color="bg-yellow-500 "
               hover-color="hover:bg-yellow-700"
               text-color="text-black"
@@ -167,7 +184,7 @@ function goToDetailProduct(id) {
       <div class="grid grid-rows-1 grid-cols-5 overflow-hidden">
         <card-product
           v-if="products != null"
-          v-for="product in products"
+          v-for="product in products.slice(0,5)"
           :key="product.id"
           :imageUrl="baseImageUrl + product.image"
           :title="product.title"

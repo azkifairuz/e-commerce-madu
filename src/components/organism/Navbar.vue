@@ -25,12 +25,10 @@ function goToLoginPage() {
   });
 }
 
-function navigationPage(pathName){
-  router.push(
-    {
-      name:pathName
-    }
-  )
+function navigationPage(pathName) {
+  router.push({
+    name: pathName,
+  });
 }
 
 function goToRegisterPage() {
@@ -48,7 +46,7 @@ function goToRegisterPage() {
           <div class="flex-shrink-0">
             <img class="h-8 w-8" src="@/assets/logo.png" alt="Logo" />
           </div>
-          <div class="hidden md:flex justify-center flex-1">
+          <div class="hidden lg:flex justify-center flex-1">
             <input
               v-model="searchQuery"
               type="text"
@@ -56,7 +54,7 @@ function goToRegisterPage() {
               class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
             />
           </div>
-          <div class="hidden md:block">
+          <div class="hidden lg:block">
             <div class="ml-10 flex items-baseline gap-2">
               <a
                 v-for="link in links"
@@ -68,8 +66,8 @@ function goToRegisterPage() {
               </a>
             </div>
           </div>
-         
-          <div v-if="isLogin === 'true' " class="gap-4 hidden md:flex">
+
+          <div v-if="isLogin === 'true'" class="gap-4 hidden lg:flex">
             <btn-component
               label="Logout"
               @someEvent="goToLoginPage"
@@ -95,7 +93,7 @@ function goToRegisterPage() {
             />
           </div>
         </div>
-        <div class="flex md:hidden justify-center flex-1">
+        <div class="flex lg:hidden justify-center flex-1">
           <input
             v-model="searchQuery"
             type="text"
@@ -153,7 +151,17 @@ function goToRegisterPage() {
           {{ link.label }}
         </a>
       </div>
-      <div class="flex flex-col cursor-pointer gap-4 px-3 pb-4">
+
+      <div class="pb-4 px-3" v-if="isLogin === 'true'">
+        <btn-component
+          label="Logout"
+          @someEvent="goToLoginPage"
+          primary-color="bg-red-500"
+          hover-color="hover:bg-red-700"
+          text-color="text-white"
+        />
+      </div>
+      <div v-else class="flex flex-col cursor-pointer gap-4 px-3 pb-4">
         <btn-component
           label="Masuk"
           primary-color="bg-green-500"
@@ -166,6 +174,7 @@ function goToRegisterPage() {
           hover-color="hover:bg-blue-700"
           text-color="text-white"
         />
+        
       </div>
     </div>
   </nav>

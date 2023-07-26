@@ -18,7 +18,6 @@ function goToCheckout() {
       <header class="font-bold z-10 text-xl text-center">Keranjang</header>
       <div class="h-full flex flex-col gap-[32px] mt-[48px] overflow-y-auto">
         <div class="card flex justify-between items-center">
-          <input type="checkbox" class="rounded-[8px] w-[25px] h-[25px]" />
           <img
             src=""
             class="rounded-xl bg-black w-[150px] h-[100px] bg-no-repeat bg-cover"
