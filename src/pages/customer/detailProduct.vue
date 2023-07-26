@@ -6,11 +6,15 @@ import { numberFormat } from "@/utils/NumberFormat";
 import { objectToFormdata } from "@/utils/ObjectToForm";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRoute, useRouter } from "vue-router";
+
 const { GET,POST } = Api();
 const products = ref("");
 const route = useRoute();
 const router = useRouter() 
-
+const quantity = ref(1);
+const idUser  = sessionStorage.getItem("sesIdUser");
+const idProduct = route.params.idProduct;
+const dateNow = new Date().toISOString().split("T")[0]
 const product = reactive({
   id: null,
   nm_produk: "",
@@ -22,14 +26,20 @@ const product = reactive({
   image: null,
 });
 
-const idUser  = sessionStorage.getItem("sesIdUser");
-const dateNow = new Date().toISOString().split("T")[0]
+
 const cart = reactive({
   id: null,
   id_pelanggan: idUser,
   tgl:dateNow,
 });
-const quantity = ref(1);
+const detailCart = reactive({
+  id: null,
+  id_keranjang_belanja: null,
+  id_pelanggan: idUser,
+  id_produk:idProduct,
+  qty:quantity.value,
+  harga:product.harga_jual,
+});
 
 async function getProduct() {
   const data = await GET("produk");
@@ -37,10 +47,8 @@ async function getProduct() {
 }
 
 async function getProductById() {
-  const idProduct = route.params.idProduct;
   const data = await GET(`produk/${idProduct}`);
-  console.log("idProduct", idProduct);
-  console.log(data);
+  detailCart.harga = data.data.harga_jual
   Object.keys(data.data).forEach((key) => {
     product[key] = data.data[key];
   });
@@ -50,6 +58,8 @@ onMounted(() => {
   getProduct();
   getProductById();
 });
+
+
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 function addQuantity() {
   return (quantity.value = quantity.value + 1);
@@ -67,7 +77,10 @@ function decreaseQuantity() {
 
 async function addToCart() {
   const data = await POST('keranjangbelanja',objectToFormdata(cart))
-  console.log(data.lastId); 
+  const lastId = data.lastId
+  detailCart.id_keranjang_belanja = lastId
+  const detailCartData = await POST('detailkeranjangbelanja', objectToFormdata(detailCart))
+  console.log("data");
   popUphandle()
 }
 
