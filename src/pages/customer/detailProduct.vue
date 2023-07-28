@@ -7,14 +7,14 @@ import { objectToFormdata } from "@/utils/ObjectToForm";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRoute, useRouter } from "vue-router";
 
-const { GET,POST } = Api();
+const { GET, POST } = Api();
 const products = ref("");
 const route = useRoute();
-const router = useRouter() 
+const router = useRouter();
 const quantity = ref(1);
-const idUser  = sessionStorage.getItem("sesIdUser");
+const idUser = sessionStorage.getItem("sesIdUser");
 const idProduct = route.params.idProduct;
-const dateNow = new Date().toISOString().split("T")[0]
+const dateNow = new Date().toISOString().split("T")[0];
 const product = reactive({
   id: null,
   nm_produk: "",
@@ -26,19 +26,18 @@ const product = reactive({
   image: null,
 });
 
-
 const cart = reactive({
   id: null,
   id_pelanggan: idUser,
-  tgl:dateNow,
+  tgl: dateNow,
 });
 const detailCart = reactive({
   id: null,
   id_keranjang_belanja: null,
   id_pelanggan: idUser,
-  id_produk:idProduct,
-  qty:quantity.value,
-  harga:product.harga_jual,
+  id_produk: idProduct,
+  qty: quantity.value,
+  harga: product.harga_jual,
 });
 
 async function getProduct() {
@@ -48,7 +47,7 @@ async function getProduct() {
 
 async function getProductById() {
   const data = await GET(`produk/${idProduct}`);
-  detailCart.harga = data.data.harga_jual
+  detailCart.harga = data.data.harga_jual;
   Object.keys(data.data).forEach((key) => {
     product[key] = data.data[key];
   });
@@ -58,7 +57,6 @@ onMounted(() => {
   getProduct();
   getProductById();
 });
-
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 function addQuantity() {
@@ -76,12 +74,29 @@ function decreaseQuantity() {
 }
 
 async function addToCart() {
-  const data = await POST('keranjangbelanja',objectToFormdata(cart))
-  const lastId = data.lastId
-  detailCart.id_keranjang_belanja = lastId
-  const detailCartData = await POST('detailkeranjangbelanja', objectToFormdata(detailCart))
-  console.log("data");
-  popUphandle()
+  const iskeranjang = await GET(`keranjang/${idUser}`);
+  if (iskeranjang.data.length == 0) {
+    const data = await POST("keranjangbelanja", objectToFormdata(cart));
+    const lastId = data.lastId;
+    detailCart.id_keranjang_belanja = lastId;
+    await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+    popUphandle();
+    return;
+  }
+  detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang ;
+  await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+}
+async function buy() {
+  const iskeranjang = await GET(`keranjang/${idUser}`);
+  if (iskeranjang.data.length == 0) {
+    const data = await POST("keranjangbelanja", objectToFormdata(cart));
+    const lastId = data.lastId;
+    detailCart.id_keranjang_belanja = lastId;
+    await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+    return;
+  }
+  detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang ;
+  await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
 }
 
 function goToDetailProduct(id) {
@@ -165,6 +180,7 @@ function goToDetailProduct(id) {
           <div class="flex gap-2 w-full">
             <BtnComponent
               label="Beli"
+              @someEvent="buy"
               primary-color="bg-yellow-500 "
               hover-color="hover:bg-yellow-700"
               text-color="text-black"
@@ -197,7 +213,7 @@ function goToDetailProduct(id) {
       <div class="grid grid-rows-1 grid-cols-5 overflow-hidden">
         <card-product
           v-if="products != null"
-          v-for="product in products.slice(0,5)"
+          v-for="product in products.slice(0, 5)"
           :key="product.id"
           :imageUrl="baseImageUrl + product.image"
           :title="product.title"

@@ -1,12 +1,38 @@
 <script setup>
+import { onMounted, reactive, ref } from "vue";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
-
-const router = useRouter()
+import Api from "@/config/api/Api";
+import { numberFormat } from "@/utils/NumberFormat";
+const { GET } = Api();
+const router = useRouter();
+const cartItem = ref();
+const idUser = sessionStorage.getItem("sesIdUser");
+async function getCart() {
+  const data = await GET(`keranjang/${idUser}`);
+  cartItem.value = data.data;
+}
+onMounted(() => {
+  getCart();
+});
 function goToCheckout() {
   router.push({
-    path:"payment"
-  })
+    path: "payment",
+  });
+}
+
+function CalculateSubTotal(qty,price){
+
+    return numberFormat(qty * price)
+
+}
+
+function calculateTotalPrice() {
+  let total = 0;
+  for (const cart of cartItem.value) {
+    total += parseInt(cart.qty) * parseInt(cart.harga);
+  }
+  return numberFormat(total);
 }
 </script>
 
@@ -17,14 +43,21 @@ function goToCheckout() {
     >
       <header class="font-bold z-10 text-xl text-center">Keranjang</header>
       <div class="h-full flex flex-col gap-[32px] mt-[48px] overflow-y-auto">
-        <div class="card flex justify-between items-center">
+        <div
+          v-for="(cart, index) in cartItem "
+          :key="index"
+          
+          class="card flex justify-between items-center"
+        >
           <img
             src=""
             class="rounded-xl bg-black w-[150px] h-[100px] bg-no-repeat bg-cover"
             alt=""
           />
-          <h1>Data Analityc</h1>
-          <p>Rp 730. 253</p>
+          <h1>{{ cart.nm_produk }}</h1>
+          <h1>{{ cart.qty }}</h1>
+          
+          <p>Rp.{{ CalculateSubTotal(cart.qty,cart.harga) }}</p>
           <BtnComponent
             label="Hapus"
             primary-color="bg-red-500"
@@ -36,7 +69,7 @@ function goToCheckout() {
       <div class="self-end z-10 flex gap-[33px] items-center">
         <div class="text-center">
           <h1 class="text-base">Total(0 madu)</h1>
-          <p class="font-bold text-xl">Rp 0</p>
+          <p class="font-bold text-xl">Rp.{{ calculateTotalPrice() }}</p>
         </div>
         <BtnComponent
           label="Checkout"

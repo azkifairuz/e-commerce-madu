@@ -3,7 +3,7 @@ import logo from "@/assets/logo.png";
 import InputField from "@/components/atom/InputField.vue";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm.js";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
 function setAuthToken(token) {
@@ -16,14 +16,21 @@ function setAuthToken(token) {
   }
 }
 const { POST } = Api();
+const responseMsg = ref("");
+const isAuthorize = ref(false);
 
 async function authenticate(credentials) {
   try {
     const response = await POST("auth/login", credentials);
+    if (response.error === "Unauthorized") {
+      isAuthorize.value = false;
+      console.log(isAuthorize.value);
+      return;
+    }
+    isAuthorize.value = true;
+    console.log(isAuthorize.value);
     const { access_token } = response;
     setAuthToken(access_token);
-    console.log(sessionStorage.getItem("jwtToken"));
-    
   } catch (error) {
     console.log("Autentikasi gagal", error);
     return false;
@@ -34,14 +41,43 @@ const credentials = reactive({
   email: "",
   password: "",
 });
-
 async function handleLogin() {
   await authenticate(objectToFormdata(credentials));
-    const data = await POST(`auth/me?token=${sessionStorage.getItem("jwtToken")}`);
+  if (isAuthorize.value == false) {
+    console.log("akuh tidak ada");
+    return;
+  }
+
+  const data = await POST(
+    `auth/me?token=${sessionStorage.getItem("jwtToken")}`
+  );
+  console.log("isi data", data);
+  console.log("akun ada");
+  if (!credentials.email) {
+    responseMsg.value = "email tidak boleh kosong";
+    console.log(responseMsg.value);
+    return;
+  }
+  if (!credentials.password) {
+    responseMsg.value = "password tidak boleh kosong";
+    console.log(responseMsg.value);
+    return;
+  }
+  const level = data.level;
+  sessionStorage.setItem("sesIdUser", data.id);
+  if (level != "admin") {
+    sessionStorage.setItem('levelUser',data.level)
     router.push({
-      name:'home'
-    })
-    sessionStorage.setItem("sesIdUser", data.id)
+      name: "home",
+    });
+    return;
+  }
+    sessionStorage.setItem('levelUser',data.level)
+
+    router.push({
+      name: "home",
+    });
+
 }
 const router = useRouter();
 const isCustomer = router.currentRoute.value.name === "loginUser";

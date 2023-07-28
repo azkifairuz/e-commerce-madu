@@ -3,15 +3,23 @@ import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
 import CardProduct from "@/components/molecular/CardProduct.vue"
 import { numberFormat } from "@/utils/NumberFormat";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const { GET } = Api();
 const router = useRouter() 
 const products = ref("");
-
+const category = ref("");
+const route = useRoute()
+const  idCategory = route.params.idCategory
 async function getProduct() {
-  const data = await GET("produk");
+  const data = await GET(`katproduk/${idCategory}`);
+  console.log("isi data",data.data)
   products.value = data.data;
+}
+async function getCategory() {
+  const data = await GET(`jnsproduk/${idCategory}`);
+  console.log("isi data kategori",data.data)
+  category.value = data.data;
 }
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 
@@ -24,15 +32,16 @@ function goToDetailProduct(id) {
 
 onMounted(() => {
   getProduct();
+  getCategory();
 });
 </script>
 
 <template>
   <main class="p-6 mt-6">
     <header
-      class="w-full bg-gray-300 rounded-md text-black flex items-center justify-center h-[200px]"
+      class="w-full bg-yellow-dark rounded-md text-black flex items-center justify-center h-[200px]"
     >
-      <h1 class="font-bold text-2xl">Kategori Madu</h1>
+      <h1 class="font-bold text-4xl capitalize">{{category.nm_jns_produk}}</h1>
     </header>
     <section class="mt-2 grid grid-cols-2 lg:grid-cols-5 gap-5">
       <CardProduct

@@ -26,17 +26,17 @@ async function getProduct() {
     products.value = null;
   }
 }
-const baseImageUrl = "http://127.0.0.1:8000/storage/produk/"
+const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 function goToProductByCategory(id) {
   router.push({
     name: "productByCategory",
-    params: { idProduct: id },
+    params: { idCategory: id },
   });
 }
 function goToDetailProduct(id) {
   router.push({
     name: "detailProduct",
-    params: {idProduct:id}
+    params: { idProduct: id },
   });
 }
 
@@ -72,14 +72,14 @@ onMounted(() => {
           >
             <card-product
               v-if="products != null"
-              v-for="(product,index) in products.slice(0,5)"
+              v-for="(product, index) in products.slice(0, 5)"
               :key="index"
-              :imageUrl="baseImageUrl+product.image"
+              :imageUrl="baseImageUrl + product.image"
               :title="product.title"
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               :description="product.keterangan"
-              @goToDetail = "goToDetailProduct(product.id)"
+              @goToDetail="goToDetailProduct(product.id)"
             />
             <h1 v-else>product kosong atau jaringan bermasalah</h1>
           </div>
