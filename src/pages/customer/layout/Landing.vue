@@ -33,16 +33,12 @@ function goToProductByCategory(id) {
     params: { idCategory: id },
   });
 }
-function goToDetailProduct(id) {
-  router.push({
-    name: "detailProduct",
-    params: { idProduct: id },
-  });
-}
+
 
 onMounted(() => {
   getProduct();
   getCategory();
+
 });
 </script>
 
@@ -79,7 +75,7 @@ onMounted(() => {
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               :description="product.keterangan"
-              @goToDetail="goToDetailProduct(product.id)"
+              :idProd="product.id"
             />
             <h1 v-else>product kosong atau jaringan bermasalah</h1>
           </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
@@ -22,13 +22,16 @@ function goToCheckout() {
 }
 
 function CalculateSubTotal(qty,price){
-
+    
     return numberFormat(qty * price)
 
 }
 
 function calculateTotalPrice() {
   let total = 0;
+  if (!cartItem.value) {
+    return "gagal"
+  }
   for (const cart of cartItem.value) {
     total += parseInt(cart.qty) * parseInt(cart.harga);
   }

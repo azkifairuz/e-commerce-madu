@@ -44,15 +44,13 @@ const credentials = reactive({
 async function handleLogin() {
   await authenticate(objectToFormdata(credentials));
   if (isAuthorize.value == false) {
-    console.log("akuh tidak ada");
+    responseMsg.value = "tidak ada akun dengan username dan email ini";
     return;
   }
-
   const data = await POST(
     `auth/me?token=${sessionStorage.getItem("jwtToken")}`
   );
-  console.log("isi data", data);
-  console.log("akun ada");
+
   if (!credentials.email) {
     responseMsg.value = "email tidak boleh kosong";
     console.log(responseMsg.value);
@@ -60,7 +58,6 @@ async function handleLogin() {
   }
   if (!credentials.password) {
     responseMsg.value = "password tidak boleh kosong";
-    console.log(responseMsg.value);
     return;
   }
   const level = data.level;

@@ -1,20 +1,34 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
 const props = defineProps({
   imageUrl: String,
   title: String,
   description: String,
   category: String,
   price: String,
+  idProd:Number,
 });
-const emit = defineEmits(['goToDetail'])
-function goToDetail() {
-  emit('goToDetail')
+const isLogin = sessionStorage.getItem("isLogin");
+const router = useRouter();
+
+function goToDetailProduct(id) {
+  if (isLogin != "true" ) {
+    router.push({
+    name: "loginUser",
+  });
+  return
+  }
+  router.push({
+    name: "detailProduct",
+    params: { idProduct: id },
+  });
 }
 </script>
 
 <template>
   <div
-    @click="goToDetail"
+    @click="goToDetailProduct(idProd)"
     class="max-w-md bg-white rounded-md  overflow-hidden w-60 cursor-pointer p-2 hover:shadow-lg"
   >
     <img

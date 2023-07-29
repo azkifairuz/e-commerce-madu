@@ -83,7 +83,7 @@ async function addToCart() {
     popUphandle();
     return;
   }
-  detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang ;
+  detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
 }
 async function buy() {
@@ -95,15 +95,9 @@ async function buy() {
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
     return;
   }
-  detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang ;
+  detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
-}
-
-function goToDetailProduct(id) {
-  router.push({
-    name: "detailProduct",
-    params: { idProduct: id },
-  });
+  
 }
 </script>
 
@@ -220,7 +214,6 @@ function goToDetailProduct(id) {
           :price="numberFormat(product.harga_jual)"
           :category="product.nm_jns_produk"
           :description="product.keterangan"
-          @goToDetail="goToDetailProduct(product.id)"
         />
         <h1 v-else>product kosong atau jaringan bermasalah</h1>
       </div>
