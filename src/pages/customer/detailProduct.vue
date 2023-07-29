@@ -56,7 +56,6 @@ async function getProductById() {
 onMounted(() => {
   getProduct();
   getProductById();
-  
 });
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
@@ -80,22 +79,22 @@ async function addToCart() {
   const iskeranjang = await GET(`keranjang/${idUser}`);
   if (iskeranjang.data.length == 0) {
     popUphandle();
-
     const data = await POST("keranjangbelanja", objectToFormdata(cart));
     const lastId = data.lastId;
 
     detailCart.id_keranjang_belanja = lastId;
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
 
-    product.qty_produk = detailCart.qty;
-    await POST(`produk/${idProduct}`, objectToFormdata(detailCart));
+    product.qty_produk = product.qty_produk - detailCart.qty;
+    await POST(`produk/${idProduct}`, objectToFormdata(product));
     return;
   }
 
   popUphandle();
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
-  await POST(`produk/${idProduct}`, objectToFormdata(detailCart));
+  product.qty_produk = product.qty_produk - detailCart.qty;
+  await POST(`produk/${idProduct}`, objectToFormdata(product));
 }
 async function buy() {
   const iskeranjang = await GET(`keranjang/${idUser}`);
