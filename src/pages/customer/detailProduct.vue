@@ -10,8 +10,6 @@ import { useRoute, useRouter } from "vue-router";
 const { GET, POST } = Api();
 const products = ref("");
 const route = useRoute();
-const router = useRouter();
-const quantity = ref(1);
 const idUser = sessionStorage.getItem("sesIdUser");
 const idProduct = route.params.idProduct;
 const dateNow = new Date().toISOString().split("T")[0];
@@ -36,7 +34,7 @@ const detailCart = reactive({
   id_keranjang_belanja: null,
   id_pelanggan: idUser,
   id_produk: idProduct,
-  qty: quantity.value,
+  qty: 0,
   harga: product.harga_jual,
 });
 
@@ -60,29 +58,34 @@ onMounted(() => {
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 function addQuantity() {
-  return (quantity.value = quantity.value + 1);
+  if (detailCart.qty > product.qty_produk) {
+    return
+  }
+  return (detailCart.qty = detailCart.qty + 1);
 }
 const isPopup = ref(false);
 function popUphandle() {
   isPopup.value = !isPopup.value;
 }
 function decreaseQuantity() {
-  if (quantity.value <= 0) {
+  if (detailCart.qty <= 0) {
     return;
   }
-  return (quantity.value = quantity.value - 1);
+  return (detailCart.qty = detailCart.qty - 1);
 }
-
 async function addToCart() {
   const iskeranjang = await GET(`keranjang/${idUser}`);
   if (iskeranjang.data.length == 0) {
+    popUphandle();
+    detailCart.qty = detailCart.qty;
     const data = await POST("keranjangbelanja", objectToFormdata(cart));
     const lastId = data.lastId;
     detailCart.id_keranjang_belanja = lastId;
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
-    popUphandle();
     return;
   }
+  popUphandle();
+
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
 }
@@ -97,7 +100,6 @@ async function buy() {
   }
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
-  
 }
 </script>
 
@@ -151,7 +153,7 @@ async function buy() {
           <div class="flex gap-2">
             <button
               @click="decreaseQuantity"
-              :class="quantity === 0 ? ' cursor-not-allowed' : 'cursor-pointer'"
+              :class="detailCart.qty === 0 ? ' cursor-not-allowed' : 'cursor-pointer'"
               class="w-5 h-5 text-center bg-gray-400 p-1 flex justify-center items-center"
             >
               -
@@ -159,10 +161,11 @@ async function buy() {
             <input
               type="text"
               class="w-10 h-5 text-center"
-              v-model="quantity"
+              v-model="detailCart.qty"
             />
             <button
               @click="addQuantity"
+              :class="detailCart.qty > product.qty_produk ? ' cursor-not-allowed' : 'cursor-pointer'"
               class="w-5 h-5 bg-gray-400 text-center p-1 flex justify-center items-center"
             >
               +
@@ -214,6 +217,7 @@ async function buy() {
           :price="numberFormat(product.harga_jual)"
           :category="product.nm_jns_produk"
           :description="product.keterangan"
+          :idProd="product.id"
         />
         <h1 v-else>product kosong atau jaringan bermasalah</h1>
       </div>
