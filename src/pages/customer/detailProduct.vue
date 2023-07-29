@@ -10,6 +10,7 @@ import { useRoute, useRouter } from "vue-router";
 const { GET, POST } = Api();
 const products = ref("");
 const route = useRoute();
+const router = useRouter();
 const idUser = sessionStorage.getItem("sesIdUser");
 const idProduct = route.params.idProduct;
 const dateNow = new Date().toISOString().split("T")[0];
@@ -34,7 +35,7 @@ const detailCart = reactive({
   id_keranjang_belanja: null,
   id_pelanggan: idUser,
   id_produk: idProduct,
-  qty: 0,
+  qty: 1,
   harga: product.harga_jual,
 });
 
@@ -59,7 +60,7 @@ onMounted(() => {
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 function addQuantity() {
   if (detailCart.qty > product.qty_produk) {
-    return
+    return;
   }
   return (detailCart.qty = detailCart.qty + 1);
 }
@@ -77,15 +78,16 @@ async function addToCart() {
   const iskeranjang = await GET(`keranjang/${idUser}`);
   if (iskeranjang.data.length == 0) {
     popUphandle();
-    detailCart.qty = detailCart.qty;
+
     const data = await POST("keranjangbelanja", objectToFormdata(cart));
     const lastId = data.lastId;
+
     detailCart.id_keranjang_belanja = lastId;
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
     return;
   }
-  popUphandle();
 
+  popUphandle();
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
 }
@@ -96,8 +98,14 @@ async function buy() {
     const lastId = data.lastId;
     detailCart.id_keranjang_belanja = lastId;
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+    router.push({
+      name: "cart",
+    });
     return;
   }
+  router.push({
+    name: "cart",
+  });
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
 }
@@ -153,7 +161,9 @@ async function buy() {
           <div class="flex gap-2">
             <button
               @click="decreaseQuantity"
-              :class="detailCart.qty === 0 ? ' cursor-not-allowed' : 'cursor-pointer'"
+              :class="
+                detailCart.qty === 0 ? ' cursor-not-allowed' : 'cursor-pointer'
+              "
               class="w-5 h-5 text-center bg-gray-400 p-1 flex justify-center items-center"
             >
               -
@@ -165,7 +175,11 @@ async function buy() {
             />
             <button
               @click="addQuantity"
-              :class="detailCart.qty > product.qty_produk ? ' cursor-not-allowed' : 'cursor-pointer'"
+              :class="
+                detailCart.qty > product.qty_produk
+                  ? ' cursor-not-allowed'
+                  : 'cursor-pointer'
+              "
               class="w-5 h-5 bg-gray-400 text-center p-1 flex justify-center items-center"
             >
               +
