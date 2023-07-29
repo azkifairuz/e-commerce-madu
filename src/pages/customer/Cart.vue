@@ -4,7 +4,7 @@ import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
 import { numberFormat } from "@/utils/NumberFormat";
-const { GET } = Api();
+const { GET, DELETE } = Api();
 const router = useRouter();
 const cartItem = ref();
 const idUser = sessionStorage.getItem("sesIdUser");
@@ -15,6 +15,24 @@ async function getCart() {
     return;
   }
   cartItem.value = data.data;
+}
+
+async function deleteCartitem(id) {
+  const iskeranjang = await GET(`keranjang/${idUser}`);
+  if (iskeranjang.data.length == 1) {
+    console.log(iskeranjang.data.length == 1);
+    await DELETE(`detailkeranjangbelanja/${id}`);
+    await DELETE(`keranjangbelanja/${id}`);
+    setTimeout(() => {
+      location.reload();
+    }, 10);
+    return;
+  }
+
+  await DELETE(`detailkeranjangbelanja/${id}`);
+  setTimeout(() => {
+    location.reload();
+  }, 10);
 }
 onMounted(() => {
   getCart();
@@ -75,6 +93,7 @@ function calculateTotalPrice() {
             primary-color="bg-red-500"
             hover-color="hover:bg-red-700"
             textColor="text-white"
+            @some-event="deleteCartitem(cart.idDetKeranjang)"
           />
         </div>
       </div>

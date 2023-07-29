@@ -103,6 +103,8 @@ async function buy() {
     const lastId = data.lastId;
     detailCart.id_keranjang_belanja = lastId;
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+    product.qty_produk = product.qty_produk - detailCart.qty;
+    await POST(`produk/${idProduct}`, objectToFormdata(product));
     router.push({
       name: "cart",
     });
@@ -113,6 +115,8 @@ async function buy() {
   });
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+  product.qty_produk = product.qty_produk - detailCart.qty;
+  await POST(`produk/${idProduct}`, objectToFormdata(product));
 }
 </script>
 
