@@ -30,6 +30,7 @@ const cart = reactive({
   id_pelanggan: idUser,
   tgl: dateNow,
 });
+
 const detailCart = reactive({
   id: null,
   id_keranjang_belanja: null,
@@ -55,6 +56,7 @@ async function getProductById() {
 onMounted(() => {
   getProduct();
   getProductById();
+  
 });
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
@@ -84,12 +86,16 @@ async function addToCart() {
 
     detailCart.id_keranjang_belanja = lastId;
     await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+
+    product.qty_produk = detailCart.qty;
+    await POST(`produk/${idProduct}`, objectToFormdata(detailCart));
     return;
   }
 
   popUphandle();
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
+  await POST(`produk/${idProduct}`, objectToFormdata(detailCart));
 }
 async function buy() {
   const iskeranjang = await GET(`keranjang/${idUser}`);
@@ -224,10 +230,10 @@ async function buy() {
       <div class="grid grid-rows-1 grid-cols-5 overflow-hidden">
         <card-product
           v-if="products != null"
-          v-for="product in products.slice(0, 5)"
-          :key="product.id"
+          v-for="(product, index) in products.slice(0, 5)"
+          :key="index"
           :imageUrl="baseImageUrl + product.image"
-          :title="product.title"
+          :title="product.nm_produk"
           :price="numberFormat(product.harga_jual)"
           :category="product.nm_jns_produk"
           :description="product.keterangan"

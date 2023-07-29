@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from "vue-router";
 
 const props = defineProps({
   imageUrl: String,
@@ -7,17 +7,28 @@ const props = defineProps({
   description: String,
   category: String,
   price: String,
-  idProd:Number,
+  idProd: Number,
 });
 const isLogin = sessionStorage.getItem("isLogin");
 const router = useRouter();
+const route = useRoute();
 
 function goToDetailProduct(id) {
-  if (isLogin != "true" ) {
+  if (isLogin != "true") {
     router.push({
-    name: "loginUser",
-  });
-  return
+      name: "loginUser",
+    });
+    return;
+  }
+  if (route.name == "detailProduct") {
+    router.push({
+      name: "detailProduct",
+      params: { idProduct: id },
+    });
+    setTimeout(() => {
+      location.reload();
+    }, 10);
+    return;
   }
   router.push({
     name: "detailProduct",
@@ -29,12 +40,9 @@ function goToDetailProduct(id) {
 <template>
   <div
     @click="goToDetailProduct(idProd)"
-    class="max-w-md bg-white rounded-md  overflow-hidden w-60 cursor-pointer p-2 hover:shadow-lg"
+    class="max-w-md bg-white rounded-md overflow-hidden w-60 cursor-pointer p-2 hover:shadow-lg"
   >
-    <img
-      :src="imageUrl"
-      class="w-full bg-black h-48 object-cover"
-    />
+    <img :src="imageUrl" class="w-full bg-black h-48 object-cover" />
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2 line-clamp-1 hover:">{{ title }}</div>
       <p class="text-gray-700 text-base line-clamp-2 overflow-ellipsis">
@@ -47,7 +55,7 @@ function goToDetailProduct(id) {
         >{{ category }}</span
       >
       <span
-        class="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
+        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
         >Rp.{{ price }}</span
       >
     </div>
