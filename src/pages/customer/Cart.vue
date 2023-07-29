@@ -10,6 +10,10 @@ const cartItem = ref();
 const idUser = sessionStorage.getItem("sesIdUser");
 async function getCart() {
   const data = await GET(`keranjang/${idUser}`);
+  if (data.data.length == 0) {
+    console.log("cart kosong");
+    return;
+  }
   cartItem.value = data.data;
 }
 onMounted(() => {
@@ -20,17 +24,20 @@ function goToCheckout() {
     path: "payment",
   });
 }
+function goToHome() {
+  router.push({
+    name: "madu",
+  });
+}
 
-function CalculateSubTotal(qty,price){
-    
-    return numberFormat(qty * price)
-
+function CalculateSubTotal(qty, price) {
+  return numberFormat(qty * price);
 }
 
 function calculateTotalPrice() {
   let total = 0;
   if (!cartItem.value) {
-    return "gagal"
+    return 0;
   }
   for (const cart of cartItem.value) {
     total += parseInt(cart.qty) * parseInt(cart.harga);
@@ -46,10 +53,12 @@ function calculateTotalPrice() {
     >
       <header class="font-bold z-10 text-xl text-center">Keranjang</header>
       <div class="h-full flex flex-col gap-[32px] mt-[48px] overflow-y-auto">
+        <h1 v-show="!cartItem" class="text-2xl text-center">
+          Keranjang Masih Kosong
+        </h1>
         <div
-          v-for="(cart, index) in cartItem "
+          v-for="(cart, index) in cartItem"
           :key="index"
-          
           class="card flex justify-between items-center"
         >
           <img
@@ -59,8 +68,8 @@ function calculateTotalPrice() {
           />
           <h1>{{ cart.nm_produk }}</h1>
           <h1>{{ cart.qty }}</h1>
-          
-          <p>Rp.{{ CalculateSubTotal(cart.qty,cart.harga) }}</p>
+
+          <p>Rp.{{ CalculateSubTotal(cart.qty, cart.harga) }}</p>
           <BtnComponent
             label="Hapus"
             primary-color="bg-red-500"
@@ -75,6 +84,15 @@ function calculateTotalPrice() {
           <p class="font-bold text-xl">Rp.{{ calculateTotalPrice() }}</p>
         </div>
         <BtnComponent
+          v-show="!cartItem"
+          label="halaman belanja"
+          @some-event="goToHome"
+          primary-color="bg-btn-primary"
+          hover-color="hover:bg-btn-hover"
+          textColor="text-black"
+        />
+        <BtnComponent
+          v-show="cartItem"
           label="Checkout"
           @some-event="goToCheckout"
           primary-color="bg-btn-primary"
