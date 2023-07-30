@@ -26,43 +26,53 @@ function buttonClick() {
 }
 </script>
 <template>
-
-  <div class="flex flex-col-reverse lg:flex-row overflow-y-auto bg-white w-full h-screen">
-    <!-- Image Section -->
-    <div class="lg:block w-full h-[1000px] lg:w-1/2 bg-btn-primary">
-      <!-- Replace the URL with your image -->
-      <img
-        src="image-url.jpg"
-        alt="Registration Image"
-        class="object-cover w-full h-full"
-      />
-    </div>
-
-    <!-- Form Section -->
-    <div class="w-full lg:w-1/2 px-6 lg:h-screen lg:overflow-y-auto pb-10  bg-white">
-      <h1 class="text-2xl font-bold text-center">
-        {{ isCustomer ? "Daftar Akun" : "Daftarkan Admin" }}
-      </h1>
-      <p v-if="isCustomer" class="mb-10 text-center text-sm text-gray-500">
-        sudah ada Akun?
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div
+      class="grid grid-cols-1  md:grid-cols-2 gap-8 max-w-[1200px] w-full p-8"
+    >
+      <!-- Image Section -->
+      <div class=" bg-btn-primary rounded-lg p-8  gap-10  justify-center flex flex-col  items-center overflow-hidden">
+        <h1 class="text-4xl text-center font-bold text-black ">Selamat Datang Di Madu Apiari</h1>
+        <img
+          :src="logo"
+          alt="Registration Image"
+          class="object-cover h-28 "
+        />
+        <h1 class="text-2xl text-center  text-black ">Sudah Memiiki Akun?</h1>
         <button
           @click="goToLogin"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          class="w-full rounded-md z-10  bg-white  py-2 text-sm font-semibold text-btn-primary shadow-sm hover:bg-[#f2f2f2]"
         >
           Login
         </button>
-      </p>
-      <slot class="" name="inputField"> </slot>
-      <div>
-        <button
-          @click="buttonClick"
-          class="flex w-full justify-center rounded-md bg-btn-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-btn-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Daftar
-        </button>
       </div>
 
-
+      <!-- Form Section -->
+      <div class="w-full">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h1 class="text-2xl font-bold text-center mb-8">
+            {{ isCustomer ? "Daftar Akun" : "Daftarkan Admin" }}
+          </h1>
+          <p v-if="isCustomer" class="mb-8 text-center text-sm text-gray-500">
+            Sudah memiliki akun?
+            <button
+              @click="goToLogin"
+              class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              Login
+            </button>
+          </p>
+          <slot class="" name="inputField"> </slot>
+          <div class="mt-6">
+            <button
+              @click="buttonClick"
+              class="w-full rounded-md bg-btn-primary py-2 text-sm font-semibold text-white shadow-sm hover:bg-btn-hover focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            >
+              Daftar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
