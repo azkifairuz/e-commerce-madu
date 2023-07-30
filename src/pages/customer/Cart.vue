@@ -8,6 +8,18 @@ const { GET, DELETE } = Api();
 const router = useRouter();
 const cartItem = ref();
 const idUser = sessionStorage.getItem("sesIdUser");
+const isLogin = sessionStorage.getItem("isLogin");
+function isLoginValidation() {
+  if (isLogin != "true") {
+    router.push(
+      {
+        name:"loginUser"
+      }
+    )
+    return
+  }
+  console.log("sudah login");
+}
 async function getCart() {
   const data = await GET(`keranjang/${idUser}`);
   if (data.data.length == 0) {
@@ -35,6 +47,7 @@ async function deleteCartitem(id) {
   }, 10);
 }
 onMounted(() => {
+  isLoginValidation()
   getCart();
 });
 function goToCheckout() {

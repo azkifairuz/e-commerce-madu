@@ -28,20 +28,11 @@ async function getProduct() {
   }
   status.value = `madu ${category.value.nm_jns_produk}`;
   products.value = data.data;
+  console.log(products.value);
 }
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 
-function goToDetailProduct(id) {
-  router.push({
-    name: "detailProduct",
-    params: { idProduct: id },
-  });
-}
-
-function headerText(madu) {
-  return madu;
-}
 onMounted(() => {
   getCategory();
   getProduct();
@@ -69,7 +60,7 @@ onMounted(() => {
         :price="numberFormat(product.harga_jual)"
         :category="product.nm_jns_produk"
         :description="product.keterangan"
-        @goToDetail="goToDetailProduct(product.id)"
+        :idProduct="(product.id)"
       />
     </section>
   </main>

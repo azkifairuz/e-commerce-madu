@@ -7,9 +7,8 @@ const isOpen = ref(false);
 const searchQuery = ref("");
 const links = [
   { id: 1, label: "Beranda", url: "home" },
-  { id: 2, label: "Kategori Madu", url: "#about" },
-  { id: 3, label: "Semua Madu", url: "#category" },
-  { id: 3, label: "Madu", url: "#prduct" },
+  { id: 2, label: "Kategori Madu", url: "allCategory" },
+  { id: 3, label: "Semua Madu", url: "catalog" },
   { id: 4, label: "Keranjang", url: "cart" },
 ];
 const router = useRouter();
