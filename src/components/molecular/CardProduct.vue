@@ -22,7 +22,6 @@ function goToDetailProduct(id) {
     return;
   }
   if (!isProdReady) {
-    
     return;
   }
   if (route.name == "detailProduct") {
@@ -45,7 +44,7 @@ function goToDetailProduct(id) {
 <template>
   <div
     @click="goToDetailProduct(idProd)"
-    :class="isProdReady ? 'cursor-pointer' : 'cursor-not-allowed'"
+    :class="isProdReady ? 'cursor-pointer' : 'cursor-not-allowed' "
     class="max-w-md bg-white rounded-md overflow-hidden w-60 p-2 hover:shadow-lg"
   >
     <img :src="imageUrl" class="w-full bg-black h-48 object-cover" />

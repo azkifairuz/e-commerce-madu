@@ -75,7 +75,7 @@ function goToRegisterPage() {
               text-color="text-white"
             />
           </div>
-          <div v-else class="gap-4 hidden md:flex">
+          <div v-else class="gap-4 hidden lg:flex">
             <btn-component
               label="Masuk"
               @someEvent="goToLoginPage"
@@ -100,7 +100,7 @@ function goToRegisterPage() {
             class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
           />
         </div>
-        <div class="-mr-2 flex md:hidden">
+        <div class="-mr-2 flex lg:hidden">
           <button
             @click="isOpen = !isOpen"
             type="button"
@@ -139,12 +139,12 @@ function goToRegisterPage() {
         </div>
       </div>
     </div>
-    <div :class="{ block: isOpen, hidden: !isOpen }" class="md:hidden">
+    <div :class="{ block: isOpen, hidden: !isOpen }" class="lg:hidden">
       <div class="px-2 pt-2 pb-3 sm:px-3">
         <a
           v-for="link in links"
           :key="link.id"
-          :href="link.url"
+          @click="navigationPage(link.url)"
           class="block px-3 py-2 rounded-md text-base font-medium text-black hover:bg-yellow-300"
         >
           {{ link.label }}
@@ -163,17 +163,18 @@ function goToRegisterPage() {
       <div v-else class="flex flex-col cursor-pointer gap-4 px-3 pb-4">
         <btn-component
           label="Masuk"
+          @someEvent="goToLoginPage"
           primary-color="bg-green-500"
           hover-color="hover:bg-green-700"
           text-color="text-white"
         />
         <btn-component
+          @someEvent="goToRegisterPage"
           label="Daftar"
           primary-color="bg-blue-500"
           hover-color="hover:bg-blue-700"
           text-color="text-white"
         />
-        
       </div>
     </div>
   </nav>
