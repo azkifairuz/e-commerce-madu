@@ -40,7 +40,7 @@ async function deleteProduct(id) {
     responseMsg.value = "Berhasil Menghapus";
     setTimeout(() => {
       location.reload();
-    }, 2000);
+    }, 1000);
   } catch (error) {
     console.error(error);
     responseMsg.value = "Gagal Menghapus";

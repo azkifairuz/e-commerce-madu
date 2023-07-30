@@ -35,7 +35,7 @@ async function deleteProduct(id) {
       router.push({
         name: "showCategory",
       });
-    }, 2000);
+    }, 1000);
   } catch (error) {
     console.error(error);
     responseMsg.value = "Gagal Menghapus";
