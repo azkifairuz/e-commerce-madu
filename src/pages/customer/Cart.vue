@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
@@ -7,16 +7,24 @@ import { numberFormat } from "@/utils/NumberFormat";
 const { GET, DELETE } = Api();
 const router = useRouter();
 const cartItem = ref();
+  // const product = reactive({
+  //   id: null,
+  //   nm_produk: "",
+  //   qty_produk: "",
+  //   id_jns_produk: null,
+  //   harga_jual: null,
+  //   harga_beli: null,
+  //   keterangan: null,
+  //   image: null,
+  // });
 const idUser = sessionStorage.getItem("sesIdUser");
 const isLogin = sessionStorage.getItem("isLogin");
 function isLoginValidation() {
   if (isLogin != "true") {
-    router.push(
-      {
-        name:"loginUser"
-      }
-    )
-    return
+    router.push({
+      name: "loginUser",
+    });
+    return;
   }
   console.log("sudah login");
 }
@@ -26,15 +34,17 @@ async function getCart() {
     console.log("cart kosong");
     return;
   }
+
+  
   cartItem.value = data.data;
 }
 
 async function deleteCartitem(id) {
   const iskeranjang = await GET(`keranjang/${idUser}`);
+
   if (iskeranjang.data.length == 1) {
-    console.log(iskeranjang.data.length == 1);
+    await DELETE(`keranjangbelanja/${iskeranjang.data[0].idKeranjang}`);
     await DELETE(`detailkeranjangbelanja/${id}`);
-    await DELETE(`keranjangbelanja/${id}`);
     setTimeout(() => {
       location.reload();
     }, 10);
@@ -46,10 +56,7 @@ async function deleteCartitem(id) {
     location.reload();
   }, 10);
 }
-onMounted(() => {
-  isLoginValidation()
-  getCart();
-});
+
 function goToCheckout() {
   router.push({
     path: "payment",
@@ -75,6 +82,11 @@ function calculateTotalPrice() {
   }
   return numberFormat(total);
 }
+
+onMounted(() => {
+  isLoginValidation();
+  getCart();
+});
 </script>
 
 <template>
@@ -97,7 +109,7 @@ function calculateTotalPrice() {
             class="rounded-xl bg-black w-[150px] h-[100px] bg-no-repeat bg-cover"
             alt=""
           />
-          <h1>{{ cart.nm_produk }}</h1>
+          <h1 class="font-bold w-32 capitalize">{{ cart.nm_produk }}</h1>
           <h1>{{ cart.qty }}</h1>
 
           <p>Rp.{{ CalculateSubTotal(cart.qty, cart.harga) }}</p>

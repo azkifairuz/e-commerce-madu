@@ -75,6 +75,8 @@ onMounted(() => {
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               :description="product.keterangan"
+              :qty="product.qty_produk"
+              :isReady="product.qty_produk > 0 ? true:false"
               :idProd="product.id"
             />
             <h1 v-else>product kosong atau jaringan bermasalah</h1>
