@@ -21,9 +21,10 @@ router.beforeEach((to, from, next) => {
     next({
       name: "auth",
     });
-    
+
   } else {
     next();
   }
 });
+
 createApp(App).use(router).mount("#app");

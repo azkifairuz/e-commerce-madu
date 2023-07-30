@@ -41,6 +41,7 @@ const credentials = reactive({
   email: "",
   password: "",
 });
+
 async function handleLogin() {
   await authenticate(objectToFormdata(credentials));
   if (isAuthorize.value == false) {
@@ -70,7 +71,6 @@ async function handleLogin() {
     return;
   }
     sessionStorage.setItem('levelUser',data.level)
-
     router.push({
       name: "home",
     });
@@ -78,11 +78,13 @@ async function handleLogin() {
 }
 const router = useRouter();
 const isCustomer = router.currentRoute.value.name === "loginUser";
+
 const goToRegister = () => {
   router.push({
     name: "registerUser",
   });
 };
+
 const forgetPw = () => {
   router.push({
     name: "forgetpw",
