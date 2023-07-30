@@ -31,29 +31,22 @@ function buttonClick() {
       class="grid grid-cols-1  md:grid-cols-2 gap-8 max-w-[1200px] w-full p-8"
     >
       <!-- Image Section -->
-      <div class=" bg-btn-primary rounded-lg p-8  gap-10  justify-center flex flex-col  items-center overflow-hidden">
-        <h1 class="text-4xl text-center font-bold text-black ">Selamat Datang Di Madu Apiari</h1>
+      <div class="relative bg-btn-primary rounded-lg p-8  gap-10  justify-center flex flex-col  items-center overflow-hidden">
         <img
           :src="logo"
           alt="Registration Image"
           class="object-cover h-28 "
         />
-        <h1 class="text-2xl text-center  text-black ">Sudah Memiiki Akun?</h1>
-        <button
-          @click="goToLogin"
-          class="w-full rounded-md z-10  bg-white  py-2 text-sm font-semibold text-btn-primary shadow-sm hover:bg-[#f2f2f2]"
-        >
-          Login
-        </button>
+
       </div>
 
       <!-- Form Section -->
       <div class="w-full">
         <div class="bg-white rounded-lg shadow-lg p-8">
-          <h1 class="text-2xl font-bold text-center mb-8">
-            {{ isCustomer ? "Daftar Akun" : "Daftarkan Admin" }}
+          <h1 class="text-2xl font-bold text-center mb-8 capitalize">
+            {{ isCustomer ? "Selamat Datang Di madu apiari Silahkan daftar" : "Daftarkan Admin" }}
           </h1>
-          <p v-if="isCustomer" class="mb-8 text-center text-sm text-gray-500">
+          <p v-show="isCustomer" class="mb-8 text-center text-sm text-gray-500">
             Sudah memiliki akun?
             <button
               @click="goToLogin"
