@@ -19,15 +19,7 @@ const cartItem = ref();
   // });
 const idUser = sessionStorage.getItem("sesIdUser");
 const isLogin = sessionStorage.getItem("isLogin");
-function isLoginValidation() {
-  if (isLogin != "true") {
-    router.push({
-      name: "loginUser",
-    });
-    return;
-  }
-  console.log("sudah login");
-}
+
 async function getCart() {
   const data = await GET(`keranjang/${idUser}`);
   if (data.data.length == 0) {
@@ -84,7 +76,6 @@ function calculateTotalPrice() {
 }
 
 onMounted(() => {
-  isLoginValidation();
   getCart();
 });
 </script>

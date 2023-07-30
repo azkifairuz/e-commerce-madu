@@ -8,6 +8,10 @@ export const router = createRouter({
     {
       path: "/admin",
       name: "admin",
+      meta: {
+        requireAuth:true,
+        roles:'admin'
+      },
       component: () => import("@/pages/admin/layout/Admin.vue"),
       children: [
         {
@@ -136,6 +140,10 @@ export const router = createRouter({
         {
           path: "cart",
           name: "cart",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/Cart.vue"),
         },
         {
@@ -147,6 +155,7 @@ export const router = createRouter({
     },
     {
       path: "/auth",
+      name:"auth",
       redirect: { name: "loginUser" },
       children: [
         {
