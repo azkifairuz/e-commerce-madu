@@ -21,14 +21,13 @@ async function getCategory() {
   category.value = data.data;
 }
 async function getProduct() {
-    const data = await GET(`katproduk/${idCategory}`);
-    if (data.data.length === 0) {
-      status.value = false
-      return;
-    }
-    status.value = true
-    products.value = data.data;
-  
+  const data = await GET(`katproduk/${idCategory}`);
+  if (data.data.length === 0) {
+    status.value = `madu ${category.value.nm_jns_produk} kosong`;
+    return;
+  }
+  status.value = `madu ${category.value.nm_jns_produk}`;
+  products.value = data.data;
 }
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
@@ -41,17 +40,11 @@ function goToDetailProduct(id) {
 }
 
 function headerText(madu) {
-  let message = ''
-  if (status.value === false) {
-    message = `madu ${madu} kosong`
-    return message
-  }
-  message = `madu ${madu}`
-  return message
+  return madu;
 }
 onMounted(() => {
-  getProduct();
   getCategory();
+  getProduct();
 });
 </script>
 
@@ -63,7 +56,7 @@ onMounted(() => {
       <h1
         class="font-bold text-xl md:text-2xl lg:text-4xl capitalize text-center"
       >
-        {{ headerText(category.nm_jns_produk) }}
+        {{ status }}
       </h1>
     </header>
     <section class="mt-2 grid grid-cols-2 lg:grid-cols-5 gap-5">
