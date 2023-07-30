@@ -5,7 +5,6 @@ import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm";
-import SelectField from "@/components/atom/SelectField.vue";
 import TextArea from "@/components/atom/TextArea.vue";
 const detailCustomer = reactive({
   nik: "",
@@ -44,18 +43,7 @@ async function save() {
   )
 }
 </script>
-<!-- <div class="flex gap-5">
-  <div class="border-r border-black pr-2">
-    <h1 class="text-xl font-semibold">Data Akun</h1>
 
-  </div>
-  <div class="class flex flex-col gap-2 items-center">
-    <h1 class="text-xl text-center font-semibold">Data Diri</h1>
-    <div class="grid items-center grid-cols-1 md:grid-cols-3 gap-2">
-
-    </div>
-  </div>
-</div> -->
 <template>
 <RegisterForm @savedata="save">
   <template v-slot:inputField>
