@@ -156,11 +156,6 @@ export const router = createRouter({
           name: "catalog",
           component: () => import("@/pages/customer/Catalog.vue"),
         },
-        {
-          path: "allCategory",
-          name: "allCategory",
-          component: () => import("@/pages/customer/Category.vue"),
-        },
       ],
     },
     {
