@@ -40,7 +40,7 @@ async function save() {
   account.name = detailPegawai.nm_pegawai;
   await POST("register", objectToFormdata(account));
   router.push({
-    name: "showPegawai",
+    name: "showEmployee",
   });
 }
 </script>
@@ -81,7 +81,7 @@ async function save() {
           name="nik"
         />
         <div class="flex flex-col gap-3">
-          <label class="text-lg"> Jenis Kelamin</label>
+          <label class="text-lg">Jenis Kelamin</label>
           <div class="flex gap-5">
             <div
               class="flex gap-2"
