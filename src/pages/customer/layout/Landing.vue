@@ -33,6 +33,16 @@ function goToProductByCategory(id) {
     params: { idCategory: id },
   });
 }
+function goToCategory() {
+  router.push({
+    name: "allCategory",
+  });
+}
+function goToListMadu() {
+  router.push({
+    name: "catalog",
+  });
+}
 
 
 onMounted(() => {
@@ -48,7 +58,10 @@ onMounted(() => {
       <Jbtr />
       <main class="px-10 py-10">
         <section id="category" class="flex flex-col gap-5">
-          <h1 class="text-2xl font-poppins font-bold">Jenis Madu</h1>
+          <div  class="w-full flex justify-between">
+            <h1 class="text-2xl font-poppins font-bold">Jenis Madu</h1>
+            <h1 @click="goToCategory" class="text-2xl cursor-pointer text-blue-400">Lihat Semua-></h1>
+          </div>
           <div id="categories h-40 section" class="flex gap-5">
             <card-category
               v-if="categories != null"
@@ -61,9 +74,12 @@ onMounted(() => {
           </div>
         </section>
         <section id="product" class="flex flex-col mt-10 gap-5">
-          <h1 class="text-2xl font-poppins font-bold">Madu Teratas</h1>
+          <div class="w-full flex justify-between">
+            <h1 class="text-2xl font-poppins font-bold">Madu </h1>
+            <h1 @click="goToListMadu" class="text-2xl cursor-pointer text-blue-400">Lihat Semua-></h1>
+          </div>
           <div
-            id="categories section"
+            id="categories section "
             class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 grid-rows-1 overflow-hidden gap-5"
           >
             <card-product

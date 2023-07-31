@@ -72,7 +72,7 @@ async function handleLogin() {
   }
     sessionStorage.setItem('levelUser',data.level)
     router.push({
-      name: "home",
+      name: "admin",
     });
 
 }
@@ -101,7 +101,7 @@ const forgetPw = () => {
       <h2
         class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
       >
-        Halo {{ isCustomer ? "Customer" : "Admin" }} Silahkan Masuk!!
+        Halo Silahkan Masuk!!
       </h2>
     </div>
 

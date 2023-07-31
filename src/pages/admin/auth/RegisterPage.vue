@@ -13,7 +13,7 @@ const detailPegawai = reactive({
   jns_kelamin: "L",
   alamat_pegawai: "",
   tgl_lahir: "",
-  temp_lahir: "",
+  tmp_lahir: "",
   email: "",
   no_telp: "",
 });
@@ -116,7 +116,7 @@ async function save() {
 
         <InputField
           label="Tempat Lahir"
-          v-model="detailPegawai.temp_lahir"
+          v-model="detailPegawai.tmp_lahir"
           placeholder="Masukan Tempat Lahir anda"
           typeInput="text"
           name="email"

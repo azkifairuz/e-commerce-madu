@@ -4,36 +4,41 @@ import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
 import { numberFormat } from "@/utils/NumberFormat";
-const { GET, DELETE } = Api();
+
+const { GET, DELETE,POST } = Api();
 const router = useRouter();
 const cartItem = ref();
-  // const product = reactive({
-  //   id: null,
-  //   nm_produk: "",
-  //   qty_produk: "",
-  //   id_jns_produk: null,
-  //   harga_jual: null,
-  //   harga_beli: null,
-  //   keterangan: null,
-  //   image: null,
-  // });
 const idUser = sessionStorage.getItem("sesIdUser");
-const isLogin = sessionStorage.getItem("isLogin");
+const dateNow = new Date().toISOString().split("T")[0];
 
+const order = reactive({
+  id:null,
+  no_nota:null,
+  id_pelanggan:idUser,
+  tgl:dateNow
+})
+
+const detailOrder = reactive({
+  id: null,
+  id_pemesanan: order.id,
+  id_produk:"",
+  qty:null,
+  harga:null
+});
 async function getCart() {
   const data = await GET(`keranjang/${idUser}`);
   if (data.data.length == 0) {
     console.log("cart kosong");
     return;
   }
-
-  
   cartItem.value = data.data;
+  const idDetKeranjangArray =cartItem.value[0].idKeranjang;
+// Print the idDetKeranjangArray
+console.log(idDetKeranjangArray);
 }
 
 async function deleteCartitem(id) {
   const iskeranjang = await GET(`keranjang/${idUser}`);
-
   if (iskeranjang.data.length == 1) {
     await DELETE(`keranjangbelanja/${iskeranjang.data[0].idKeranjang}`);
     await DELETE(`detailkeranjangbelanja/${id}`);
@@ -49,7 +54,9 @@ async function deleteCartitem(id) {
   }, 10);
 }
 
-function goToCheckout() {
+async function goToCheckout() {
+  const idDetKeranjangArray = cartItem.value[0].idKeranjang;
+  const data = await POST(`checkout/${idUser}`,{})
   router.push({
     path: "payment",
   });
