@@ -77,14 +77,9 @@ export const router = createRouter({
             {
               path: "add",
               name: "addEmployee",
-              component: () => import("@/pages/admin/employee/AddEmployee.vue"),
+              component: () => import("@/pages/admin/auth/RegisterPage.vue"),
             },
-            {
-              path: "edit/:employe",
-              name: "editEmployee",
-              component: () =>
-                import("@/pages/admin/employee/EditEmployee.vue"),
-            },
+          
           ],
         },
         {
