@@ -119,7 +119,6 @@ async function buy() {
   await POST(`produk/${idProduct}`, objectToFormdata(product));
 }
 </script>
-
 <template>
   <div
     :class="isPopup ? 'flex' : 'hidden'"
@@ -151,14 +150,14 @@ async function buy() {
       <footer class="px-5 py-1 flex justify-end w-full"></footer>
     </div>
   </div>
-  <main class="px-10 py-10 flex flex-col gap-10">
-    <div class="flex gap-5">
+  <main class="px-4 py-4 md:px-10 md:py-10 flex flex-col gap-10">
+    <div class="flex flex-col gap-10 md:flex-row md:gap-20">
       <img
-        class="w-[400px] h-[400px] rounded-lg"
+        class="w-full md:w-1/2 h-[400px] rounded-lg"
         :src="baseImageUrl + product.image"
         alt=""
       />
-      <div class="w-1/2 flex flex-col justify-evenly">
+      <div class="w-full md:w-1/2 flex flex-col gap-2 justify-between">
         <div>
           <h1 class="font-bold text-xl">{{ product.nm_produk }}</h1>
           <p>
@@ -173,13 +172,14 @@ async function buy() {
               :class="
                 detailCart.qty === 0 ? ' cursor-not-allowed' : 'cursor-pointer'
               "
-              class="w-5 h-5 text-center bg-gray-400 p-1 flex justify-center items-center"
+              class="w-5 h-5 text-center bg-yellow-main p-1 flex justify-center items-center"
             >
               -
             </button>
             <input
+              readonly
               type="text"
-              class="w-10 h-5 text-center"
+              class="w-10 h-5 text-center border-2 p-2 border-yellow-light outline-none"
               v-model="detailCart.qty"
             />
             <button
@@ -189,13 +189,13 @@ async function buy() {
                   ? ' cursor-not-allowed'
                   : 'cursor-pointer'
               "
-              class="w-5 h-5 bg-gray-400 text-center p-1 flex justify-center items-center"
+              class="w-5 h-5 bg-yellow-main text-center p-1 flex justify-center items-center"
             >
               +
             </button>
           </div>
         </div>
-        <div class="">
+        <div class="w-full">
           <h1 class="font-bold">Rp.{{ numberFormat(product.harga_jual) }}</h1>
           <div class="flex gap-2 w-full">
             <BtnComponent
@@ -228,7 +228,7 @@ async function buy() {
         </div>
       </div>
     </div>
-    <section class="">
+    <section class="grid grid-cols-1 md:grid-cols-5 gap-4">
       <h1 class="font-bolc text-2xl">Produk Lainya</h1>
       <div class="grid grid-rows-1 grid-cols-5 overflow-hidden">
         <card-product
@@ -247,3 +247,5 @@ async function buy() {
     </section>
   </main>
 </template>
+
+
