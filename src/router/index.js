@@ -120,7 +120,7 @@ export const router = createRouter({
         {
           path: "home",
           name: "home",
-          component: () => import("@/pages/customer/layout/landing.vue"),
+          component: () => import("@/pages/customer/layout/Landing.vue"),
         },
         {
           path: "productByCategory/:idCategory",

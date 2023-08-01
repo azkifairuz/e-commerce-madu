@@ -6,6 +6,7 @@ import { onMounted, ref } from "vue";
 import CardProduct from "@/components/molecular/CardProduct.vue";
 import { numberFormat } from "@/utils/NumberFormat";
 import { useRouter } from "vue-router";
+import Footer from "./Footer.vue";
 const categories = ref("");
 const products = ref("");
 const router = useRouter();
@@ -56,7 +57,7 @@ onMounted(() => {
   <body>
     <div>
       <Jbtr />
-      <main class="px-10 py-10">
+      <main class="px-10 pt-10">
         <section id="category" class="flex flex-col gap-5">
           <div  class="w-full flex justify-between">
             <h1 class="text-2xl font-poppins font-bold">Jenis Madu</h1>
@@ -98,7 +99,11 @@ onMounted(() => {
             <h1 v-else>product kosong atau jaringan bermasalah</h1>
           </div>
         </section>
+       
       </main>
+      <section class="footer mt-20 ">
+          <Footer/>
+      </section>
     </div>
   </body>
 </template>

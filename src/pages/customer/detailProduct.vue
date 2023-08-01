@@ -228,9 +228,9 @@ async function buy() {
         </div>
       </div>
     </div>
-    <section class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <section class="">
       <h1 class="font-bolc text-2xl">Produk Lainya</h1>
-      <div class="grid grid-rows-1 grid-cols-5 overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         <card-product
           v-if="products != null"
           v-for="(product, index) in products.slice(0, 5)"
@@ -241,6 +241,7 @@ async function buy() {
           :category="product.nm_jns_produk"
           :description="product.keterangan"
           :idProd="product.id"
+          :isReady="product.qty_produk > 0 ? true:false"
         />
         <h1 v-else>product kosong atau jaringan bermasalah</h1>
       </div>

@@ -42,6 +42,7 @@ onMounted(() => {
         :category="product.nm_jns_produk"
         :description="product.keterangan"
         :idProduct="product.id"
+        :isReady="product.qty_produk > 0 ? true:false"
       />
     </section>
   </main>

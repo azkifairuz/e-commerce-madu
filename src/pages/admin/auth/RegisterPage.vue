@@ -40,7 +40,7 @@ async function save() {
   account.name = detailPegawai.nm_pegawai;
   await POST("register", objectToFormdata(account));
   router.push({
-    name: "showEmployee",
+    name: "admin",
   });
 }
 </script>

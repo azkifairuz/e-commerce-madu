@@ -25,6 +25,7 @@ const detailOrder = reactive({
   qty:null,
   harga:null
 });
+
 async function getCart() {
   const data = await GET(`keranjang/${idUser}`);
   if (data.data.length == 0) {
@@ -32,9 +33,6 @@ async function getCart() {
     return;
   }
   cartItem.value = data.data;
-  const idDetKeranjangArray =cartItem.value[0].idKeranjang;
-// Print the idDetKeranjangArray
-console.log(idDetKeranjangArray);
 }
 
 async function deleteCartitem(id) {
@@ -54,9 +52,10 @@ async function deleteCartitem(id) {
   }, 10);
 }
 
-async function goToCheckout() {
-  const idDetKeranjangArray = cartItem.value[0].idKeranjang;
-  const data = await POST(`checkout/${idUser}`,{})
+async function checkout() {
+  const idKeranjangArray = cartItem.value[0].idKeranjang;
+  const data = await GET(`bayar/${idKeranjangArray}`,{})
+  console.log(data.data);
   router.push({
     path: "payment",
   });
@@ -81,6 +80,7 @@ function calculateTotalPrice() {
   }
   return numberFormat(total);
 }
+const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 
 onMounted(() => {
   getCart();
@@ -103,7 +103,7 @@ onMounted(() => {
           class="card flex justify-between items-center"
         >
           <img
-            src=""
+            :src="baseImageUrl + cart.image"
             class="rounded-xl bg-black w-[150px] h-[100px] bg-no-repeat bg-cover"
             alt=""
           />
@@ -136,7 +136,7 @@ onMounted(() => {
         <BtnComponent
           v-show="cartItem"
           label="Checkout"
-          @some-event="goToCheckout"
+          @some-event="checkout"
           primary-color="bg-btn-primary"
           hover-color="hover:bg-btn-hover"
           textColor="text-black"
