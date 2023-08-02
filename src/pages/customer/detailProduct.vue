@@ -60,7 +60,7 @@ onMounted(() => {
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 function addQuantity() {
-  if (detailCart.qty > product.qty_produk) {
+  if (detailCart.qty >= product.qty_produk) {
     return;
   }
   return (detailCart.qty = detailCart.qty + 1);
@@ -185,7 +185,7 @@ async function buy() {
             <button
               @click="addQuantity"
               :class="
-                detailCart.qty > product.qty_produk
+              detailCart.qty >= product.qty_produk
                   ? ' cursor-not-allowed'
                   : 'cursor-pointer'
               "

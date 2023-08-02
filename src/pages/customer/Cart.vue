@@ -4,26 +4,26 @@ import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
 import { numberFormat } from "@/utils/NumberFormat";
-
-const { GET, DELETE,POST } = Api();
+import MidtransClient from "midtrans-client";
+const { GET, DELETE, POST } = Api();
 const router = useRouter();
 const cartItem = ref();
 const idUser = sessionStorage.getItem("sesIdUser");
 const dateNow = new Date().toISOString().split("T")[0];
 
 const order = reactive({
-  id:null,
-  no_nota:null,
-  id_pelanggan:idUser,
-  tgl:dateNow
-})
+  id: null,
+  no_nota: null,
+  id_pelanggan: idUser,
+  tgl: dateNow,
+});
 
 const detailOrder = reactive({
   id: null,
   id_pemesanan: order.id,
-  id_produk:"",
-  qty:null,
-  harga:null
+  id_produk: "",
+  qty: null,
+  harga: null,
 });
 
 async function getCart() {
@@ -53,8 +53,9 @@ async function deleteCartitem(id) {
 }
 
 async function checkout() {
+
   const idKeranjangArray = cartItem.value[0].idKeranjang;
-  const data = await GET(`bayar/${idKeranjangArray}`,{})
+  const data = await GET(`chackout/${idUser}`, {});
   console.log(data.data);
   router.push({
     path: "payment",

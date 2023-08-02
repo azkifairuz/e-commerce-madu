@@ -4,6 +4,7 @@ import Api from "@/config/api/Api";
 import BtnComponent from "@/Components/atom/BtnComponent.vue";
 import { objectToData } from "@/utils/ObjectToData";
 import { calculateAge } from "@/utils/CalculateAge";
+
 const { GET } = Api();
 const idUser = sessionStorage.getItem("sesIdUser");
 
