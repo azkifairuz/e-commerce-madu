@@ -2,9 +2,10 @@
 import { reactive,onMounted } from "vue";
 import Api from "@/config/api/Api"
 import {objectToData} from "@/utils/ObjectToData"
+import {formatDate} from "@/utils/FormatDate"
 const {GET} = Api();
 const idUser = sessionStorage.getItem("sesIdUser")
-console.log(idUser); 
+
 const profile = reactive({
   nm_pelanggan: "",
   nik: null,
@@ -24,11 +25,6 @@ async function getProfile () {
   objectToData(profile,data)
 }
 
-function formatDate(date) {
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  return new Date(date).toLocaleDateString("id-ID", options);
-}
-
 onMounted(
   ()=>{
     getProfile()
@@ -37,9 +33,9 @@ onMounted(
 </script>
 
 <template>
-  <main class="flex gap-2">
+  <main class="flex gap-2 mt-10">
     <aside class="w-1/3">
-      <h1 class="text-2xl">{{ profile.nm_pelanggan }}</h1>
+      <h1 class="text-2xl">{{ formatDate(profile.tgl_lahir) }}</h1>
     </aside>
   </main>
 </template>
