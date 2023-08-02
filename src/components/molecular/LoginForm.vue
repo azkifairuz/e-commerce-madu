@@ -63,6 +63,7 @@ async function handleLogin() {
   }
   const level = data.level;
   sessionStorage.setItem("sesIdUser", data.id);
+  sessionStorage.setItem("sesIdPelanggan", data.id_pelanggan);
   if (level != "admin") {
     sessionStorage.setItem('levelUser',data.level)
     router.push({

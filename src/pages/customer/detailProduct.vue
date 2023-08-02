@@ -12,6 +12,7 @@ const products = ref("");
 const route = useRoute();
 const router = useRouter();
 const idUser = sessionStorage.getItem("sesIdUser");
+const idPelanggan = sessionStorage.getItem("sesIdPelanggan")
 const idProduct = route.params.idProduct;
 const dateNow = new Date().toISOString().split("T")[0];
 const product = reactive({
@@ -27,14 +28,14 @@ const product = reactive({
 
 const cart = reactive({
   id: null,
-  id_pelanggan: idUser,
+  id_pelanggan: idPelanggan,
   tgl: dateNow,
 });
-
+console.log(idUser);
 const detailCart = reactive({
   id: null,
   id_keranjang_belanja: null,
-  id_pelanggan: idUser,
+  id_pelanggan: idPelanggan,
   id_produk: idProduct,
   qty: 1,
   harga: product.harga_jual,
@@ -76,7 +77,7 @@ function decreaseQuantity() {
   return (detailCart.qty = detailCart.qty - 1);
 }
 async function addToCart() {
-  const iskeranjang = await GET(`keranjang/${idUser}`);
+  const iskeranjang = await GET(`keranjang/${idPelanggan}`);
   if (iskeranjang.data.length == 0) {
     popUphandle();
     const data = await POST("keranjangbelanja", objectToFormdata(cart));
@@ -97,7 +98,7 @@ async function addToCart() {
   await POST(`produk/${idProduct}`, objectToFormdata(product));
 }
 async function buy() {
-  const iskeranjang = await GET(`keranjang/${idUser}`);
+  const iskeranjang = await GET(`keranjang/${idPelanggan}`);
   if (iskeranjang.data.length == 0) {
     const data = await POST("keranjangbelanja", objectToFormdata(cart));
     const lastId = data.lastId;

@@ -4,17 +4,17 @@ import BtnComponent from "@/components/atom/BtnComponent.vue";
 import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
 import { numberFormat } from "@/utils/NumberFormat";
-import MidtransClient from "midtrans-client";
 const { GET, DELETE, POST } = Api();
 const router = useRouter();
 const cartItem = ref();
 const idUser = sessionStorage.getItem("sesIdUser");
+const idPelanggan = sessionStorage.getItem("sesIdPelanggan")
 const dateNow = new Date().toISOString().split("T")[0];
 
 const order = reactive({
   id: null,
   no_nota: null,
-  id_pelanggan: idUser,
+  id_pelanggan: idPelanggan,
   tgl: dateNow,
 });
 
@@ -27,7 +27,7 @@ const detailOrder = reactive({
 });
 
 async function getCart() {
-  const data = await GET(`keranjang/${idUser}`);
+  const data = await GET(`keranjang/${idPelanggan}`);
   if (data.data.length == 0) {
     console.log("cart kosong");
     return;
@@ -36,7 +36,7 @@ async function getCart() {
 }
 
 async function deleteCartitem(id) {
-  const iskeranjang = await GET(`keranjang/${idUser}`);
+  const iskeranjang = await GET(`keranjang/${idPelanggan}`);
   if (iskeranjang.data.length == 1) {
     await DELETE(`keranjangbelanja/${iskeranjang.data[0].idKeranjang}`);
     await DELETE(`detailkeranjangbelanja/${id}`);
@@ -54,11 +54,11 @@ async function deleteCartitem(id) {
 
 async function checkout() {
 
-  const idKeranjangArray = cartItem.value[0].idKeranjang;
-  const data = await GET(`chackout/${idUser}`, {});
-  console.log(data.data);
+  const data = await GET(`chackout/${idPelanggan}`);
+  console.log(data.noNota);
   router.push({
-    path: "payment",
+    name: "payment",
+    params:{invoice:data.noNota}
   });
 }
 function goToHome() {

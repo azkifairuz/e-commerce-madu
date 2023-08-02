@@ -7,6 +7,7 @@ import { calculateAge } from "@/utils/CalculateAge";
 
 const { GET } = Api();
 const idUser = sessionStorage.getItem("sesIdUser");
+const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 
 const profile = reactive({
   nm_pelanggan: "",
@@ -20,12 +21,11 @@ const profile = reactive({
 });
 
 async function getProfile() {
-  const data = await GET(`pelanggan/${idUser}`);
+  const data = await GET(`pelanggan/${idPelanggan}`);
   if (idUser == null) {
     return;
   }
-  objectToData(profile, data);
-  console.log(profile.tgl_lahir);
+  objectToData(profile,data)
 }
 
 function edit (){
