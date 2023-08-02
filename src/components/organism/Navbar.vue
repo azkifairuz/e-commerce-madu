@@ -35,7 +35,7 @@ function goToRegisterPage() {
     name: "registerUser",
   });
 }
-const coba = isLogin === 'true' ? links:links.slice(0,3)
+const navItem = isLogin === 'true' ? links:links.slice(0,3)
 </script>
 
 <template>
@@ -57,7 +57,7 @@ const coba = isLogin === 'true' ? links:links.slice(0,3)
           <div class="hidden lg:block">
             <div class="ml-10 flex items-baseline gap-2">
               <a
-                v-for="link in coba"
+                v-for="link in navItem"
                 :key="link.id"
                 @click="navigationPage(link.url)"
                 class="px-3 py-2 rounded-md text-sm cursor-pointer font-medium text-black hover:bg-yellow-light"
