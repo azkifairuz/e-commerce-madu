@@ -10,21 +10,31 @@ import Snap from "midtrans-client/lib/snap";
 
 const { GET } = Api();
 const route = useRoute();
-const invoice = reactive({
-  id_pemesanan: null,
-  keterangan: "",
-  no_nota: "",
-  id_pelanggan: null,
-  tgl: "2023-07-31",
-  id_produk: 2,
-  qty: 2,
-  harga: 12000,
-});
+const invoice = ref('');
 const nota = route.params.invoice;
 async function getPayment() {
   const data = await GET(`invoice/${nota}`);
-  objectToData(invoice, data);
+  // objectToData(invoice, data);
+  invoice.value = data.data
+  console.log(data.data)
 }
+
+
+function CalculateSubTotal(qty, price) {
+  return numberFormat(qty * price);
+}
+
+function calculateTotalPrice() {
+  let total = 0;
+  if (!invoice.value) {
+    return 0;
+  }
+  for (const item of invoice.value) {
+    total += parseInt(item.qty) * parseInt(item.harga);
+  }
+  return numberFormat(total);
+}
+
 async function startPayment() {
   const transactionKey = await GET(`bayar/${nota}`)
   console.log(transactionKey);
@@ -67,50 +77,32 @@ onMounted(() => {
     class="h-screen w-screen whitespace-nowrap p-10 flex justify-center items-center"
   >
     <main
-      class="min-w-[474px] p-[32px] flex bg-white shadow-[0px_2px_12px_0px_rgba(0_0_0_0.16)] rounded-2xl flex-col gap-[20px]"
+      class=" min-w-[474px] p-[32px] flex bg-white shadow-[0px_2px_12px_0px_rgba(0_0_0_0.16)] rounded-2xl flex-col gap-[20px]"
     >
-      <h1 class="text-center font-bold text-xl">Pembayaran</h1>
+      <h1 class="text-center font-bold text-xl">invoice</h1>
       <div class="flex gap-2 items-center justify-center">
-        <h1 class="text-xl">Total:</h1>
-        <p class="font-bold text-xl">{{ numberFormat(invoice.harga) }}</p>
+        <table class="text-center w-full border-collapse my-5">
+          <tr class="py-2 px-5  ">
+            <th class="py-2 px-4">No</th>
+            <th class="py-2 px-4">Madu</th>
+            <th class="py-2 px-4">Harga</th>
+            <th class="py-2 px-4">Jumlah</th>
+            <th class="py-2 px-4">Total</th>
+          </tr>
+          <tr  v-for="(item,index) in invoice" :key="index" class="py-2 px-5 ">
+            <td class="py-2 px-4">{{ index}}</td>
+            <td class="py-2 px-4">{{ item.id_produk }}</td>
+            <td class="py-2 px-4">Rp.{{ numberFormat(item.harga)}}</td>
+            <td class="py-2 px-4">{{ item.qty }}</td>
+            <td class="py-2 px-4">Rp.{{ numberFormat(parseInt(item.harga * parseInt(item.qty)))}}</td>
+          </tr>
+        </table>
       </div>
-      <div class="flex flex-col gap-4">
-        <h1>List Rekening Pembayaran</h1>
-        <div
-          class="py-3 px-4 items-center flex gap-5 border border-black bg-white rounded-xl"
-        >
-          <h1 class="w-[15%]">BCA</h1>
-          <p>109201809</p>
-        </div>
-        <div
-          class="py-3 px-4 items-center flex gap-5 border border-black bg-white rounded-xl"
-        >
-          <h1 class="w-[15%]">BRI</h1>
-          <p>109201809</p>
-        </div>
-        <div
-          class="py-3 px-4 items-center flex gap-5 border border-black bg-white rounded-xl"
-        >
-          <h1 class="w-[15%]">DANA</h1>
-          <p>109201809</p>
-        </div>
-        <div
-          class="py-3 px-4 items-center flex gap-5 border border-black bg-white rounded-xl"
-        >
-          <h1 class="w-[15%]">GOPAY</h1>
-          <p>109201809</p>
-        </div>
+      <div class="flex justify-end gap-2 items-center">
+        <h1 class="text-xl font-bold">Total Bayar:</h1>
+        <p class="text-xl">Rp.{{ calculateTotalPrice() }}</p>
       </div>
-      <div class="flex flex-col gap-4">
-        <h1 class="text-center">Upload Bukti Pembayaran</h1>
-        <label
-          for="fileInput"
-          class="text-center w-full py-3 px-4 h-20 border-dashed border rounded-md border-black cursor-pointer"
-        >
-          <h1 class="text-center">upload foto kesini</h1>
-          <input id="fileInput" type="file" class="opacity-0" />
-        </label>
-      </div>
+      
       <BtnComponent
         label="Bayar"
         @some-event="startPayment()"
