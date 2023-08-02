@@ -9,6 +9,7 @@ const links = [
   { id: 1, label: "Beranda", url: "home" },
   { id: 2, label: "Semua Madu", url: "catalog" },
   { id: 3, label: "Keranjang", url: "cart" },
+  { id: 4, label: "Profil", url: "profile" },
 ];
 const router = useRouter();
 
@@ -34,6 +35,7 @@ function goToRegisterPage() {
     name: "registerUser",
   });
 }
+const coba = isLogin === 'true' ? links:links.slice(0,3)
 </script>
 
 <template>
@@ -55,7 +57,7 @@ function goToRegisterPage() {
           <div class="hidden lg:block">
             <div class="ml-10 flex items-baseline gap-2">
               <a
-                v-for="link in links"
+                v-for="link in coba"
                 :key="link.id"
                 @click="navigationPage(link.url)"
                 class="px-3 py-2 rounded-md text-sm cursor-pointer font-medium text-black hover:bg-yellow-light"

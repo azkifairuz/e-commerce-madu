@@ -151,6 +151,11 @@ export const router = createRouter({
           name: "catalog",
           component: () => import("@/pages/customer/Catalog.vue"),
         },
+        {
+          path: "profile",
+          name: "profile",
+          component: () => import("@/pages/customer/Profile.vue"),
+        },
       ],
     },
     {
