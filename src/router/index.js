@@ -146,6 +146,7 @@ export const router = createRouter({
           name: "payment",
           component: () => import("@/pages/customer/Payment.vue"),
         },
+
         {
           path: "catalog",
           name: "catalog",
