@@ -17,19 +17,16 @@ function setAuthToken(token) {
   }
 }
 const { POST } = Api();
-const responseMsg = ref("");
+const responseMsg = ref(null);
 const isAuthorize = ref(false);
-
 async function authenticate(credentials) {
   try {
     const response = await POST("auth/login", credentials);
     if (response.error === "Unauthorized") {
       isAuthorize.value = false;
-      console.log(isAuthorize.value);
       return;
     }
     isAuthorize.value = true;
-    console.log(isAuthorize.value);
     const { access_token } = response;
     setAuthToken(access_token);
   } catch (error) {
@@ -42,41 +39,42 @@ const credentials = reactive({
   email: "",
   password: "",
 });
+const isOpen = ref(true);
 
 async function handleLogin() {
-  await authenticate(objectToFormdata(credentials));
-  if (isAuthorize.value == false) {
-    responseMsg.value = "tidak ada akun dengan username dan email ini";
-    return;
-  }
-  const data = await POST(
-    `auth/me?token=${sessionStorage.getItem("jwtToken")}`
-  );
-
+  isOpen.value = true
   if (!credentials.email) {
     responseMsg.value = "email tidak boleh kosong";
-    console.log(responseMsg.value);
     return;
   }
   if (!credentials.password) {
     responseMsg.value = "password tidak boleh kosong";
     return;
   }
+
+  await authenticate(objectToFormdata(credentials));
+  if (isAuthorize.value == false) {
+    responseMsg.value = "tidak ada akun ini";
+    return;
+  }
+  const data = await POST(
+    `auth/me?token=${sessionStorage.getItem("jwtToken")}`
+  );
+
   const level = data.level;
   sessionStorage.setItem("sesIdUser", data.id);
   sessionStorage.setItem("sesIdPelanggan", data.id_pelanggan);
   if (level != "admin") {
-    sessionStorage.setItem('levelUser',data.level)
+    sessionStorage.setItem("levelUser", data.level);
     router.push({
       name: "home",
     });
     return;
   }
-    sessionStorage.setItem('levelUser',data.level)
-    router.push({
-      name: "admin",
-    });
-
+  sessionStorage.setItem("levelUser", data.level);
+  router.push({
+    name: "admin",
+  });
 }
 const router = useRouter();
 const isCustomer = router.currentRoute.value.name === "loginUser";
@@ -92,6 +90,10 @@ const forgetPw = () => {
     name: "forgetpw",
   });
 };
+
+const closeAlert = () => {
+  isOpen.value = !isOpen.value;
+};
 </script>
 <template>
   <div
@@ -106,7 +108,11 @@ const forgetPw = () => {
         Halo Silahkan Masuk!!
       </h2>
       <alertPopup
-      message="password salah"/>
+        v-if="isOpen == true && responseMsg != null"
+        :message="responseMsg"
+        :isOpen="isOpen"
+        @close="closeAlert"
+      />
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

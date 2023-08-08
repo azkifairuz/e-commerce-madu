@@ -1,24 +1,22 @@
 <script setup>
-import { ref } from "vue";
-
 const props = defineProps({
   message: String,
-  status: Boolean,
+  isOpen:Boolean
 });
-const isOpen = ref(false);
-
+const emit = defineEmits(["close"])
 function closeAlert() {
-  isOpen.value = !isOpen.value;
+  emit("close")
 }
 </script>
 <template>
   <main
-    class="py-2 text-white px-5 bg-[#FF7171] items-center rounded-xl flex justify-between"
+  :class="props.isOpen? 'flex':'hidden'"
+    class="py-2 text-white px-5 bg-[#FF7171] items-center gap-5 rounded-xl flex justify-between"
   >
     <div class="flex items-center gap-2">
       <svg
-        width="20"
-        height="20"
+        width="15"
+        height="15"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,12 +26,12 @@ function closeAlert() {
           fill="white"
         />
       </svg>
-      <h1 class="text-lg capitalize">{{ message }}</h1>
+      <h1 class="text-sm capitalize">{{ props.message }}</h1>
     </div>
     <svg
       @click="closeAlert"
-      width="20"
-      height="20"
+      width="15"
+      height="15"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
