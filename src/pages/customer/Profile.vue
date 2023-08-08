@@ -4,11 +4,12 @@ import Api from "@/config/api/Api";
 import BtnComponent from "@/Components/atom/BtnComponent.vue";
 import { objectToData } from "@/utils/ObjectToData";
 import { calculateAge } from "@/utils/CalculateAge";
+import { useRouter } from "vue-router";
 
 const { GET } = Api();
 const idUser = sessionStorage.getItem("sesIdUser");
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
-
+const router = useRouter()
 const profile = reactive({
   nm_pelanggan: "",
   nik: null,
@@ -29,6 +30,11 @@ async function getProfile() {
 }
 
 function edit (){
+  router.push(
+    {
+      name:"editProfilCustomer"
+    }
+  )
   return 
 }
 onMounted(() => {

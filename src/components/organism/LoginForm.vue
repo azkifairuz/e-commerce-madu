@@ -40,6 +40,7 @@ const credentials = reactive({
   email: "",
   password: "",
 });
+
 const isOpen = ref(true);
 
 async function handleLogin() {

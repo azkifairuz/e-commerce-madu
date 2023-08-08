@@ -109,6 +109,7 @@ export const router = createRouter({
             },
           ],
         },
+      
       ],
     },
     {
@@ -156,6 +157,11 @@ export const router = createRouter({
           path: "profile",
           name: "profile",
           component: () => import("@/pages/customer/Profile.vue"),
+        },
+        {
+          path: "editProfilCustomer",
+          name: "editProfilCustomer",
+          component: () => import("@/pages/customer/EditProfile.vue"),
         },
       ],
     },
