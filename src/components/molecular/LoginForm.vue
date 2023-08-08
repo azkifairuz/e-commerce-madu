@@ -22,8 +22,9 @@ const isAuthorize = ref(false);
 async function authenticate(credentials) {
   try {
     const response = await POST("auth/login", credentials);
-    if (response.error === "Unauthorized") {
-      isAuthorize.value = false;
+    if (response.error) {
+      isAuthorize.value = response.error;
+      console.log(isAuthorize);
       return;
     }
     isAuthorize.value = true;
@@ -53,8 +54,13 @@ async function handleLogin() {
   }
 
   await authenticate(objectToFormdata(credentials));
-  if (isAuthorize.value == false) {
-    responseMsg.value = "tidak ada akun ini";
+  if (isAuthorize.value == "Account not found") {
+    responseMsg.value = "Akun Tidak Ada";
+    return;
+  }
+
+  if (isAuthorize.value == "Invalid password") {
+    responseMsg.value = "Password Salah";
     return;
   }
   const data = await POST(

@@ -6,7 +6,10 @@ import { useRouter } from "vue-router";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm";
 import TextArea from "@/components/atom/TextArea.vue";
+import alertPopup from "@/components/molecular/alertPopup.vue";
 
+const isOpen = ref(false);
+const responseMsg = ref("");
 const detailPegawai = reactive({
   nik: "",
   nm_pegawai: "",
@@ -31,10 +34,50 @@ const account = reactive({
 });
 
 const router = useRouter();
-const { POST } = Api();
+const { POST, GET } = Api();
+
+async function cekEmail() {
+  try {
+    const response = await GET("pegawai");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching emails:", error);
+    return [];
+  }
+}
 async function save() {
+  if (detailPegawai.email == "") {
+    isOpen.value = true;
+    responseMsg.value = "email tidak boleh kosong";
+    return;
+  }
+  if (detailPegawai.password == "") {
+    isOpen.value = true;
+    responseMsg.value = "password tidak boleh kosong";
+    return;
+  }
+  if (detailPegawai.nik == "") {
+    isOpen.value = true;
+    responseMsg.value = "nik tidak boleh kosong";
+    return;
+  }
+  if (detailPegawai.nm_pegawai == "") {
+    isOpen.value = true;
+    responseMsg.value = "nama tidak boleh kosong";
+    return;
+  }
+  const emails = await cekEmail();
+  const email = [];
+  emails.forEach((emailData) => {
+    email.push(emailData.email);
+  });
+
+  if (email.includes(detailPegawai.email)) {
+    isOpen.value = true;
+    responseMsg.value = "Email Sudah Terdaftar";
+    return;
+  }
   const data = await POST("pegawai", objectToFormdata(detailPegawai));
-  console.log(data.lastId);
   account.id_pegawai = data.lastId;
   account.email = detailPegawai.email;
   account.name = detailPegawai.nm_pegawai;
@@ -45,10 +88,10 @@ async function save() {
 }
 </script>
 
-
 <template>
   <RegisterForm @savedata="save">
     <template v-slot:inputField>
+      <alertPopup :message="responseMsg" :isOpen="isOpen" />
       <div class="grid grid-rows-5 gap-2 grid-cols-2">
         <InputField
           label="Nama"
