@@ -5,6 +5,7 @@ import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm.js";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import alertPopup from "./alertPopup.vue";
 
 function setAuthToken(token) {
   if (token) {
@@ -104,6 +105,8 @@ const forgetPw = () => {
       >
         Halo Silahkan Masuk!!
       </h2>
+      <alertPopup
+      message="password salah"/>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

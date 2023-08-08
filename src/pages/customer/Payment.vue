@@ -37,10 +37,9 @@ function calculateTotalPrice() {
 
 async function startPayment() {
   const transactionKey = await GET(`bayar/${nota}`);
-  console.log(transactionKey);
   const transactionToken = transactionKey.data; 
   console.log("Transaction Token:", transactionToken)
-  window.location.href = `https://app.sandbox.midtrans.com/snap/v2/vtweb/${transactionToken}`
+  window.location.href = transactionKey.redirect_url
 }
 onMounted(() => {
   getPayment();

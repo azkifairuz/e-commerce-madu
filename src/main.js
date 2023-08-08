@@ -2,6 +2,7 @@ import { createApp, ref } from "vue";
 import "./style.css";
 import App from "./App.vue";
 import { router } from "./router/index";
+
 router.beforeEach((to, from, next) => {
   const isLogin = sessionStorage.getItem("isLogin");
   const level = sessionStorage.getItem("levelUser");
@@ -21,7 +22,6 @@ router.beforeEach((to, from, next) => {
     next({
       name: "auth",
     });
-
   } else {
     next();
   }

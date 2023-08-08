@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-gray-400 px-10 py-5 flex  flex-col md:flex-row gap-4">
+  <main class="bg-gray-400 px-10 py-5 flex flex-col md:flex-row gap-4">
     <div class="flex flex-col gap-2">
       <h1 class="text-2xl font-bold">Contact</h1>
       <span>
@@ -22,17 +22,27 @@
     </div>
     <div class="flex flex-col gap-2">
       <h1 class="text-2xl font-bold">Maps</h1>
-      <iframe
-        width="600"
-        height="450"
-        style="border: 0"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=API_KEY
-    &q=Space+Needle,Seattle+WA"
+      <div
+        style="
+          max-width: 100%;
+          list-style: none;
+          transition: none;
+          overflow: hidden;
+          width: 500px;
+          height: 500px;
+        "
       >
-      </iframe>
+        <div
+          id="embedded-map-display"
+          style="height: 100%; width: 100%; max-width: 100%"
+        >
+          <iframe
+            style="height: 100%; width: 100%; border: 0"
+            frameborder="0"
+            src="https://www.google.com/maps/embed/v1/place?q=Indonesia&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+          ></iframe>
+        </div>
+      </div>
     </div>
   </main>
 </template>
