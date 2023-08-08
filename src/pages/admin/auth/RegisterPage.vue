@@ -51,7 +51,7 @@ async function save() {
     responseMsg.value = "email tidak boleh kosong";
     return;
   }
-  if (detailPegawai.password == "") {
+  if (account.password == "") {
     isOpen.value = true;
     responseMsg.value = "password tidak boleh kosong";
     return;
