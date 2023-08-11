@@ -3,7 +3,7 @@ import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm";
-import ProductForm from "@/components/molecular/ProductForm.vue";
+import ProductForm from "@/components/organism/ProductForm.vue";
 const produk = reactive({
   id:null,
   nm_produk: "",

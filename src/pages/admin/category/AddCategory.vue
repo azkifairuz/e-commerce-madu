@@ -1,5 +1,5 @@
 <script setup>
-import CategoryForm from '@/components/molecular/CategoryForm.vue';
+import CategoryForm from '@/components/organism/CategoryForm.vue';
 
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-import ProductForm from "@/components/molecular/ProductForm.vue";
+import ProductForm from "@/components/organism/ProductForm.vue";
 
 </script>
 

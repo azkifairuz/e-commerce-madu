@@ -1,7 +1,7 @@
 <script setup>
 import Api from "@/config/api/Api";
 import { onMounted, reactive, ref } from "vue";
-import CardProduct from "@/components/molecular/CardProduct.vue";
+import CardProduct from "@/components/organism/CardProduct.vue";
 import { numberFormat } from "@/utils/NumberFormat";
 import { objectToFormdata } from "@/utils/ObjectToForm";
 import BtnComponent from "@/components/atom/BtnComponent.vue";
