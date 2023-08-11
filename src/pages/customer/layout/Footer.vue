@@ -28,18 +28,24 @@
           list-style: none;
           transition: none;
           overflow: hidden;
-          width: 500px;
-          height: 500px;
+          width: 300px;
+          height: 200px;
         "
       >
         <div
           id="embedded-map-display"
           style="height: 100%; width: 100%; max-width: 100%"
         >
+
+
           <iframe
-            style="height: 100%; width: 100%; border: 0"
-            frameborder="0"
-            src="https://www.google.com/maps/embed/v1/place?q=Indonesia&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.1426244706795!2d106.88296077541919!3d-6.375582345873461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69eb6023b84cf1%3A0xc046caccfae4729e!2sCV.%20Madu%20Apiari%20Mutiara%20-%20Cimanggis%2C%20Depok!5e0!3m2!1sid!2sid!4v1691748430557!5m2!1sid!2sid"
+            width="100%"
+            height="100%"
+            style="border: 0"
+            allowfullscreen="true"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>

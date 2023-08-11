@@ -5,11 +5,11 @@ const router = useRouter();
 const listItem = [
   {
     name: "category",
-    title: "Jenis Madu",
+    title: "Kategori Madu",
   },
   {
     name: "product",
-    title: "Madu",
+    title: "Produk Madu",
   },
   {
     name: "dataCustomer",
