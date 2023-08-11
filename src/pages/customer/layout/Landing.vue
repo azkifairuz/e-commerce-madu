@@ -3,7 +3,7 @@ import Jbtr from "@/components/atom/JumboTron.vue";
 import CardCategory from "@/components/atom/CardCategory.vue";
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
-import CardProduct from "@/components/molecular/CardProduct.vue";
+import CardProduct from "@/components/organism/CardProduct.vue";
 import { numberFormat } from "@/utils/NumberFormat";
 import { useRouter } from "vue-router";
 import Footer from "./Footer.vue";
