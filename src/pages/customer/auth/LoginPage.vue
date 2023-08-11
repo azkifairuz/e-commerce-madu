@@ -1,5 +1,5 @@
 <script setup>
-import LoginForm from "@/components/molecular/LoginForm.vue"
+import LoginForm from "@/components/organism/LoginForm.vue"
 </script>
 <template>
   <main class="flex justify-center items-center h-screen">

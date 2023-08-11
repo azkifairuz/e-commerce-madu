@@ -1,5 +1,5 @@
 <script setup>
-import RegisterForm from "@/components/molecular/RegisterForm.vue";
+import RegisterForm from "@/components/organism/RegisterForm.vue";
 import InputField from "@/components/atom/InputField.vue";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
