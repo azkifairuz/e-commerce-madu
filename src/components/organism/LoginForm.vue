@@ -5,7 +5,7 @@ import Api from "@/config/api/Api";
 import { objectToFormdata } from "@/utils/ObjectToForm.js";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import alertPopup from "./alertPopup.vue";
+import alertPopup from "@/components/molecular/alertPopup.vue";
 
 function setAuthToken(token) {
   if (token) {
