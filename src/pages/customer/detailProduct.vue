@@ -111,13 +111,14 @@ async function buy() {
     });
     return;
   }
-  router.push({
-    name: "cart",
-  });
+  
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
   product.qty_produk = product.qty_produk - detailCart.qty;
   await POST(`produk/${idProduct}`, objectToFormdata(product));
+  router.push({
+    name: "cart",
+  });
 }
 </script>
 <template>

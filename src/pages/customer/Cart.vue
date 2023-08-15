@@ -7,7 +7,6 @@ import { numberFormat } from "@/utils/NumberFormat";
 const { GET, DELETE, POST } = Api();
 const router = useRouter();
 const cartItem = ref();
-const idUser = sessionStorage.getItem("sesIdUser");
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan")
 const dateNow = new Date().toISOString().split("T")[0];
 
@@ -17,7 +16,6 @@ const order = reactive({
   id_pelanggan: idPelanggan,
   tgl: dateNow,
 });
-
 const detailOrder = reactive({
   id: null,
   id_pemesanan: order.id,
