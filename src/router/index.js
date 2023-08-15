@@ -154,6 +154,11 @@ export const router = createRouter({
           component: () => import("@/pages/customer/Catalog.vue"),
         },
         {
+          path: "allCategory",
+          name: "allCategory",
+          component: () => import("@/pages/customer/ListCategory.vue"),
+        },
+        {
           path: "profile",
           name: "profile",
           component: () => import("@/pages/customer/Profile.vue"),

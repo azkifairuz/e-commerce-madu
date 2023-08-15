@@ -28,7 +28,7 @@ async function getProduct() {
   }
   status.value = `madu ${category.value.nm_jns_produk}`;
   products.value = data.data;
-  console.log(products.value);
+  console.log("product:",products.value);
 }
 
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
@@ -53,15 +53,16 @@ onMounted(() => {
     <section class="mt-2 grid grid-cols-2 lg:grid-cols-5 gap-5">
       <CardProduct
         v-if="products != null"
-        v-for="product in products"
-        :key="product.id"
+        v-for="(product, index) in products"
+        :key="index"
         :imageUrl="baseImageUrl + product.image"
-        :title="product.title"
+        :title="product.nm_produk"
         :price="numberFormat(product.harga_jual)"
         :category="product.nm_jns_produk"
         :description="product.keterangan"
-        :idProduct="(product.id)"
-        :isReady="product.qty_produk > 0 ? true:false"
+        :qty="product.qty_produk"
+        :isReady="product.qty_produk > 0 ? true : false"
+        :idProd="product.id"
       />
     </section>
   </main>

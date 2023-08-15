@@ -8,9 +8,10 @@ const searchQuery = ref("");
 const links = [
   { id: 1, label: "Beranda", url: "home" },
   { id: 2, label: "Semua Madu", url: "catalog" },
-  { id: 3, label: "Tentang Kami", url: "aboutus" },
-  { id: 4, label: "Keranjang", url: "cart" },
-  { id: 5, label: "Profil", url: "profile" },
+  { id: 3, label: "List Kategori Madu", url: "allCategory" },
+  { id: 4, label: "Tentang Kami", url: "aboutus" },
+  { id: 5, label: "Keranjang", url: "cart" },
+  { id: 6, label: "Profil", url: "profile" },
 ];
 const router = useRouter();
 

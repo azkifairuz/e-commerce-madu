@@ -35,7 +35,7 @@ function buttonClick() {
         <img
           :src="logo"
           alt="Registration Image"
-          class="object-cover h-28 "
+          class="object-cover  "
         />
 
       </div>
