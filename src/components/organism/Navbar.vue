@@ -143,7 +143,7 @@ const navItem = isLogin === 'true' ? links:links.slice(0,3)
       </div>
     </div>
     <div :class="{ block: isOpen, hidden: !isOpen }" class="lg:hidden">
-      <div class="px-2 pt-2 pb-3 sm:px-3">
+      <div class="px-2 pt-2 cursor-pointer pb-3 sm:px-3">
         <a
           v-for="link in links"
           :key="link.id"
