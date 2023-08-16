@@ -11,7 +11,7 @@ import alertPopup from "@/components/molecular/alertPopup.vue";
 const isOpen = ref(false);
 const responseMsg = ref("");
 const detailCustomer = reactive({
-  nik: "",
+  nik: "82312999",
   nm_pelanggan: "",
   alamat_pelanggan: "",
   tgl_lahir: "",
@@ -114,13 +114,6 @@ async function save() {
           placeholder="Masukan Password anda"
           typeInput="password"
           name="pw"
-        />
-        <InputField
-          label="Nik"
-          v-model="detailCustomer.nik"
-          placeholder="Masukan Nik anda"
-          typeInput="text"
-          name="nik"
         />
         <div class="flex flex-col gap-3">
           <label class="text-lg"> Jenis Kelamin</label>
