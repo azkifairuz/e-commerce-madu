@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import btnComponent from "@/components/atom/btnComponent.vue";
 import { useRouter } from "vue-router";
-import Api from "@/config/api/Api";
 const isOpen = ref(false);
 const searchQuery = ref("");
 const links = [
@@ -16,10 +15,8 @@ const links = [
 const router = useRouter();
 
 const isLogin = sessionStorage.getItem("isLogin");
-const { POST } = Api();
 
 function goToLoginPage() {
-  POST("auth/login", sessionStorage.getItem("sesIdUser"));
   sessionStorage.setItem("isLogin", false);
   router.push({
     name: "loginUser",
@@ -33,6 +30,7 @@ function navigationPage(pathName) {
 }
 
 function goToRegisterPage() {
+  sessionStorage.setItem("isLogin", false);
   router.push({
     name: "registerUser",
   });

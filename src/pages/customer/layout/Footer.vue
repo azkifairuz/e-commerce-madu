@@ -1,5 +1,23 @@
+<script setup>
+import { onMounted, ref } from 'vue';
+import Api from '@/config/api/Api'
+const {GET} = Api()
+const categories = ref("");
+async function getCategory() {
+  try {
+    const data = await GET("jnsproduk");
+    categories.value = data.data;
+  } catch (error) {
+    categories.value = null;
+  }
+}
+
+onMounted(() => {
+  getCategory();
+});
+</script>
 <template>
-  <main class="bg-gray-400 px-10 py-5 flex flex-col md:flex-row gap-4">
+  <main class="bg-gray-400 px-10 py-5 flex justify-evenly flex-col md:flex-row gap-4">
     <div class="flex flex-col gap-2">
       <h1 class="text-2xl font-bold">Contact</h1>
       <span>
@@ -13,12 +31,13 @@
       </span>
     </div>
     <div class="flex flex-col gap-2">
-      <h1 class="text-2xl font-bold">About</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quis
-        explicabo, dolores maiores quas natus consequuntur autem quo commodi
-        accusamus?
-      </p>
+      <h1 class="text-2xl font-bold">Kategori</h1>
+      <ul
+      v-if="categories != null"
+      v-for="(categori, index) in categories.slice(0, 5)"
+      >
+      <li>{{ categori.nm_jns_produk }}</li>
+      </ul>
     </div>
     <div class="flex flex-col gap-2">
       <h1 class="text-2xl font-bold">Maps</h1>

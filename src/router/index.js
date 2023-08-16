@@ -130,6 +130,11 @@ export const router = createRouter({
           component: () => import("@/pages/customer/layout/Landing.vue"),
         },
         {
+          path: "aboutus",
+          name: "aboutus",
+          component: () => import("@/pages/customer/AboutUs.vue"),
+        },
+        {
           path: "productByCategory/:idCategory",
           name: "productByCategory",
           meta: {
@@ -165,7 +170,6 @@ export const router = createRouter({
           },
           component: () => import("@/pages/customer/Payment.vue"),
         },
-
         {
           path: "catalog",
           name: "catalog",
