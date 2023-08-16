@@ -6,6 +6,12 @@ export const router = createRouter({
       redirect: { name: "madu" },
     },
     {
+      path: "/notAuth",
+      name: "notAuth",
+      component: () => import("@/pages/NotAuthorize.vue"),
+
+    },
+    {
       path: "/admin",
       name: "admin",
       meta: {
@@ -126,11 +132,19 @@ export const router = createRouter({
         {
           path: "productByCategory/:idCategory",
           name: "productByCategory",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/productByCategory.vue"),
         },
         {
           path: "detailProduct/:idProduct",
           name: "detailProduct",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/detailProduct.vue"),
         },
         {
@@ -145,27 +159,47 @@ export const router = createRouter({
         {
           path: "payment/:invoice",
           name: "payment",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/Payment.vue"),
         },
 
         {
           path: "catalog",
           name: "catalog",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/Catalog.vue"),
         },
         {
           path: "allCategory",
           name: "allCategory",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/ListCategory.vue"),
         },
         {
           path: "profile",
           name: "profile",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/Profile.vue"),
         },
         {
           path: "editProfilCustomer",
           name: "editProfilCustomer",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
           component: () => import("@/pages/customer/EditProfile.vue"),
         },
       ],

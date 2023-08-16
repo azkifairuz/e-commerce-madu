@@ -46,7 +46,7 @@ const navItem = isLogin === 'true' ? links:links.slice(0,3)
       <div class="flex items-center justify-between lg:justify-center h-16">
         <div class="flex items-center gap-5">
           <div class="flex-shrink-0">
-            <img class="h-8 w-8" src="@/assets/logo.png" alt="Logo" />
+            <img class="h-14 w-14" src="@/assets/logoNavbar.png" alt="Logo" />
           </div>
           <div class="hidden lg:flex justify-center flex-1">
             <input

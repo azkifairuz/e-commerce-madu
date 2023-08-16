@@ -15,12 +15,12 @@ router.beforeEach((to, from, next) => {
         return;
       }
       next({
-        name: "loginAdmin",
+        name: "notAuth",
       });
       return;
     }
     next({
-      name: "auth",
+      name: "notAuth",
     });
   } else {
     next();
