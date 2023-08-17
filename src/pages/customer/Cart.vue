@@ -7,7 +7,7 @@ import { numberFormat } from "@/utils/NumberFormat";
 const { GET, DELETE, POST } = Api();
 const router = useRouter();
 const cartItem = ref();
-const idPelanggan = sessionStorage.getItem("sesIdPelanggan")
+const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const dateNow = new Date().toISOString().split("T")[0];
 
 const order = reactive({
@@ -27,9 +27,9 @@ const detailOrder = reactive({
 async function getCart() {
   const data = await GET(`keranjang/${idPelanggan}`);
   if (data.data.length == 0) {
-    console.log("cart kosong");
     return;
   }
+  console.log(data.data);
   cartItem.value = data.data;
 }
 
@@ -51,12 +51,10 @@ async function deleteCartitem(id) {
 }
 
 async function checkout() {
-
   const data = await GET(`chackout/${idPelanggan}`);
-  console.log(data.noNota);
   router.push({
     name: "payment",
-    params:{invoice:data.noNota}
+    params: { invoice: data.noNota },
   });
 }
 function goToHome() {
@@ -79,6 +77,16 @@ function calculateTotalPrice() {
   }
   return numberFormat(total);
 }
+function calculateTotalQty() {
+  let totalQty = 0;
+  if (!cartItem.value) {
+    return 0;
+  }
+  for (const cart of cartItem.value) {
+    totalQty += parseInt(cart.qty);
+  }
+  return totalQty;
+}
 const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
 
 onMounted(() => {
@@ -96,6 +104,7 @@ onMounted(() => {
         <h1 v-show="!cartItem" class="text-2xl text-center">
           Keranjang Masih Kosong
         </h1>
+
         <div
           v-for="(cart, index) in cartItem"
           :key="index"
@@ -109,6 +118,7 @@ onMounted(() => {
           <h1 class="font-bold w-32 capitalize">{{ cart.nm_produk }}</h1>
           <h1>{{ cart.qty }}</h1>
 
+          <p>Rp.{{ numberFormat(cart.harga) }}</p>
           <p>Rp.{{ CalculateSubTotal(cart.qty, cart.harga) }}</p>
           <BtnComponent
             label="Hapus"
@@ -121,7 +131,7 @@ onMounted(() => {
       </div>
       <div class="self-end z-10 flex gap-[33px] items-center">
         <div class="text-center">
-          <h1 class="text-base">Total(0 madu)</h1>
+          <h1 class="text-base">Total({{ calculateTotalQty() }} madu)</h1>
           <p class="font-bold text-xl">Rp.{{ calculateTotalPrice() }}</p>
         </div>
         <BtnComponent
