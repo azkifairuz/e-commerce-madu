@@ -97,29 +97,36 @@ onMounted(() => {
 <template>
   <main class="w-screen h-screen flex justify-center items-center">
     <div
-      class="w-[1026px] h-[503px] bg-white py-[38px] px-2 rounded-xl flex flex-col justify-between"
+      class="w-full md:w-[1026px] h-full md:h-[503px] bg-white py-[38px] px-2 rounded-xl flex flex-col justify-between"
     >
       <header class="font-bold z-10 text-xl text-center">Keranjang</header>
       <div class="h-full flex flex-col gap-[32px] mt-[48px] overflow-y-auto">
         <h1 v-show="!cartItem" class="text-2xl text-center">
           Keranjang Masih Kosong
         </h1>
-
         <div
           v-for="(cart, index) in cartItem"
           :key="index"
-          class="card flex justify-between items-center"
+          class="text-center flex justify-evenly items-center"
         >
           <img
             :src="baseImageUrl + cart.image"
             class="rounded-xl bg-black w-[150px] h-[100px] bg-no-repeat bg-cover"
             alt=""
           />
-          <h1 class="font-bold w-32 capitalize">{{ cart.nm_produk }}</h1>
-          <h1>{{ cart.qty }}</h1>
 
-          <p>Rp.{{ numberFormat(cart.harga) }}</p>
-          <p>Rp.{{ CalculateSubTotal(cart.qty, cart.harga) }}</p>
+          <div class="flex flex-col md:flex-row justify-evenly md:gap-10 items-center">
+            <p class="font-bold w-32 capitalize">{{ cart.nm_produk }}</p>
+            <div class="flex gap-2 justify-evenly md:gap-5">
+              <p>{{ cart.qty }}</p>
+              <p class="font-bold">x</p>
+              <p>Rp.{{ numberFormat(cart.harga) }}</p>
+            </div>
+            <p class="font-bold">=</p>
+            <p class="font-bold">
+              Rp.{{ CalculateSubTotal(cart.qty, cart.harga) }}
+            </p>
+          </div>
           <BtnComponent
             label="Hapus"
             primary-color="bg-red-500"
