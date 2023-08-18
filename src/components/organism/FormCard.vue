@@ -11,6 +11,7 @@ const save = () => {
   emit("save")
 }
 </script>
+
 <template>
   <div class="w-[500px] bg-white shadow-lg mb-5">
     <div class="bg-yellow-main py-4 px-5 rounded-t-md">

@@ -45,6 +45,7 @@ async function cekEmail() {
     return [];
   }
 }
+
 async function save() {
   if (detailPegawai.email == "") {
     isOpen.value = true;
@@ -77,6 +78,7 @@ async function save() {
     responseMsg.value = "Email Sudah Terdaftar";
     return;
   }
+
   const data = await POST("pegawai", objectToFormdata(detailPegawai));
   account.id_pegawai = data.lastId;
   account.email = detailPegawai.email;
