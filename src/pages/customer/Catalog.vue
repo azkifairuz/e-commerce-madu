@@ -31,7 +31,7 @@ onMounted(() => {
         LIST MADU
       </h1>
     </header>
-    <section class="mt-2 grid grid-cols-2 lg:grid-cols-5 gap-5">
+    <section class="mt-10 grid grid-cols-1 md:grid-cols-3 overflow-x-scroll content-center justify-items-center lg:grid-cols-5 gap-5">
       <CardProduct
         v-if="products != null"
         v-for="product in products"

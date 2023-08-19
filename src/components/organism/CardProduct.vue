@@ -44,50 +44,43 @@ function goToDetailProduct(id) {
 <template>
   <div
     @click="goToDetailProduct(idProd)"
-    :class="isProdReady ? 'cursor-pointer' : 'cursor-not-allowed' "
-    class="max-w-md bg-white rounded-md overflow-hidden w-60 p-2 hover:shadow-lg"
+    :class="isProdReady ? 'cursor-pointer' : 'cursor-not-allowed'"
+    class="w-full md:w-52 bg-white rounded-md p-2 flex flex-col gap-2 justify-start hover:shadow-lg"
   >
     <img :src="imageUrl" class="w-full bg-black h-48 object-cover" />
     <div class="px-6 py-4">
-      <h1 class="font-bold text-xl mb-2 line-clamp-1">{{ title }}</h1>
-      <p class="text-gray-700 text-base line-clamp-2 overflow-ellipsis">
-        {{ description }}
+      <h1 class="font-bold text-xl mb-2">{{ title }}</h1>
+      <p class="text-gray-500">
+        Stok: <span class="font-bold">{{ qty }}</span>
       </p>
+      <p class="mt-2 text-yellow-600 font-semibold">RP.{{ price }}</p>
+      <p class="mt-2 text-sm text-gray-500">{{ category }}</p>
     </div>
 
-    <div class="px-4 flex justify-between items-center pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 text-center rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-        >{{ category }}</span
-      >
-      <span
-        class="inline-block h-fit bg-gray-200 text-center rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
-        >Rp.{{ price }}</span
-      >
-    </div>
     <span
       v-show="!isReady"
       class="inline-block mx-4 bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
       >habis</span
     >
-    <!-- <div class="px-6">
-      <btnComponent
-        label=""
-        primary-color="bg-yellow-500 "
-        hover-color="hover:bg-yellow-700"
-        text-color="text-black"
+
+    <div class="flex mt-auto">
+      <button
+        class="px-5 py-2 text-black hover:bg-btn-hover bg-btn-primary w-full emnd justify-self-end"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-5 h-6"
-        >
-          <path
-            d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
-          />
-        </svg>
-      </btnComponent>
-    </div> -->
+        Beli
+      </button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="w-10 h-10"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M6 5v1H4.667a1.75 1.75 0 00-1.743 1.598l-.826 9.5A1.75 1.75 0 003.84 19H16.16a1.75 1.75 0 001.743-1.902l-.826-9.5A1.75 1.75 0 0015.333 6H14V5a4 4 0 00-8 0zm4-2.5A2.5 2.5 0 007.5 5v1h5V5A2.5 2.5 0 0010 2.5zM7.5 10a2.5 2.5 0 005 0V8.75a.75.75 0 011.5 0V10a4 4 0 01-8 0V8.75a.75.75 0 011.5 0V10z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
   </div>
 </template>

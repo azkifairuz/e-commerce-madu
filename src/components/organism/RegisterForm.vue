@@ -1,6 +1,5 @@
 <script setup>
 import logo from "@/assets/logo.png";
-import { reactive } from "vue";
 import { useRouter } from "vue-router";
 const emit = defineEmits(["savedata"]);
 
@@ -43,7 +42,7 @@ function buttonClick() {
       <!-- Form Section -->
       <div class="w-full">
         <div class="bg-white rounded-lg shadow-lg p-8">
-          <h1 class="text-2xl font-bold text-center mb-8 capitalize">
+          <h1 class="text-lg md:text-2xl font-bold text-center mb-8 capitalize">
             {{ isCustomer ? "Selamat Datang Di madu apiari Silahkan daftar" : "Daftarkan Admin" }}
           </h1>
           <p v-show="isCustomer" class="mb-8 text-center text-sm text-gray-500">

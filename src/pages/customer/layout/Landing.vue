@@ -126,7 +126,7 @@ onMounted(() => {
           <div
             v-if="products != null"
             id="product section "
-            class="grid gap-10 grid-cols-1 md:gap-20 md:grid-cols-3  mx-auto lg:grid-cols-5 justify-items-center content-center"
+            class="grid gap-10 grid-cols-1 md:gap-20 md:grid-cols-3  mx-auto lg:grid-flow-col justify-items-center content-center"
           >
             <card-product
               v-for="(product, index) in products.slice(0, 5)"

@@ -90,8 +90,7 @@ async function save() {
   <RegisterForm @savedata="save">
     <template v-slot:inputField>
       <alertPopup :message="responseMsg" :isOpen="isOpen" />
-
-      <div class="grid grid-rows-5 gap-2 grid-cols-2">
+      <div class="grid grid-cols-1 md:grid-rows-5 gap-2 md:grid-cols-2">
         <InputField
           label="Nama"
           v-model="detailCustomer.nm_pelanggan"
@@ -117,7 +116,7 @@ async function save() {
         />
         <div class="flex flex-col gap-3">
           <label class="text-lg"> Jenis Kelamin</label>
-          <div class="flex gap-5">
+          <div class="flex gap-5 flex-col lg:flex-row">
             <div
               class="flex gap-2"
               v-for="option in selectOption"
