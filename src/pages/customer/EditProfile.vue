@@ -4,15 +4,17 @@ import InputField from "@/components/atom/InputField.vue";
 import { reactive } from "vue";
 const profil = reactive({
   name: "",
+  alamat:"",
 });
 function save() {
+  console.log("save");
   return;
 }
 </script>
 
 <template>
   <div class="w-screen h-screen flex justify-center items-center">
-    <formCard headerText="Edit Profile" btnLabel="Edit" @save="save">
+    <formCard headerText="Masukan Email" btnLabel="Edit" @save="save">
       <template class="flex flex-col gap-6" v-slot:inputField>
         <InputField
           label="Nama"
@@ -22,16 +24,9 @@ function save() {
           name="nm"
         />
         <InputField
-          label="Nama"
-          v-model="profil.name"
-          placeholder="Masukan nama"
-          typeInput="text"
-          name="nm"
-        />
-        <InputField
-          label="Nama"
-          v-model="profil.name"
-          placeholder="Masukan nama"
+          label="Alamat"
+          v-model="profil.alamat"
+          placeholder="Masukan Alamat"
           typeInput="text"
           name="nm"
         />
