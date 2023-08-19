@@ -12,7 +12,7 @@ const products = ref("");
 const route = useRoute();
 const router = useRouter();
 const idUser = sessionStorage.getItem("sesIdUser");
-const idPelanggan = sessionStorage.getItem("sesIdPelanggan")
+const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const idProduct = route.params.idProduct;
 const dateNow = new Date().toISOString().split("T")[0];
 const product = reactive({
@@ -111,7 +111,7 @@ async function buy() {
     });
     return;
   }
-  
+
   detailCart.id_keranjang_belanja = iskeranjang.data[0].idKeranjang;
   await POST("detailkeranjangbelanja", objectToFormdata(detailCart));
   product.qty_produk = product.qty_produk - detailCart.qty;
@@ -153,61 +153,66 @@ async function buy() {
     </div>
   </div>
   <main class="px-4 py-4 md:px-10 md:py-10 flex flex-col gap-10">
-    <div class="flex flex-col gap-10 md:flex-row md:gap-20">
+    <div
+      class="flex flex-col bg-white rounded-lg p-10 gap-10 md:flex-row md:gap-10"
+    >
       <img
-        class="w-full md:w-1/2 h-[400px] rounded-lg"
+        class="w-full border md:w-1/2 h-[400px] rounded-lg"
         :src="baseImageUrl + product.image"
         alt=""
       />
-      <div class="w-full md:w-1/2 flex flex-col gap-2 justify-between">
-        <div>
-          <h1 class="font-bold text-xl">{{ product.nm_produk }}</h1>
-          <p>
-            {{ product.keterangan }}
-          </p>
-        </div>
-        <div>
-          <h1>kuantitas</h1>
+      <div class="w-full md:w-1/2 flex flex-col gap-5">
+        <h1 class="text-5xl capitalize text-gray-950 font-poppins">
+          {{ product.nm_produk }}
+        </h1>
+        <h1 class="text-4xl">Rp.{{ numberFormat(product.harga_jual) }}</h1>
+        <h1 class="text-2xl text-gray-700">
+          Stok: <span>{{ detailCart.qty }}</span>
+        </h1>
+        <div class="mt-auto">
+          <h1 class="text-xl font-semibold capitalize text-gray-900">
+            kuantitas
+          </h1>
           <div class="flex gap-2">
             <button
               @click="decreaseQuantity"
               :class="
                 detailCart.qty === 0 ? ' cursor-not-allowed' : 'cursor-pointer'
               "
-              class="w-5 h-5 text-center bg-yellow-main p-1 flex justify-center items-center"
+              class="w-10 h-10 text-center bg-yellow-main rounded-md p-1 flex justify-center items-center"
             >
               -
             </button>
             <input
               readonly
               type="text"
-              class="w-10 h-5 text-center border-2 p-2 border-yellow-light outline-none"
+              class="w-20 h-10 text-center rounded-md border-2 p-2 border-yellow-light outline-none"
               v-model="detailCart.qty"
             />
             <button
               @click="addQuantity"
               :class="
-              detailCart.qty >= product.qty_produk
+                detailCart.qty >= product.qty_produk
                   ? ' cursor-not-allowed'
                   : 'cursor-pointer'
               "
-              class="w-5 h-5 bg-yellow-main text-center p-1 flex justify-center items-center"
+              class="w-10 h-10 bg-yellow-main rounded-md text-center p-1 flex justify-center items-center"
             >
               +
             </button>
           </div>
         </div>
-        <div class="w-full">
-          <h1 class="font-bold">Rp.{{ numberFormat(product.harga_jual) }}</h1>
+        <div class="w-full mt-auto">
           <div class="flex gap-2 w-full">
-            <BtnComponent
-              label="Beli"
-              @someEvent="buy"
-              primary-color="bg-yellow-500 "
-              hover-color="hover:bg-yellow-700"
-              text-color="text-black"
-            />
-
+            <div class="w-1/2">
+              <BtnComponent
+                label="Beli"
+                @someEvent="buy"
+                primary-color="bg-yellow-500 "
+                hover-color="hover:bg-yellow-700"
+                text-color="text-black"
+              />
+            </div>
             <BtnComponent
               label=""
               @someEvent="addToCart"
@@ -243,12 +248,11 @@ async function buy() {
           :category="product.nm_jns_produk"
           :description="product.keterangan"
           :idProd="product.id"
-          :isReady="product.qty_produk > 0 ? true:false"
+          :qty="product.qty_produk"
+          :isReady="product.qty_produk > 0 ? true : false"
         />
         <h1 v-else>product kosong atau jaringan bermasalah</h1>
       </div>
     </section>
   </main>
 </template>
-
-
