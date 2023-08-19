@@ -10,6 +10,7 @@ export default {
         'yellow':{
           'main':'#ffc70b',
           'light':'#FFD447',
+          'secondary':'#FFECAD',
           'dark' : '#e0ac00',
           'hover':'#e0ac00',
         },

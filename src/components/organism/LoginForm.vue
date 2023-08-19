@@ -128,7 +128,7 @@ const closeAlert = () => {
           label="Email"
           v-model="credentials.email"
           placeholder="Masukan Email anda"
-          typeInput="text"
+          typeInput="email"
           name="email"
         />
       </div>

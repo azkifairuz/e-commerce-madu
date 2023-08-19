@@ -37,7 +37,7 @@ async function saveNewPw() {
           label="email"
           v-model="email.email"
           placeholder="Masukan Email"
-          typeInput="text"
+          typeInput="email"
           name="nm"
         />
       </template>
