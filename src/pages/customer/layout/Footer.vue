@@ -2,6 +2,12 @@
 import { onMounted, reactive, ref } from "vue";
 import Api from "@/config/api/Api";
 import { useRouter } from "vue-router";
+import Gundar from "@/assets/Gunadarma.png";
+import Logo from "@/assets/logo.png";
+import Kedai from "@/assets/kedaireka.png";
+import kemendikbud from "@/assets/kemendikbud.png";
+import Umj from "@/assets/Umj.png";
+
 const { GET } = Api();
 const categories = ref("");
 async function getCategory() {
@@ -46,7 +52,12 @@ const companies = reactive([
     link: "https://goo.gl/maps/7TkBbp5SE3EP4nwUA",
   },
 ]);
-const supports = reactive({});
+const supports = reactive([
+  { logoUrl: Gundar, name: "gundar" },
+  { logoUrl: Kedai, name: "kedaireka" },
+  { logoUrl: kemendikbud, name: "kemendikbut=d" },
+  { logoUrl: Umj, name: "umj" },
+]);
 
 
 async function redirectShops(name) {
@@ -63,9 +74,9 @@ onMounted(() => {
 <template>
   <main class="bg-black text-white px-10 py-5 flex flex-col gap-5">
     <header class="grid grid-cols-1 text-center md:text-start md:grid-cols-2 lg:grid-cols-4 gap-20">
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col  gap-4 items-center">
         <img class="w-20" src="/assets/logoNavbar.png" alt="logo" />
-        <h1 class="text-sm">
+        <h1 class="text-sm text-center">
           Madu lokal berkelas internasional Berasal dari perternakan sendiri
         </h1>
         <div class="flex gap-4">
@@ -171,8 +182,12 @@ onMounted(() => {
           </li>
         </ul>
       </div>
+    
     </header>
-    <footer class="w-full">
+    <footer class="w-full flex flex-col gap-10 mt-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 w-full gap-5 content-center justify-items-center">
+          <img class="h-10 md:h-10" v-for="(support, index) in supports" :key="index" :src="support.logoUrl" :alt="support.name" >
+      </div>
       <h1 class="w-full text-gray-400 text-center">
         © 2023 CV. Madu Apiari Mutiara
       </h1>
