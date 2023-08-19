@@ -1,10 +1,10 @@
 <script setup>
 import { reactive } from "vue";
-import Gundar  from "@/assets/Gunadarma.png"
-import Logo  from "@/assets/logo.png"
-import Kedai  from "@/assets/kedaireka.png"
-import kemendikbud  from "@/assets/kemendikbud.png"
-import Umj  from "@/assets/Umj.png"
+import Gundar from "@/assets/Gunadarma.png";
+import Logo from "@/assets/logo.png";
+import Kedai from "@/assets/kedaireka.png";
+import kemendikbud from "@/assets/kemendikbud.png";
+import Umj from "@/assets/Umj.png";
 const documents = reactive([
   { name: "NIB" },
   { name: "IUI" },
@@ -22,12 +22,11 @@ const documents = reactive([
   { name: "Hak Cipta Logo dan Lebah" },
 ]);
 const sponsors = reactive([
-  { logoUrl: Gundar,name:"gundar" },
-  { logoUrl: Kedai,name:"kedaireka" },
-  { logoUrl: kemendikbud,name:"kemendikbut=d" },
-  { logoUrl: Logo,name:"madu" },
-  { logoUrl: Umj,name:"umj" },
-
+  { logoUrl: Gundar, name: "gundar" },
+  { logoUrl: Kedai, name: "kedaireka" },
+  { logoUrl: kemendikbud, name: "kemendikbut=d" },
+  { logoUrl: Logo, name: "madu" },
+  { logoUrl: Umj, name: "umj" },
 ]);
 const missions = reactive([
   {
@@ -96,7 +95,7 @@ const missions = reactive([
     </div>
     <div class="flex flex-col md:flex-row gap-5 justify-center">
       <div class="">
-        <h2 class="text-2xl  font-semibold mb-2">Visi</h2>
+        <h2 class="text-2xl font-semibold mb-2">Visi</h2>
         <p>
           Memproduksi produk-produk lebah yang berguna untuk masyarakat dengan
           mengedepankan keamanan, kualitas, dan kejujuran.
@@ -104,12 +103,8 @@ const missions = reactive([
       </div>
       <div class=" ">
         <h2 class="text-2xl font-semibold mb-2">Misi</h2>
-        <ul
-          v-for="(mision, index) in missions"
-          :key="index"
-          class="list-disc ml-6"
-        >
-          <li>
+        <ul class="list-disc ml-6">
+          <li v-for="(mision, index) in missions" :key="index">
             {{ mision.misi }}
           </li>
         </ul>
