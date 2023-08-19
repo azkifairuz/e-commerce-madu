@@ -97,29 +97,38 @@ onMounted(() => {
             </h1>
           </div>
           <div
+            v-if="categories != null"
             id="categories section"
             class="grid gap-10 md:gap-20 grid-cols-2 mx-auto md:grid-cols-5 justify-items-center content-center"
           >
             <card-category
-              v-if="categories != null"
               v-for="category in categories.slice(0, 5)"
               :key="category.id"
               @kategoriList="goToProductByCategory(category.id)"
               :label="category.nm_jns_produk"
             />
-            <h1 v-else>categori kosong atau jaringan bermasalah</h1>
           </div>
+          <h1 class="text-center font-bold  text-xl md:text-2xl capitalize w-full" v-else>
+            categori kosong atau jaringan bermasalah
+          </h1>
         </section>
-        <section id="product" class="bg-yellow-secondary p-6 rounded-lg mb-12 flex flex-col gap-5">
+        <section
+          id="product"
+          class="bg-yellow-secondary p-6 rounded-lg mb-12 flex flex-col gap-5"
+        >
           <div class="w-full flex justify-center items-center">
-            <h1 class="text-2xl font-poppins font-bold text-center text-[#C17E5C]">Madu Teratas</h1>
+            <h1
+              class="text-2xl font-poppins font-bold text-center text-[#C17E5C]"
+            >
+              Madu Teratas
+            </h1>
           </div>
           <div
+            v-if="products != null"
             id="product section "
             class="grid gap-10 md:gap-20 grid-cols-2 mx-auto md:grid-cols-5 justify-items-center content-center"
           >
             <card-product
-              v-if="products != null"
               v-for="(product, index) in products.slice(0, 5)"
               :key="index"
               :imageUrl="baseImageUrl + product.image"
@@ -131,8 +140,8 @@ onMounted(() => {
               :isReady="product.qty_produk > 0 ? true : false"
               :idProd="product.id"
             />
-            <h1 v-else>product kosong atau jaringan bermasalah</h1>
           </div>
+          <h1 class="text-xl md:text-2xl font-bold capitalize text-center" v-else>product kosong atau jaringan bermasalah</h1>
         </section>
       </main>
     </div>
