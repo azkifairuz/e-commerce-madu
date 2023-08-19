@@ -55,13 +55,13 @@ function goToDetailProduct(id) {
       </p>
     </div>
 
-    <div class="px-4 flex justify-between pt-4 pb-2">
+    <div class="px-4 flex justify-between items-center pt-4 pb-2">
       <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+        class="inline-block bg-gray-200 text-center rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
         >{{ category }}</span
       >
       <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
+        class="inline-block h-fit bg-gray-200 text-center rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
         >Rp.{{ price }}</span
       >
     </div>
