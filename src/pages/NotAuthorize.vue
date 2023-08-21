@@ -16,10 +16,10 @@ function cekLevel() {
     return;
   }
   if (levelUser != "cust") {
-    isAdmin.value = "admin"
+    isAdmin.value = "cust"
     return;
   }
-  isAdmin.value = "cust"
+  isAdmin.value = "admin"
   return;
 }
 

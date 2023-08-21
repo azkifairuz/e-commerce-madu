@@ -46,6 +46,13 @@ onMounted(() => {
 });
 </script>
 <template>
+  <main class="flex flex-col md:flex-row gap-5 ">
+    <aside class="bg-white rounded-md ">
+      
+    </aside>
+  </main>  
+</template>
+<!-- <template>
   <div
     class="h-screen w-screen whitespace-nowrap p-10 flex justify-center items-center"
   >
@@ -87,6 +94,6 @@ onMounted(() => {
       />
     </main>
   </div>
-</template>
+</template> -->
 
 

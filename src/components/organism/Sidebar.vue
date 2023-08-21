@@ -25,12 +25,14 @@ const listItem = [
     title: "Penjualan",
   },
 ];
-function goToRegisterPage() {
+
+function goToLoginPage() {
   sessionStorage.setItem("isLogin", false);
   router.push({
-    name: "registerUser",
+    name: "loginUser",
   });
 }
+
 function navigation(path) {
   router.push({
     name: path,

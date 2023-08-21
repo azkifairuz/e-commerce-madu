@@ -11,7 +11,7 @@ const { GET, POST } = Api();
 const products = ref("");
 const route = useRoute();
 const router = useRouter();
-const idUser = sessionStorage.getItem("sesIdUser");
+// const idUser = sessionStorage.getItem("sesIdUser");
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const idProduct = route.params.idProduct;
 const dateNow = new Date().toISOString().split("T")[0];
@@ -31,7 +31,7 @@ const cart = reactive({
   id_pelanggan: idPelanggan,
   tgl: dateNow,
 });
-console.log(idUser);
+
 const detailCart = reactive({
   id: null,
   id_keranjang_belanja: null,
@@ -59,7 +59,7 @@ onMounted(() => {
   getProductById();
 });
 
-const baseImageUrl =  import.meta.env.VITE_APP_BASE_IMG_URL;
+const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 function addQuantity() {
   if (detailCart.qty >= product.qty_produk) {
     return;
@@ -97,6 +97,7 @@ async function addToCart() {
   product.qty_produk = product.qty_produk - detailCart.qty;
   await POST(`produk/${idProduct}`, objectToFormdata(product));
 }
+
 async function buy() {
   const iskeranjang = await GET(`keranjang/${idPelanggan}`);
   if (iskeranjang.data.length == 0) {
@@ -157,7 +158,7 @@ async function buy() {
       class="flex flex-col bg-white rounded-lg p-10 gap-10 md:flex-row md:gap-10"
     >
       <img
-        class="w-full border md:w-1/2 h-[400px] rounded-lg"
+        class="w-full border md:w-auto h-[400px] bg- rounded-lg"
         :src="baseImageUrl + product.image"
         alt=""
       />
@@ -169,6 +170,7 @@ async function buy() {
         <h1 class="text-2xl text-gray-700">
           Stok: <span>{{ product.qty_produk }}</span>
         </h1>
+        <h1>{{ product.keterangan }}</h1>
         <div class="mt-auto">
           <h1 class="text-xl font-semibold capitalize text-gray-900">
             kuantitas
@@ -177,9 +179,11 @@ async function buy() {
             <button
               @click="decreaseQuantity"
               :class="
-                detailCart.qty === 0 ? ' cursor-not-allowed' : 'cursor-pointer'
+                detailCart.qty === 0
+                  ? ' cursor-not-allowed bg-yellow-200'
+                  : 'cursor-pointer bg-yellow-main'
               "
-              class="w-10 h-10 text-center bg-yellow-main rounded-md p-1 flex justify-center items-center"
+              class="w-10 h-10 text-center rounded-md p-1 flex justify-center items-center"
             >
               -
             </button>
@@ -193,10 +197,10 @@ async function buy() {
               @click="addQuantity"
               :class="
                 detailCart.qty >= product.qty_produk
-                  ? ' cursor-not-allowed'
-                  : 'cursor-pointer'
+                  ? ' cursor-not-allowed bg-yellow-200'
+                  : 'cursor-pointer bg-yellow-main'
               "
-              class="w-10 h-10 bg-yellow-main rounded-md text-center p-1 flex justify-center items-center"
+              class="w-10 h-10 rounded-md text-center p-1 flex justify-center items-center"
             >
               +
             </button>
