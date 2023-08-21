@@ -12,12 +12,34 @@ const { GET } = Api();
 const route = useRoute();
 const router = useRouter();
 const invoice = ref("");
+const customers = reactive({
+  nm_pelanggan: "",
+  nik: null,
+  alamat_pelanggan: "",
+  tgl_lahir: "",
+  tmp_lahir: "",
+  jns_kelamin: "",
+  email: "",
+  no_telp: "",
+});
 const nota = route.params.invoice;
+const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
+
 async function getPayment() {
   const data = await GET(`invoice/${nota}`);
   // objectToData(invoice, data);
   invoice.value = data.data;
   console.log(data.data);
+}
+
+async function getPelanggan() {
+  const user = await GET(`pelanggan/${idPelanggan}`);
+
+  try {
+    objectToData(customers, user.data);
+  } catch (error) {
+    customers.value = null;
+  }
 }
 
 function CalculateSubTotal(qty, price) {
@@ -37,20 +59,42 @@ function calculateTotalPrice() {
 
 async function startPayment() {
   const transactionKey = await GET(`bayar/${nota}`);
-  const transactionToken = transactionKey.data; 
-  console.log("Transaction Token:", transactionToken)
-  window.location.href = transactionKey.redirect_url
+  const transactionToken = transactionKey.data;
+  console.log("Transaction Token:", transactionToken);
+  window.location.href = transactionKey.redirect_url;
 }
+
 onMounted(() => {
+  getPelanggan();
   getPayment();
 });
 </script>
 <template>
-  <main class="flex flex-col md:flex-row gap-5 ">
-    <aside class="bg-white rounded-md ">
-      
+  <main
+    class="flex flex-col justify-center items-center my-20 md:flex-row gap-5"
+  >
+    <aside class="bg-white rounded-md w-1/2 p-5">
+      <h1 class="text-xl font-bold capitalize">Detail Tagihan</h1>
+      <div class="px-2 mt-2 flex flex-col gap-5">
+        <span class="bg-slate-100 p-2 rounded-md">
+          <h1 class="font-bold">Nama Penerima</h1>
+          <p>{{ customers.nm_pelanggan }}</p>
+        </span>
+        <span class="bg-slate-100 p-2 rounded-md">
+          <h1 class="font-bold">Email</h1>
+          <p>{{ customers.email }}</p>
+        </span>
+        <span class="bg-slate-100 p-2 rounded-md">
+          <h1 class="font-bold">Telepon</h1>
+          <p>{{ customers.no_telp }}</p>
+        </span>
+        <span class="bg-slate-100 p-2 rounded-md">
+          <h1 class="font-bold">Alamat</h1>
+          <p>{{ customers.alamat_pelanggan }}</p>
+        </span>
+      </div>
     </aside>
-  </main>  
+  </main>
 </template>
 <!-- <template>
   <div
@@ -95,5 +139,3 @@ onMounted(() => {
     </main>
   </div>
 </template> -->
-
-

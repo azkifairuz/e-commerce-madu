@@ -29,7 +29,6 @@ async function getCart() {
   if (data.data.length == 0) {
     return;
   }
-  console.log(data.data);
   cartItem.value = data.data;
 }
 
