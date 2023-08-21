@@ -1,5 +1,5 @@
 export default function Api(){
-  let BASE_URL="http://127.0.0.1:8000/api/"
+  let BASE_URL=`${import.meta.env.VITE_APP_BASE_URL}/api/`
 
   async function GET(url){
       return await fetch(`${BASE_URL}${url}`,{method:"GET"}).then(res=>res.json(),{mode: 'cors',})

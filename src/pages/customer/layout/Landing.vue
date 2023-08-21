@@ -27,7 +27,7 @@ async function getProduct() {
     products.value = null;
   }
 }
-const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
+const baseImageUrl = `${import.meta.env.VITE_APP_BASE_URL}/${import.meta.env.VITE_APP_BASE_IMG_URL}`;
 function goToProductByCategory(id) {
   router.push({
     name: "productByCategory",
@@ -48,6 +48,7 @@ function goToListMadu() {
 onMounted(() => {
   getProduct();
   getCategory();
+  console.log(baseImageUrl);
 });
 </script>
 
@@ -136,8 +137,8 @@ onMounted(() => {
               :price="numberFormat(product.harga_jual)"
               :category="product.nm_jns_produk"
               :description="product.keterangan"
-              :qty="product.qty_produk"
-              :isReady="product.qty_produk > 0 ? true : false"
+              :qty="parseInt(product.qty_produk)"
+              :isReady="parseInt(product.qty_produk) > 0 ? true : false"
               :idProd="product.id"
             />
           </div>

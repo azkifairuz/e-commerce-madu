@@ -18,7 +18,7 @@ const dateNow = new Date().toISOString().split("T")[0];
 const product = reactive({
   id: null,
   nm_produk: "",
-  qty_produk: "",
+  qty_produk: 0,
   id_jns_produk: null,
   harga_jual: null,
   harga_beli: null,
@@ -167,7 +167,7 @@ async function buy() {
         </h1>
         <h1 class="text-4xl">Rp.{{ numberFormat(product.harga_jual) }}</h1>
         <h1 class="text-2xl text-gray-700">
-          Stok: <span>{{ detailCart.qty }}</span>
+          Stok: <span>{{ product.qty_produk }}</span>
         </h1>
         <div class="mt-auto">
           <h1 class="text-xl font-semibold capitalize text-gray-900">
@@ -248,8 +248,8 @@ async function buy() {
           :category="product.nm_jns_produk"
           :description="product.keterangan"
           :idProd="product.id"
-          :qty="product.qty_produk"
-          :isReady="product.qty_produk > 0 ? true : false"
+          :qty="parseInt(product.qty_produk)"
+          :isReady="parseInt(product.qty_produk) > 0 ? true : false"
         />
         <h1 v-else>product kosong atau jaringan bermasalah</h1>
       </div>
