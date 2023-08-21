@@ -24,22 +24,17 @@ const customers = reactive({
 });
 const nota = route.params.invoice;
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
-
+const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 async function getPayment() {
   const data = await GET(`invoice/${nota}`);
   // objectToData(invoice, data);
   invoice.value = data.data;
-  console.log(data.data);
 }
 
 async function getPelanggan() {
-  const user = await GET(`pelanggan/${idPelanggan}`);
+    const user = await GET(`pelanggan/${idPelanggan}`);
+    objectToData(customers, user);
 
-  try {
-    objectToData(customers, user.data);
-  } catch (error) {
-    customers.value = null;
-  }
 }
 
 function CalculateSubTotal(qty, price) {
@@ -70,10 +65,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <main
-    class="flex flex-col justify-center items-center my-20 md:flex-row gap-5"
-  >
-    <aside class="bg-white rounded-md w-1/2 p-5">
+  <main class="flex flex-col justify-center my-20 lg:flex-row gap-5">
+    <aside class="bg-white mx-auto lg:mx-0 rounded-md  w-full md:w-1/2 lg:w-1/4 p-5">
       <h1 class="text-xl font-bold capitalize">Detail Tagihan</h1>
       <div class="px-2 mt-2 flex flex-col gap-5">
         <span class="bg-slate-100 p-2 rounded-md">
@@ -93,6 +86,40 @@ onMounted(() => {
           <p>{{ customers.alamat_pelanggan }}</p>
         </span>
       </div>
+    </aside>
+
+    <aside class="bg-white rounded-md mx-auto lg:mx-0  w-full md:w-1/2 lg:w-1/4 p-5 flex flex-col justify-between">
+      <h1 class="text-xl font-bold capitalize">Pesanan</h1>
+      <div class="px-2 mt-2 flex flex-col gap-5 mb-2">
+        <span v-for="(item, index) in invoice" :key="index" class="flex gap-4">
+          <img
+            class="w-12 h-12 border bg-black rounded-sm"
+            :src="baseImageUrl + item.image"
+            alt="product image"
+          />
+          <div>
+            <h1 class="font-semibold">{{ item.nm_produk }}</h1>
+            <p class="text-gray-400">
+              Rp.{{ numberFormat(item.harga) }} x
+              <span class="font-semibold">{{ item.qty }}</span>
+            </p>
+          </div>
+          <span class="self-end ml-auto">
+            Rp.{{ numberFormat(parseInt(item.harga * parseInt(item.qty))) }}
+          </span>
+        </span>
+      </div>
+      <div class="flex justify-between px-2 mb-2 mt-auto">
+        <p class="font-semibold">Total</p>
+        <p class="text-gray-400">Rp.{{ calculateTotalPrice() }}</p>
+      </div>
+      <BtnComponent
+        label="Bayar"
+        @some-event="startPayment()"
+        primary-color="bg-btn-primary"
+        hover-color="hover:bg-btn-hover"
+        textColor="text-black"
+      />
     </aside>
   </main>
 </template>
