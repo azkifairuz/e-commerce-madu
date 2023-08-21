@@ -59,7 +59,7 @@ onMounted(() => {
   getProductById();
 });
 
-const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
+const baseImageUrl =  import.meta.env.VITE_APP_BASE_IMG_URL;
 function addQuantity() {
   if (detailCart.qty >= product.qty_produk) {
     return;

@@ -27,23 +27,23 @@ async function getProduct() {
     products.value = null;
   }
 }
-const baseImageUrl = `${import.meta.env.VITE_APP_BASE_URL}/${import.meta.env.VITE_APP_BASE_IMG_URL}`;
+const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 function goToProductByCategory(id) {
   router.push({
     name: "productByCategory",
     params: { idCategory: id },
   });
 }
-function goToCategory() {
-  router.push({
-    name: "allCategory",
-  });
-}
-function goToListMadu() {
-  router.push({
-    name: "catalog",
-  });
-}
+// function goToCategory() {
+//   router.push({
+//     name: "allCategory",
+//   });
+// }
+// function goToListMadu() {
+//   router.push({
+//     name: "catalog",
+//   });
+// }
 
 onMounted(() => {
   getProduct();

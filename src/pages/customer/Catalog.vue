@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue";
 import { numberFormat } from "@/utils/NumberFormat";
 import CardProduct from "@/components/organism/CardProduct.vue";
 
-const baseImageUrl = "http://127.0.0.1:8000/storage/produk/";
+const baseImageUrl =  import.meta.env.VITE_APP_BASE_IMG_URL;
 const { GET } = Api();
 const products = ref("");
 async function getProduct() {
