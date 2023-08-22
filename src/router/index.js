@@ -198,6 +198,15 @@ export const router = createRouter({
           component: () => import("@/pages/customer/Profile.vue"),
         },
         {
+          path: "history",
+          name: "history",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
+          component: () => import("@/pages/customer/History.vue"),
+        },
+        {
           path: "editProfilCustomer",
           name: "editProfilCustomer",
           meta: {

@@ -3,7 +3,6 @@ import { onMounted, reactive, ref } from "vue";
 import Api from "@/config/api/Api";
 import { useRouter } from "vue-router";
 import Gundar from "@/assets/Gunadarma.png";
-import Logo from "@/assets/logo.png";
 import Kedai from "@/assets/kedaireka.png";
 import kemendikbud from "@/assets/kemendikbud.png";
 import Umj from "@/assets/Umj.png";
@@ -42,6 +41,7 @@ const shops = reactive([
     link: "catalog",
   },
 ]);
+
 const companies = reactive([
   {
     text: "Tentang Kami",
@@ -52,13 +52,13 @@ const companies = reactive([
     link: "https://goo.gl/maps/7TkBbp5SE3EP4nwUA",
   },
 ]);
+
 const supports = reactive([
   { logoUrl: Gundar, name: "gundar" },
   { logoUrl: Kedai, name: "kedaireka" },
   { logoUrl: kemendikbud, name: "kemendikbut=d" },
   { logoUrl: Umj, name: "umj" },
 ]);
-
 
 async function redirectShops(name) {
   router.push(

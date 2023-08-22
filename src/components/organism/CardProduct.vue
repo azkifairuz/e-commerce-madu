@@ -47,7 +47,7 @@ function goToDetailProduct(id) {
     :class="isProdReady ? 'cursor-pointer' : 'cursor-not-allowed'"
     class="w-full md:w-52 bg-white rounded-md p-2 flex flex-col gap-2 justify-start hover:shadow-lg"
   >
-    <img :src="imageUrl" class="w-full bg-black h-48 object-cover" />
+    <img :src="imageUrl" class="w-full bg-black h-48 object-scale-down" />
     <div class="px-6 py-4">
       <h1 class="font-bold text-xl mb-2">{{ title }}</h1>
       <p class="text-gray-500">

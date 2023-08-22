@@ -8,7 +8,7 @@ import { RouterView } from "vue-router";
   <main class="pt-10">
     <RouterView />
   </main>
-  <footer class="mt-20">
+  <footer class="mt-auto">
     <FooterVue />
   </footer>
 </template>
