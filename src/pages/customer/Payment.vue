@@ -105,7 +105,7 @@ onMounted(() => {
             </p>
           </div>
           <span class="self-end ml-auto">
-            Rp.{{ numberFormat(parseInt(item.harga * parseInt(item.qty))) }}
+            Rp.{{ CalculateSubTotal(item.qty,item.harga) }}
           </span>
         </span>
       </div>
