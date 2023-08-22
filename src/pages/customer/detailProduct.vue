@@ -11,7 +11,6 @@ const { GET, POST } = Api();
 const products = ref("");
 const route = useRoute();
 const router = useRouter();
-// const idUser = sessionStorage.getItem("sesIdUser");
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const idProduct = route.params.idProduct;
 const dateNow = new Date().toISOString().split("T")[0];

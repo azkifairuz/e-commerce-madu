@@ -17,7 +17,9 @@ export default {
         'btn':{
           'primary':'#FEC834',
           'hover':'#FEBD0B'
-        }
+        },
+        'success':'#14A38B',
+        'error':'#FF7171'
       },
       fontFamily:{
         'poppins':['Poppins', 'sans-serif']
