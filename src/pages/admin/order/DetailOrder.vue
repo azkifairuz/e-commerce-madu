@@ -58,8 +58,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <main class="flex flex-col justify-center my-20 lg:flex-row gap-5">
-    <aside class="bg-white mx-auto lg:mx-0 rounded-md  w-full md:w-1/2 lg:w-1/4 p-5">
+  <main class="flex flex-col min-w-[800px] justify-center my-20 lg:flex-row gap-5">
+    <aside class="bg-white mx-auto lg:mx-0 rounded-md  w-full  p-5">
       <h1 class="text-xl font-bold capitalize">Detail Tagihan</h1>
       <div class="px-2 mt-2 flex flex-col gap-5">
         <span class="bg-slate-100 p-2 rounded-md">
@@ -85,7 +85,7 @@ onMounted(() => {
       </div>
     </aside>
 
-    <aside class="bg-white rounded-md mx-auto lg:mx-0  w-full md:w-1/2 lg:w-1/4 p-5 flex flex-col justify-between">
+    <aside class="bg-white rounded-md mx-auto lg:mx-0  w-full  p-5 flex flex-col justify-between">
       <h1 class="text-xl font-bold capitalize">Pesanan</h1>
       <div class="px-2 mt-2 flex flex-col gap-5 mb-2">
         <span v-for="(item, index) in invoice" :key="index" class="flex gap-4">

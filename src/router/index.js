@@ -104,9 +104,9 @@ export const router = createRouter({
               name: "detailOrder",
               meta: {
                 requireAuth:true,
-                roles:'cust'
+                roles:'admin'
               },
-              component: () => import("@/pages/customer/DetailOrder.vue"),
+              component: () => import("@/pages/admin/order/DetailOrder.vue"),
             },
           ],
         },

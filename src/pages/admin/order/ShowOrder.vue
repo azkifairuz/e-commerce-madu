@@ -18,8 +18,27 @@ onMounted(() => {
 async function getOrder() {
   const data = await GET("pemesanan");
   orders.value = data.data;
-  console.log(data.data);
   dataTables();
+}
+
+async function Packing(idPemesanan) {
+  const data = await GET(`statuspaking/${idPemesanan}`);
+  responseMsg.value = "Status Berhasil Di ubah";
+
+  setTimeout(() => {
+    location.reload();
+  }, 1000);
+}
+async function Kirim() {}
+async function Detail(nota, status, idPelanggan) {
+  router.push({
+    name: "detailOrder",
+    params: {
+      nota: nota,
+      status: status,
+      idPelanggan: idPelanggan,
+    },
+  });
 }
 
 function dataTables() {
@@ -62,8 +81,9 @@ function dataTables() {
           <th class="px-6 py-3 whitespace-nowrap text-center">no nota</th>
           <th class="px-6 py-3 whitespace-nowrap text-center">pembeli</th>
           <th class="px-6 py-3 whitespace-nowrap text-center">tanggal</th>
+          <th class="px-6 py-3 whitespace-nowrap text-center">Status</th>
           <th class="px-6 py-3 whitespace-nowrap text-center">Packing</th>
-          <th class="px-6 py-3 whitespace-nowrap text-center">aksi</th>
+          <th class="whitespace-nowrap text-center">aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -72,12 +92,30 @@ function dataTables() {
           <td>{{ order.no_nota }}</td>
           <td>{{ order.nm_pelanggan }}</td>
           <td>{{ order.tgl }}</td>
+          <td>{{ order.keterangan }}</td>
           <td>
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              @click="goToEdit(product.id)"
+              :class="order.keterangan === 'Sedang Dikemas' ? 'bg-blue-200 hover:bg-blue-200 cursor-not-allowed' : ' bg-blue-500 hover:bg-blue-700'"
+              class=" text-white font-bold py-2 px-4 rounded"
+              @click="Packing(order.id)"
             >
               Packing
+            </button>
+          </td>
+          <td class="flex gap-2">
+            <button
+              class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              @click="
+                Detail(order.no_nota, order.keterangan, order.id_pelanggan)
+              "
+            >
+              Detail
+            </button>
+            <button
+              class="border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-2 px-4 rounded"
+              @click="Kirim(order.no_nota)"
+            >
+              Kirim
             </button>
           </td>
         </tr>
