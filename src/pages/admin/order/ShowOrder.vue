@@ -7,9 +7,11 @@ import "datatables.net-dt/css/jquery.dataTables.css";
 import { useRouter } from "vue-router";
 
 const orders = ref("");
-const { GET, DELETE } = Api();
+const { GET } = Api();
 const router = useRouter();
 const responseMsg = ref("");
+const status = [];
+const statusRef = ref([]);
 
 onMounted(() => {
   getOrder();
@@ -18,7 +20,18 @@ onMounted(() => {
 async function getOrder() {
   const data = await GET("pemesanan");
   orders.value = data.data;
+  for (const item of orders.value) {
+    status.push(await getSatus(item.id));
+  }
+  statusRef.value = status;
   dataTables();
+}
+async function getSatus(itemId) {
+  const dataStatus = await GET(`statusnota/${itemId}`);
+  status.value = dataStatus.data;
+  console.log("data image", dataStatus.data[0].image);
+
+  return dataStatus.data[0].image;
 }
 
 async function Packing(idPemesanan) {
@@ -29,14 +42,34 @@ async function Packing(idPemesanan) {
     location.reload();
   }, 1000);
 }
-async function Kirim() {}
-async function Detail(nota, status, idPelanggan) {
+async function Kirim(idPemesanan) {
+  router.push({
+    name: "sendOrder",
+    params: {
+      idPemesanan: idPemesanan,
+    },
+  });
+}
+async function Detail(nota, status, idPelanggan, image) {
+  if (image === null) {
+    router.push({
+      name: "detailOrder",
+      params: {
+        nota: nota,
+        status: status,
+        idPelanggan: idPelanggan,
+        image: "tidak ada",
+      },
+    });
+    return;
+  }
   router.push({
     name: "detailOrder",
     params: {
       nota: nota,
       status: status,
       idPelanggan: idPelanggan,
+      image: image,
     },
   });
 }
@@ -95,8 +128,12 @@ function dataTables() {
           <td>{{ order.keterangan }}</td>
           <td>
             <button
-              :class="order.keterangan === 'Sedang Dikemas' ? 'bg-blue-200 hover:bg-blue-200 cursor-not-allowed' : ' bg-blue-500 hover:bg-blue-700'"
-              class=" text-white font-bold py-2 px-4 rounded"
+              :class="
+                order.keterangan === 'Sudah Dibayar'
+                  ? 'bg-blue-500 hover:bg-blue-700'
+                  : 'bg-blue-200 hover:bg-blue-200 cursor-not-allowed '
+              "
+              class="text-white font-bold py-2 px-4 rounded"
               @click="Packing(order.id)"
             >
               Packing
@@ -106,14 +143,24 @@ function dataTables() {
             <button
               class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               @click="
-                Detail(order.no_nota, order.keterangan, order.id_pelanggan)
+                Detail(
+                  order.no_nota,
+                  order.keterangan,
+                  order.id_pelanggan,
+                  statusRef[index]
+                )
               "
             >
               Detail
             </button>
             <button
-              class="border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-2 px-4 rounded"
-              @click="Kirim(order.no_nota)"
+              :class="
+                order.keterangan === 'Sedang Dikemas'
+                  ? ' border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white '
+                  : ' border-blue-500  text-blue-200 cursor-not-allowed'
+              "
+              class="border font-bold py-2 px-4 rounded"
+              @click="Kirim(order.id)"
             >
               Kirim
             </button>

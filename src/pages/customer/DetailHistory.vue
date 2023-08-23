@@ -19,6 +19,7 @@ const customers = reactive({
   email: "",
   no_telp: "",
 });
+const image = route.params.image
 const nota = route.params.nota;
 const status = route.params.status;
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
@@ -114,5 +115,7 @@ onMounted(() => {
         {{ status }}
       </span>
     </aside>
+    <span v-if="image === 'tidak ada' "></span>
+    <img v-else :src="baseImageUrl + image " alt="" class="bg-black rounded-sm" >
   </main>
 </template>

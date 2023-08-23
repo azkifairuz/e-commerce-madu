@@ -22,6 +22,7 @@ const customers = reactive({
 const nota = route.params.nota;
 const status = route.params.status;
 const idPelanggan = route.params.idPelanggan;
+const image = route.params.image
 const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 
 async function getPayment() {
@@ -50,12 +51,12 @@ function calculateTotalPrice() {
   }
   return numberFormat(total);
 }
-
-
+console.log(image);
 onMounted(() => {
   getPelanggan();
   getPayment();
 });
+console.log(baseImageUrl);
 </script>
 <template>
   <main class="flex flex-col min-w-[800px] justify-center my-20 lg:flex-row gap-5">
@@ -114,5 +115,7 @@ onMounted(() => {
         {{ status }}
       </span>
     </aside>
+    <span v-if="image === 'tidak ada' "></span>
+    <img v-else :src="baseImageUrl + image " alt="" class="bg-black rounded-sm" >
   </main>
 </template>

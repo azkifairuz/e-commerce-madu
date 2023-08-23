@@ -20,6 +20,7 @@ const profil = reactive({
   email: "",
   no_telp: "",
 });
+
 async function getProfile() {
   const data = await GET(`pelanggan/${idPelanggan}`);
   objectToData(profil,data)

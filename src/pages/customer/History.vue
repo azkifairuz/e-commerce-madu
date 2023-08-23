@@ -7,25 +7,45 @@ const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const { GET } = Api();
 const history = ref("");
 const status = [];
+const image = [];
 const statusRef = ref([]);
+const imageRef = ref([]);
 const router = useRouter();
 async function getHistory() {
   const dataHistori = await GET(`historibelanja/${idPelanggan}`);
   history.value = dataHistori.data;
   for (const item of history.value) {
     status.push(await getSatus(item.id));
+    image.push(await getImage(item.id))
   }
+
   statusRef.value = status;
+  imageRef.value = image;
 }
 async function getSatus(itemId) {
   const dataStatus = await GET(`statusnota/${itemId}`);
   status.value = dataStatus.data;
-  console.log("data", dataStatus.data[0].keterangan);
 
   return dataStatus.data[0].keterangan;
 }
-function goToDetailHistory(itemId,status) {
-  router.push({ name: "detailHistory", params: {nota:itemId,status:status} });
+async function getImage(itemId) {
+  const dataStatus = await GET(`statusnota/${itemId}`);
+  image.value = dataStatus.data;
+
+  return dataStatus.data[0].image;
+}
+function goToDetailHistory(itemId, status, image) {
+  if (image === null) {
+    router.push({
+      name: "detailHistory",
+      params: { nota: itemId, status: status, image: "tidak ada" },
+    });
+    return;
+  }
+  router.push({
+    name: "detailHistory",
+    params: { nota: itemId, status: status, image: image },
+  });
 }
 onMounted(() => {
   getHistory();
@@ -39,7 +59,7 @@ onMounted(() => {
     <div
       v-for="(item, index) in history"
       :key="item.id"
-      @click="goToDetailHistory(item.no_nota,status[index])"
+      @click="goToDetailHistory(item.no_nota, statusRef[index], imageRef[index])"
       class="flex flex-col gap-2 cursor-pointer hover:shadow hover:shadow-gray-400 bg-yellow-secondary rounded-md py-2 px-5"
     >
       <div class="flex justify-between">
