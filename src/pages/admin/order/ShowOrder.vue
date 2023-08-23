@@ -15,7 +15,6 @@ onMounted(() => {
   getOrder();
 });
 
-
 async function getOrder() {
   const data = await GET("pemesanan");
   orders.value = data.data;
@@ -45,7 +44,7 @@ function dataTables() {
 
 <template>
   <div class="h-[500px] overflow-y-auto px-5">
-    <div class=" flex justify-between items-center mb-5">
+    <div class="flex justify-between items-center mb-5">
       <h1>Data Penjualan</h1>
       <div v-if="responseMsg">
         <div
@@ -63,14 +62,24 @@ function dataTables() {
           <th class="px-6 py-3 whitespace-nowrap text-center">no nota</th>
           <th class="px-6 py-3 whitespace-nowrap text-center">pembeli</th>
           <th class="px-6 py-3 whitespace-nowrap text-center">tanggal</th>
+          <th class="px-6 py-3 whitespace-nowrap text-center">Packing</th>
+          <th class="px-6 py-3 whitespace-nowrap text-center">aksi</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(order, index) in orders" :key="order.id">
           <td>{{ index + 1 }}</td>
           <td>{{ order.no_nota }}</td>
-          <td>{{ order.id_pelanggan }}</td>
+          <td>{{ order.nm_pelanggan }}</td>
           <td>{{ order.tgl }}</td>
+          <td>
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              @click="goToEdit(product.id)"
+            >
+              Packing
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -80,4 +89,3 @@ function dataTables() {
 <style>
 @import "datatables.net-dt";
 </style>
-

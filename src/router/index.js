@@ -99,6 +99,15 @@ export const router = createRouter({
               name: "showOrder",
               component: () => import("@/pages/admin/order/ShowOrder.vue"),
             },
+            {
+              path: "detailOrder/:nota/:status/:idPelanggan",
+              name: "detailOrder",
+              meta: {
+                requireAuth:true,
+                roles:'cust'
+              },
+              component: () => import("@/pages/customer/DetailOrder.vue"),
+            },
           ],
         },
         {
@@ -205,6 +214,15 @@ export const router = createRouter({
             roles:'cust'
           },
           component: () => import("@/pages/customer/History.vue"),
+        },
+        {
+          path: "detailHistory/:nota/:status",
+          name: "detailHistory",
+          meta: {
+            requireAuth:true,
+            roles:'cust'
+          },
+          component: () => import("@/pages/customer/DetailHistory.vue"),
         },
         {
           path: "editProfilCustomer",

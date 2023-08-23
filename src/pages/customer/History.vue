@@ -1,12 +1,14 @@
 <script setup>
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const { GET } = Api();
 const history = ref("");
 const status = [];
 const statusRef = ref([]);
+const router = useRouter();
 async function getHistory() {
   const dataHistori = await GET(`historibelanja/${idPelanggan}`);
   history.value = dataHistori.data;
@@ -22,20 +24,23 @@ async function getSatus(itemId) {
 
   return dataStatus.data[0].keterangan;
 }
-
+function goToDetailHistory(itemId,status) {
+  router.push({ name: "detailHistory", params: {nota:itemId,status:status} });
+}
 onMounted(() => {
   getHistory();
 });
 </script>
 <template>
   <main
-    class="h-screen flex flex-col gap-2 px-5 py-2 my-10  bg-white md:w-1/2 lg:w-1/4 md:mx-auto rounded-md"
+    class="h-screen flex flex-col gap-2 px-5 py-2 my-10 bg-white md:w-1/2 lg:w-1/4 md:mx-auto rounded-md"
   >
     <h1 class="text-2xl font-semibold">Riwayat Transaksi</h1>
     <div
       v-for="(item, index) in history"
       :key="item.id"
-      class=" flex flex-col gap-2 cursor-pointer hover:shadow hover:shadow-gray-400 bg-gray-200 rounded-md py-2 px-5"
+      @click="goToDetailHistory(item.no_nota,status[index])"
+      class="flex flex-col gap-2 cursor-pointer hover:shadow hover:shadow-gray-400 bg-yellow-secondary rounded-md py-2 px-5"
     >
       <div class="flex justify-between">
         <div>
