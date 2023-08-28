@@ -27,10 +27,10 @@ async function save(){
 </script>
 <template>
   <div class="w-screen h-screen flex justify-center items-center">
-    <formCard headerText="Masukan Email" btnLabel="Edit" @save="save">
+    <formCard headerText="Upload Bukti Pembayaran" btnLabel="Edit" @save="save">
       <template class="flex flex-col gap-6" v-slot:inputField>
         <div class="flex flex-col gap-2">
-          <label for="gambar" class="text-xl cursor-pointer">Upload Bukti Pengiriman</label>
+          <label for="gambar" class="text-xl cursor-pointer">Upload Bukti Pembayaran</label>
           <input
             class="py-2 px-5 g-white shadow-sm border-2 cursor-pointer rounded-md"
             type="file"

@@ -11,7 +11,7 @@ const links = [
   { id: 4, label: "Tentang Kami", url: "aboutus" },
   { id: 5, label: "Keranjang", url: "cart" },
   { id: 6, label: "Profil", url: "profile" },
-  { id: 7, label: "Histori Transaksi", url: "history"},
+  { id: 7, label: "Histori Transaksi", url: "history" },
 ];
 const router = useRouter();
 
@@ -37,7 +37,7 @@ function goToRegisterPage() {
     name: "registerUser",
   });
 }
-const navItem = isLogin === 'true' ? links:links.slice(0,4)
+const navItem = isLogin === "true" ? links : links.slice(0, 4);
 </script>
 
 <template>

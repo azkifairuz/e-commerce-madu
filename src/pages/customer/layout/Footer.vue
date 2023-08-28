@@ -23,11 +23,11 @@ const router = useRouter()
 const contacts = reactive([
   {
     text: "Whatsapp",
-    link: " https://wa.me/085155119213",
+    link: " https://wa.me/081288296187",
   },
   {
     text: "email",
-    link: "mailto:azkiajmal@gmail.com",
+    link: "mailto:Muhamad.dicky.syahputra@gmail.com",
   },
 ]);
 
@@ -66,6 +66,7 @@ async function redirectShops(name) {
       name:name
     }
   )
+  location.reload();
 }
 onMounted(() => {
   getCategory();

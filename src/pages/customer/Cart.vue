@@ -58,7 +58,7 @@ async function checkout() {
 }
 function goToHome() {
   router.push({
-    name: "madu",
+    name: "catalog",
   });
 }
 
@@ -86,7 +86,7 @@ function calculateTotalQty() {
   }
   return totalQty;
 }
-const baseImageUrl =  import.meta.env.VITE_APP_BASE_IMG_URL;
+const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 
 onMounted(() => {
   getCart();
@@ -114,7 +114,9 @@ onMounted(() => {
             alt=""
           />
 
-          <div class="flex flex-col md:flex-row justify-evenly md:gap-10 items-center">
+          <div
+            class="flex flex-col md:flex-row justify-evenly md:gap-10 items-center"
+          >
             <p class="font-bold w-32 capitalize">{{ cart.nm_produk }}</p>
             <div class="flex gap-2 justify-evenly md:gap-5">
               <p>{{ cart.qty }}</p>
@@ -135,27 +137,31 @@ onMounted(() => {
           />
         </div>
       </div>
-      <div class="self-end z-10 flex gap-[33px] items-center">
-        <div class="text-center">
-          <h1 class="text-base">Total({{ calculateTotalQty() }} madu)</h1>
-          <p class="font-bold text-xl">Rp.{{ calculateTotalPrice() }}</p>
-        </div>
+      <div class="px-2 justify-between z-10 flex gap-[33px] items-center">
         <BtnComponent
-          v-show="!cartItem"
-          label="halaman belanja"
+          label="Lanjut Belanja"
           @some-event="goToHome"
           primary-color="bg-btn-primary"
           hover-color="hover:bg-btn-hover"
           textColor="text-black"
         />
-        <BtnComponent
-          v-show="cartItem"
-          label="Checkout"
-          @some-event="checkout"
-          primary-color="bg-btn-primary"
-          hover-color="hover:bg-btn-hover"
-          textColor="text-black"
-        />
+        <div class="flex gap-[33px]">
+          <div class="text-center">
+            <h1 class="text-base">Total({{ calculateTotalQty() }} madu)</h1>
+            <p class="font-bold text-xl">Rp.{{ calculateTotalPrice() }}</p>
+          </div>
+          <Button
+            @click="checkout"
+            :class="
+              cartItem
+                ? 'bg-btn-primary cursor-pointer hover:bg-btn-hover'
+                : 'bg-yellow-200 cursor-not-allowed'
+            "
+            class="rounded-[4px] flex justify-center text-center gap-2 items-center px-5 py-3"
+          >
+            {{ cartItem ? "Checkout" : "Masih Kosong" }}
+          </Button>
+        </div>
       </div>
     </div>
   </main>

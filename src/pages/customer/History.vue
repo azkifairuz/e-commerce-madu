@@ -14,7 +14,7 @@ const router = useRouter();
 async function getHistory() {
   const dataHistori = await GET(`historibelanja/${idPelanggan}`);
   history.value = dataHistori.data;
-  for (const item of history.value) {
+  for (const item of history.value.slice(-8)) {
     status.push(await getSatus(item.id));
     image.push(await getImage(item.id))
   }
@@ -57,7 +57,7 @@ onMounted(() => {
   >
     <h1 class="text-2xl font-semibold">Riwayat Transaksi</h1>
     <div
-      v-for="(item, index) in history"
+      v-for="(item, index) in history.slice(-8)"
       :key="item.id"
       @click="goToDetailHistory(item.no_nota, statusRef[index], imageRef[index])"
       class="flex flex-col gap-2 cursor-pointer hover:shadow hover:shadow-gray-400 bg-yellow-secondary rounded-md py-2 px-5"
