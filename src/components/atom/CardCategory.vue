@@ -1,5 +1,5 @@
 <script setup>
-import honeyJar from '@/assets/honey-jar.png'
+import honeyJar from '@/assets/honey-jar.webp'
 const props = defineProps(['label'])
 const emit =  defineEmits(['kategoriList'])
 function goToKategori(){

@@ -1,10 +1,10 @@
 <script setup>
 import { reactive } from "vue";
-import Gundar from "@/assets/Gunadarma.png";
-import Logo from "@/assets/logo.png";
-import Kedai from "@/assets/kedaireka.png";
-import kemendikbud from "@/assets/kemendikbud.png";
-import Umj from "@/assets/Umj.png";
+import Gundar from "@/assets/Gunadarma.webp";
+import Logo from "@/assets/logo.webp";
+import Kedai from "@/assets/kedaireka.webp";
+import kemendikbud from "@/assets/kemendikbud.webp";
+import Umj from "@/assets/Umj.webp";
 const documents = reactive([
   { name: "NIB" },
   { name: "IUI" },
@@ -24,7 +24,7 @@ const documents = reactive([
 const sponsors = reactive([
   { logoUrl: Gundar, name: "gundar" },
   { logoUrl: Kedai, name: "kedaireka" },
-  { logoUrl: kemendikbud, name: "kemendikbut=d" },
+  { logoUrl: kemendikbud, name: "kemendikbud" },
   { logoUrl: Logo, name: "madu" },
   { logoUrl: Umj, name: "umj" },
 ]);

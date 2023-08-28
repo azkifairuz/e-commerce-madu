@@ -19,6 +19,7 @@ const isLogin = sessionStorage.getItem("isLogin");
 
 function goToLoginPage() {
   sessionStorage.setItem("isLogin", false);
+  sessionStorage.setItem("isLogin", false);
   router.push({
     name: "loginUser",
   });
@@ -36,7 +37,7 @@ function goToRegisterPage() {
     name: "registerUser",
   });
 }
-const navItem = isLogin === 'true' ? links:links.slice(0,3)
+const navItem = isLogin === 'true' ? links:links.slice(0,4)
 </script>
 
 <template>
@@ -45,15 +46,7 @@ const navItem = isLogin === 'true' ? links:links.slice(0,3)
       <div class="flex items-center justify-between lg:justify-center h-16">
         <div class="flex items-center gap-5">
           <div class="flex-shrink-0">
-            <img class="h-14 w-14" src="@/assets/logoNavbar.png" alt="Logo" />
-          </div>
-          <div class="hidden lg:flex justify-center flex-1">
-            <input
-              v-model="searchQuery"
-              type="text"
-              placeholder="Search"
-              class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-            />
+            <img class="h-14 w-14" src="@/assets/logoNavbar.webp" alt="Logo" />
           </div>
           <div class="hidden lg:block">
             <div class="ml-10 flex items-baseline gap-2">
@@ -93,14 +86,6 @@ const navItem = isLogin === 'true' ? links:links.slice(0,3)
               text-color="text-white"
             />
           </div>
-        </div>
-        <div class="flex lg:hidden justify-center flex-1">
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Search"
-            class="w-full max-w-xs px-4 py-2 rounded-md text-sm font-medium text-black focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-          />
         </div>
         <div class="-mr-2 flex lg:hidden">
           <button

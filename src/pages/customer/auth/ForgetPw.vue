@@ -7,14 +7,15 @@ import { objectToFormdata } from "@/utils/ObjectToForm";
 import alertPopup from "@/components/molecular/alertPopup.vue";
 import successPopup from "@/components/molecular/successPopup.vue";
 import Api from "@/config/api/Api";
+import { useRouter } from "vue-router";
 
 const { GET, POST } = Api();
 
 const responseMsg = ref(null);
-const idUser = sessionStorage.getItem("sesIdUser");
+// const idUser = sessionStorage.getItem("sesIdUser");
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const isOpen = ref(true);
-
+const router = useRouter();
 const password = reactive({
   newPw: "",
   confirmPw: "",
@@ -32,69 +33,57 @@ const user = reactive({
 const email = reactive({
   email: "",
 });
-async function getProfile() {
-  const data = await GET(`user/${idUser}`);
-  if (idUser == null) {
-    return;
-  }
-  objectToData(user, data);
-  user.id_pelanggan = idPelanggan;
-}
+// async function getProfile() {
+//   const data = await GET(`user/${idUser}`);
+//   if (idUser == null) {
+//     return;
+//   }
+//   objectToData(user, data);
+//   user.id_pelanggan = idPelanggan;
+// }
 
-const isEmailValid = ref(false);
-
-async function cekEmail() {
-  if (!email.email) {
-    isEmailValid.value = false;
-    responseMsg.value = "email tidak boleh kosong";
-    isOpen.value = !isOpen.value;
-
-    return;
-  }
-  if (email.email != user.email) {
-    isEmailValid.value = false;
-    responseMsg.value = "email tidak sama";
-    isOpen.value = !isOpen.value;
-
-    return;
-  }
-  isEmailValid.value = true;
-  return;
-}
-
+// const userEmail = ref("");
 async function saveNewPw() {
   if (!password.newPw && !password.confirmPw) {
     responseMsg.value = "password tidak boleh kosong";
-    isOpen.value = !isOpen.value;
+    isOpen.value = true;
     return;
   }
 
   if (password.newPw != password.confirmPw) {
     responseMsg.value = "password tidak sama";
-    isOpen.value = !isOpen.value;
+    isOpen.value = true;
     return;
   }
   user.id_pelanggan = idPelanggan;
   user.password = password.confirmPw;
-  responseMsg.value = "berhasil mengubah";
-  isOpen.value = !isOpen.value;
-  await POST(`user/${idUser}`, objectToFormdata(user));
+  isOpen.value = true;
+  const message = await POST(`user/${email.email}`, objectToFormdata(user));
+  if (message.pesan === "User Tidak Ada") {
+    responseMsg.value = "email tidak terdaftar";
+    return;
+  }
+  responseMsg.value = "Berhasil mengubah";
+  setTimeout(() => {
+    router.push({
+      name: "loginUser",
+    });
+  }, 2000);
 }
 const closeAlert = () => {
   isOpen.value = !isOpen.value;
 };
-onMounted(() => {
-  getProfile();
-});
+// onMounted(() => {
+//   getProfile();
+// });
 </script>
 
 <template>
   <main class="my-10 flex justify-center items-center h-screen">
     <FormCard
-      v-show="isEmailValid === false"
       headerText="Masukan Password Baru"
-      btnLabel="Next"
-      @save="cekEmail"
+      btnLabel="Save"
+      @save="saveNewPw"
     >
       <template v-slot:inputField>
         <InputField
@@ -104,21 +93,6 @@ onMounted(() => {
           typeInput="email"
           name="nm"
         />
-        <alertPopup
-          v-if="isOpen == true && responseMsg != null"
-          :message="responseMsg"
-          :isOpen="isOpen"
-          @close="closeAlert"
-        />
-      </template>
-    </FormCard>
-    <FormCard
-      v-show="isEmailValid === true"
-      headerText="Masukan Password Baru"
-      btnLabel="Save"
-      @save="saveNewPw"
-    >
-      <template v-slot:inputField>
         <InputField
           label="Password Baru"
           v-model="password.newPw"
@@ -136,8 +110,8 @@ onMounted(() => {
         <alertPopup
           v-if="
             isOpen == true &&
-            responseMsg != null &&
-            responseMsg != 'berhasil mengubah'
+            responseMsg !== null &&
+            responseMsg !== 'berhasil mengubah'
           "
           :message="responseMsg"
           :isOpen="isOpen"

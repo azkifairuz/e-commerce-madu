@@ -45,8 +45,8 @@ function navigation(path) {
       <div
         class="flex-col fixed top-0 bottom-0 flex p-3 w-60 duration-300 bg-yellow-main shadow"
       >
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
+        <div class="space-y-4" >
+          <div @click="navigation('dashboard')" class="flex items-center justify-between cursor-pointer">
             <h2 class="text-xl font-bold text-black">Dashboard</h2>
           </div>
 

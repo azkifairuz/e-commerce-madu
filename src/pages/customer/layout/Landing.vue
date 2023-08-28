@@ -6,7 +6,6 @@ import { onMounted, ref } from "vue";
 import CardProduct from "@/components/organism/CardProduct.vue";
 import { numberFormat } from "@/utils/NumberFormat";
 import { useRouter } from "vue-router";
-import Footer from "./Footer.vue";
 const categories = ref("");
 const products = ref("");
 const router = useRouter();

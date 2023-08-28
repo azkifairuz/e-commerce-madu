@@ -86,9 +86,9 @@ onMounted(() => {
       </div>
     </aside>
 
-    <aside class="bg-white rounded-md mx-auto lg:mx-0  w-full md:w-1/2 lg:w-1/4 p-5 flex flex-col justify-between">
+    <aside class="bg-white rounded-md mx-auto lg:mx-0   w-full md:w-1/2 lg:w-1/4 p-5 flex flex-col justify-between">
       <h1 class="text-xl font-bold capitalize">Pesanan</h1>
-      <div class="px-2 mt-2 flex flex-col gap-5 mb-2">
+      <div class="px-2 mt-2 flex flex-col gap-5 overflow-y-scroll mb-2">
         <span v-for="(item, index) in invoice" :key="index" class="flex gap-4">
           <img
             class="w-12 h-12 border bg-black rounded-sm"

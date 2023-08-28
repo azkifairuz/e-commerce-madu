@@ -2,10 +2,10 @@
 import { onMounted, reactive, ref } from "vue";
 import Api from "@/config/api/Api";
 import { useRouter } from "vue-router";
-import Gundar from "@/assets/Gunadarma.png";
-import Kedai from "@/assets/kedaireka.png";
-import kemendikbud from "@/assets/kemendikbud.png";
-import Umj from "@/assets/Umj.png";
+import Gundar from "@/assets/Gunadarma.webp";
+import Kedai from "@/assets/kedaireka.webp";
+import kemendikbud from "@/assets/kemendikbud.webp";
+import Umj from "@/assets/Umj.webp";
 
 const { GET } = Api();
 const categories = ref("");

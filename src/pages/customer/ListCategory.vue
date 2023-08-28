@@ -2,6 +2,7 @@
 import Api from "@/config/api/Api";
 import { onMounted, ref } from "vue";
 import CardCategory from "@/components/atom/CardCategory.vue";
+import { useRouter } from "vue-router";
 
 const { GET } = Api();
 const categories = ref("");
@@ -12,6 +13,13 @@ async function getProduct() {
   } catch (error) {
     categories.value = null;
   }
+}
+const router = useRouter()
+function goToProductByCategory(id) {
+  router.push({
+    name: "productByCategory",
+    params: { idCategory: id },
+  });
 }
 onMounted(() => {
   getProduct();

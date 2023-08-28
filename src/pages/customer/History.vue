@@ -53,7 +53,7 @@ onMounted(() => {
 </script>
 <template>
   <main
-    class="h-screen flex flex-col gap-2 px-5 py-2 my-10 bg-white md:w-1/2 lg:w-1/4 md:mx-auto rounded-md"
+    class="h-screen flex flex-col gap-2 px-5 py-2 pb-4 my-10 bg-white overflow-y-scroll md:w-1/2 lg:w-1/4 md:mx-auto rounded-md"
   >
     <h1 class="text-2xl font-semibold">Riwayat Transaksi</h1>
     <div

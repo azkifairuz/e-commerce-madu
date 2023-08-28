@@ -93,7 +93,7 @@ const goToRegister = () => {
 
 const forgetPw = () => {
   router.push({
-    name: "forgetpw",
+    name: "forgetPwUser",
   });
 };
 

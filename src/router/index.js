@@ -21,6 +21,11 @@ export const router = createRouter({
       component: () => import("@/pages/admin/layout/Admin.vue"),
       children: [
         {
+          path: "dashboard",
+          name: "dashboard",
+          component: () => import("@/pages/admin/layout/Dashboard.vue"),
+        },
+        {
           path: "product",
           name: "product",
           component: () => import("@/pages/admin/product/Product.vue"),

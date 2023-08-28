@@ -89,7 +89,6 @@ function dataTables() {
       <thead class="bg-yellow-main text-center mt-10 border text-gray-800">
         <tr>
           <th class="px-6 py-3 text-center">No</th>
-          <th class="px-6 py-3 text-center">NIK</th>
           <th class="px-6 py-3 text-center">Nama Pelanggan</th>
           <th class="px-6 py-3 text-center">Alamat Pelanggan</th>
           <th class="px-6 py-3 text-center">Tanggal Lahir</th>
@@ -102,7 +101,6 @@ function dataTables() {
       <tbody>
         <tr v-for="(customer, index) in customers" :key="customer.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ customer.nik }}</td>
           <td>{{ customer.nm_pelanggan }}</td>
           <td>{{ customer.alamat_pelanggan }}</td>
           <td>{{ customer.tgl_lahir }}</td>
