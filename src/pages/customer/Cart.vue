@@ -50,6 +50,10 @@ async function deleteCartitem(id) {
 }
 
 async function checkout() {
+  if (!cartItem.value) {
+    console.log("kosong");
+    return
+  }
   const data = await GET(`chackout/${idPelanggan}`);
   router.push({
     name: "payment",
