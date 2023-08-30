@@ -19,6 +19,7 @@ export const router = createRouter({
         roles:'admin'
       },
       component: () => import("@/pages/admin/layout/Admin.vue"),
+      redirect: { name: "dashboard" },
       children: [
         {
           path: "dashboard",
@@ -90,7 +91,11 @@ export const router = createRouter({
               name: "addEmployee",
               component: () => import("@/pages/admin/auth/RegisterPage.vue"),
             },
-          
+            {
+              path: "edit/:pegawai",
+              name: "editEmployee",
+              component: () => import("@/pages/admin/employee/EditEmployee.vue"),
+            },
           ],
         },
         {

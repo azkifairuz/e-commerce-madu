@@ -4,8 +4,9 @@ import InputField from "@/components/atom/InputField.vue";
 import Api from "../../../config/api/Api";
 import { reactive, onMounted } from "vue";
 import { objectToFormdata } from "@/utils/ObjectToForm";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
+const router = useRouter();
 const idPemesanan = route.params.idPemesanan;
 
 const { POST } = Api();
@@ -21,16 +22,21 @@ function onImageChange(event) {
 
 async function save(){
     await POST(`statuskirim/${idPemesanan}`,objectToFormdata(status))
+    router.push(
+      {
+        name:"order"
+      }
+    )
     return
 
 }
 </script>
 <template>
-  <div class="w-screen h-screen flex justify-center items-center">
-    <formCard headerText="Upload Bukti Pembayaran" btnLabel="Edit" @save="save">
-      <template class="flex flex-col gap-6" v-slot:inputField>
+  <div class="flex justify-center items-center">
+    <formCard headerText="Upload Bukti Resi" btnLabel="Kirim" @save="save">
+      <template v-slot:inputField>
         <div class="flex flex-col gap-2">
-          <label for="gambar" class="text-xl cursor-pointer">Upload Bukti Pembayaran</label>
+          <label for="gambar" class="text-xl cursor-pointer">Upload Bukti Resi</label>
           <input
             class="py-2 px-5 g-white shadow-sm border-2 cursor-pointer rounded-md"
             type="file"

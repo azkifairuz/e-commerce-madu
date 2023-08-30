@@ -29,6 +29,12 @@ function registerEmploye() {
       }
     )
 }
+function goToEdit(id) {
+  router.push({
+    name: "editEmployee",
+    params: { pegawai: id },
+  });
+}
 
 function dataTables() {
   // Menghapus tabel yang sudah ada sebelumnya, jika ada
@@ -81,6 +87,7 @@ function dataTables() {
           <th class="px-6 py-3 text-center">Jenis Kelamin</th>
           <th class="px-6 py-3 text-center">Email</th>
           <th class="px-6 py-3 text-center">No Telpon</th>
+          <th class="px-6 py-3 text-center">Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -94,6 +101,14 @@ function dataTables() {
           <td>{{ employee.jns_kelamin }}</td>
           <td>{{ employee.email }}</td>
           <td>{{ employee.no_telp }}</td>
+          <td>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="goToEdit(employee.id)"
+              >
+                Edit
+              </button>
+          </td>
         </tr>
       </tbody>
     </table>

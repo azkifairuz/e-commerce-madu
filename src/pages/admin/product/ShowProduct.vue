@@ -53,7 +53,6 @@ function goToEdit(id) {
     name: "editProduct",
     params: { product: id },
   });
-  console.log(id);
 }
 
 function dataTables() {

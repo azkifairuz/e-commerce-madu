@@ -27,14 +27,13 @@ const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 async function getPayment() {
   const data = await GET(`invoice/${nota}`);
-  // objectToData(invoice, data);
   invoice.value = data.data;
+  console.log(data.data);
 }
 
 async function getPelanggan() {
     const user = await GET(`pelanggan/${idPelanggan}`);
     objectToData(customers, user);
-
 }
 
 function CalculateSubTotal(qty, price) {
