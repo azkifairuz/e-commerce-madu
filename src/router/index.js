@@ -4,6 +4,7 @@ export const router = createRouter({
     {
       path: "/",
       redirect: { name: "madu" },
+      
     },
     {
       path: "/notAuth",

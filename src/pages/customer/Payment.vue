@@ -22,7 +22,8 @@ const customers = reactive({
   email: "",
   no_telp: "",
 });
-const nota = route.params.invoice;
+const nota = 123hask2
+
 const idPelanggan = sessionStorage.getItem("sesIdPelanggan");
 const baseImageUrl = import.meta.env.VITE_APP_BASE_IMG_URL;
 async function getPayment() {
